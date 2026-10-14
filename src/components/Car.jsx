@@ -37,6 +37,10 @@ export default function Car({ color }) {
       {/* rear wing */}
       <path d="M40 168 L150 160 L152 172 L120 176 L112 206 L98 206 L104 178 L42 182 Z" fill="#1a1a1a" />
 
+      {/* wheel wells, seen through the arch cut-outs */}
+      <path d="M152 330 A93 93 0 0 1 338 330 Z" fill="#161616" />
+      <path d="M702 330 A88 88 0 0 1 878 330 Z" fill="#161616" />
+
       {/* body */}
       <path
         className="car-body"
