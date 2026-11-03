@@ -61,6 +61,20 @@ neighbouring objects: ghost SUV and a pole survived on two of the SF90 shots).
 ## 7. Gallery crops
 Gallery tiles are plain crops (no cutout) of the raw 3840 px photos, resized to 900x1000 JPEG.
 
+## 8. Screenshot-compare loop (how the 90% match was reached)
+- `work/compare.sh <tag>` renders the home page at 1472 px (2x the 736 px comp) with reduced motion
+  forced and writes `work/cmp-<tag>.jpg`: reference left, build right.
+- `work/shot.py <url> <out.png> [w] [h]` = full-page capture at a real viewport through Chrome DevTools
+  (scrolls first so scroll-reveals fire). Needs `--remote-allow-origins=*` on Chrome.
+- Home CSS is written in reference pixels: `1u = 100vw / 736`, so measurements from the comp go
+  straight into `calc(var(--u) * N)`.
+
+## 9. Picking photos
+Not limited to one brand. Search Commons for a model, pull 600 px previews into `work/prev/`, build a
+contact sheet, then fetch the winners at 3840 px with `work/fetch.py 3840 <dir>` (names on stdin as
+`key=File title.jpg`). Prefer: one car, clean edges, nothing touching it, front 3/4 or pure side view.
+Cover plates with a dark patch; mirror with `ImageOps.mirror` when the pose faces the wrong way.
+
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
