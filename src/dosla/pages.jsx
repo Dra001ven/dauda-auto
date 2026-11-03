@@ -262,7 +262,7 @@ export function GalleryPage() {
 /* Editorial: crest hero, alternating timeline, values, manifesto quote. */
 const timeline = [
   ['1952', 'A workshop in Brera', 'Two brothers open a coachbuilding workshop behind the Pinacoteca, hand-beating aluminium bodies.'],
-  ['1967', 'First victory', 'A Rosso Milano barchetta takes its class at the Targa Florio, beating factory teams.'],
+  ['1967', 'First victory', 'A Dauda Motos barchetta takes its class at the Targa Florio, beating factory teams.'],
   ['1988', 'Modena atelier', 'Production moves to Modena; every car is still signed by the craftsman who built its engine.'],
   ['2011', 'The electric turn', 'A hybrid racing programme begins, laying the groundwork for today’s e-AWD.'],
   ['2025', 'IL CORSA', '499 numbered cars. The most powerful road car the house has ever built.'],
@@ -278,7 +278,7 @@ export function BrandPage() {
     <div className="pg pg-brand">
       <section className="manifest" data-s3d>
         <img className="m-duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.18" />
-        <img className="m-crest" src="/img/crest.png" alt="Rosso Milano crest" data-reveal="zoom" />
+        <img className="m-crest" src="/img/crest.png" alt="Dauda Motos crest" data-reveal="zoom" />
         <Kicker red>Since 1952 · Milano</Kicker>
         <h1 data-reveal="up" data-delay="150">A HOUSE OF<br /><b>MAKERS</b></h1>
       </section>
@@ -325,7 +325,7 @@ export function ContactPage() {
           <div data-reveal="up"><Kicker red>Showrooms</Kicker><h1>VISIT<br /><b>THE HOUSE</b></h1></div>
           <ul>
             {rooms.map((r, i) => (
-              <li key={r.city} className={i === room ? 'on' : ''} onClick={() => setRoom(i)} data-reveal="left" data-delay={i * 90}>
+              <li key={r.city} className={i === room ? 'on' : ''} onClick={() => setRoom(i)} data-reveal="3d" data-delay={i * 100}>
                 <h3>{r.city}</h3>
                 <p><MapPin size={13} />{r.a}</p><p><Clock size={13} />{r.h}</p><p><Phone size={13} />{r.t}</p>
               </li>

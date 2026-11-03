@@ -31,7 +31,7 @@ function Brand() {
   return (
     <a className="brand" href="#/">
       <img src="/img/crest.png" alt="" />
-      <span>ROSSO<small>MILANO</small></span>
+      <span>DAUDA<small>MOTOS</small></span>
     </a>
   )
 }
@@ -54,14 +54,14 @@ function Footer() {
         <div><h4>Company</h4><a href="#/brand">About us</a><a href="#/brand">Craftsmanship</a><a href="#/brand">Careers</a><a href="#/brand">News</a></div>
         <div><h4>Information</h4><a href="#/contact">Ownership</a><a href="#/contact">Warranty</a><a href="#/contact">FAQ</a><a href="#/contact">Privacy policy</a></div>
         <div><h4>Connect</h4><a href="#/">Instagram</a><a href="#/">YouTube</a><a href="#/">LinkedIn</a><a href="#/contact">Contact</a></div>
-        <div className="made"><p>HANDCRAFTED IN ITALY</p><i /><small>© 2025 ROSSO MILANO. ALL RIGHTS RESERVED.</small></div>
+        <div className="made"><p>HANDCRAFTED IN ITALY</p><i /><small>© 2025 DAUDA MOTOS. ALL RIGHTS RESERVED.</small></div>
       </footer>
       <p className="credits">Photography: Calreyn88, Alexander Migl, pjhooker, Francesca Milanini, Tokumeigakarinoaoshima and other Wikimedia Commons contributors (CC BY-SA 3.0 / 4.0), crest lion by ImperialHerald (CC0). Backgrounds removed, some recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
     </>
   )
 }
 
-export default function Rosso() {
+export default function DaudaMotos() {
   const route = useRoute()
   useSmoothScroll()
   useScrollMotion(route)
@@ -93,7 +93,7 @@ const tech = [
 
 const quotes = [
   { q: ['IL CORSA is a masterpiece. The', 'attention to detail and driving', 'experience are unmatched.'], n: 'Alessandro R.', r: 'Collector, Monaco' },
-  { q: ['A perfect blend of power, beauty,', 'and innovation. Rosso Milano', 'has redefined Italian excellence.'], n: 'James T.', r: 'Entrepreneur, London' },
+  { q: ['A perfect blend of power, beauty,', 'and innovation. Dauda Motos', 'has redefined Italian excellence.'], n: 'James T.', r: 'Entrepreneur, London' },
   { q: ['Every drive feels personal.', 'IL CORSA is not just a car,', 'it’s an emotion.'], n: 'Matteo B.', r: 'Racing driver, Italy' },
 ]
 
