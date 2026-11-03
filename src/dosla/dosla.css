@@ -26,3 +26,40 @@
   font: 600 calc(var(--u) * 5.4)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; transition: background .2s; }
 .rm .btn:hover { background: var(--red-b); }
 .rm .btn svg { width: calc(var(--u) * 7); height: calc(var(--u) * 7); }
+
+/* ---------- nav (overlays hero) ---------- */
+.rm .nav { position: absolute; z-index: 10; top: 0; left: 0; right: 0; height: calc(var(--u) * 44); display: flex; align-items: center; padding: 0 calc(var(--u) * 19) 0 calc(var(--u) * 18); }
+.rm .brand { display: flex; align-items: center; gap: calc(var(--u) * 8); }
+.rm .brand img { width: calc(var(--u) * 20); }
+.rm .brand span { display: grid; font: 500 calc(var(--u) * 14.5)/1 var(--serif); letter-spacing: .2em; color: #f1ece6; }
+.rm .brand small { font: 500 calc(var(--u) * 4.6)/1 var(--sans); letter-spacing: .5em; color: #cfc8c0; margin-top: calc(var(--u) * 3); }
+.rm .nav nav { position: absolute; left: calc(var(--u) * 187); display: flex; gap: calc(var(--u) * 19.5); font: 500 calc(var(--u) * 5.6)/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #e6e0d8; }
+.rm .nav nav a { position: relative; padding: calc(var(--u) * 4) 0; }
+.rm .nav nav a.on::after { content: ''; position: absolute; left: 0; right: 0; bottom: calc(var(--u) * -6); height: 1px; background: var(--red-b); }
+.rm .btn-outline { margin-left: auto; width: calc(var(--u) * 90); height: calc(var(--u) * 21); display: grid; place-items: center; border: 1px solid rgba(201,163,91,.75);
+  font: 500 calc(var(--u) * 5.4)/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: #f1ece6; }
+
+/* ---------- hero ---------- */
+.rm .hero { position: relative; height: calc(var(--u) * 338); overflow: hidden;
+  background: url(/img/hero-bg.jpg) center top / 100% 100% no-repeat; }
+.rm .hero::before { content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(90deg, rgba(4,4,6,.94) 0%, rgba(4,4,6,.82) 22%, rgba(4,4,6,.35) 42%, rgba(4,4,6,0) 60%),
+              linear-gradient(180deg, rgba(4,4,6,.65) 0%, rgba(4,4,6,0) 18%, rgba(4,4,6,0) 70%, rgba(7,7,7,.95) 100%); }
+.rm .hero-copy { position: absolute; z-index: 3; left: calc(var(--u) * 48); top: 0; }
+.rm .eyebrow { position: absolute; top: calc(var(--u) * 79); white-space: nowrap; display: flex; align-items: center; gap: calc(var(--u) * 6);
+  font: 500 calc(var(--u) * 5.2)/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; color: var(--red-b); }
+.rm .eyebrow i { width: calc(var(--u) * 16); height: 1px; background: var(--red-b); }
+.rm .hero h1 { position: absolute; top: calc(var(--u) * 88); white-space: nowrap; font-size: calc(var(--u) * 35); line-height: calc(var(--u) * 36); letter-spacing: .005em; color: #f4efe9; }
+.rm .hero h1 em { color: #c4121b; }
+.rm .lead { position: absolute; top: calc(var(--u) * 209); white-space: nowrap; font: 400 calc(var(--u) * 6.4)/calc(var(--u) * 12.5) var(--sans); color: #ddd6ce; }
+.rm .hero .btn { position: absolute; top: calc(var(--u) * 248); width: calc(var(--u) * 108); }
+.rm .facts { position: absolute; top: calc(var(--u) * 299); display: flex; white-space: nowrap; }
+.rm .facts div { padding: 0 calc(var(--u) * 22); border-left: 1px solid rgba(255,255,255,.18); height: calc(var(--u) * 24); }
+.rm .facts div:first-child { border: 0; padding-left: calc(var(--u) * 5); width: calc(var(--u) * 80); }
+.rm .facts div:nth-child(2) { width: calc(var(--u) * 105); }
+.rm .facts dt { font: 500 calc(var(--u) * 4.2)/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #bdb6ae; margin-bottom: calc(var(--u) * 5); }
+.rm .facts dd { font: 500 calc(var(--u) * 10)/1 var(--serif); letter-spacing: .04em; color: #f1ece6; }
+.rm .hero-car { position: absolute; z-index: 2; left: calc(var(--u) * 252); top: calc(var(--u) * 92); width: calc(var(--u) * 410); transform: scaleX(-1);
+  filter: drop-shadow(0 calc(var(--u) * 10) calc(var(--u) * 12) rgba(0,0,0,.75)) saturate(1.15) contrast(1.05); }
+.rm .hero-reflect { position: absolute; z-index: 1; left: calc(var(--u) * 252); top: calc(var(--u) * 285); width: calc(var(--u) * 410); transform: scale(-1, -1); opacity: .32; filter: blur(calc(var(--u) * 1.2));
+  -webkit-mask: linear-gradient(0deg, #000 0%, transparent 32%); mask: linear-gradient(0deg, #000 0%, transparent 32%); }
