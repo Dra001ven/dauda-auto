@@ -31,7 +31,7 @@ export function ModelPage() {
   const [paint, setPaint] = useState(paints[0])
   return (
     <div className="pg pg-model">
-      <section className="cfg">
+      <section className="cfg" data-s3d>
         <h1 className="ghost" data-parallax="-0.15">IL CORSA</h1>
         <div className="cfg-head" data-reveal="up">
           <Kicker red>Configure your</Kicker>
@@ -92,7 +92,7 @@ function curve(vals, max, w = 600, h = 240) {
 export function PerformancePage() {
   return (
     <div className="pg pg-perf">
-      <section className="tele">
+      <section className="tele" data-s3d>
         <div className="tele-bg" data-parallax="0.2" />
         <div className="tele-copy">
           <Kicker red>Telemetry</Kicker>
@@ -165,7 +165,7 @@ export function TechnologyPage() {
   const [tab, setTab] = useState(0)
   return (
     <div className="pg pg-tech">
-      <section className="spots">
+      <section className="spots" data-s3d>
         <div className="spots-head" data-reveal="up"><Kicker red>Inside the engineering</Kicker><h1>TOUCH THE <b>DETAILS</b></h1></div>
         <div className="spot-stage" data-reveal="zoom">
           <img src="/img/car-side.png" alt="IL CORSA" />
@@ -276,7 +276,7 @@ const values = [
 export function BrandPage() {
   return (
     <div className="pg pg-brand">
-      <section className="manifest">
+      <section className="manifest" data-s3d>
         <img className="m-duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.18" />
         <img className="m-crest" src="/img/crest.png" alt="Rosso Milano crest" data-reveal="zoom" />
         <Kicker red>Since 1952 · Milano</Kicker>
