@@ -58,6 +58,9 @@ neighbouring objects: ghost SUV and a pole survived on two of the SF90 shots).
   highlights stay slightly silver-blue; acceptable.
 - Cover dealer plates/text with a dark patch inside the alpha mask (`im.paste(patch, box, alpha.crop(box))`).
 
+## 7. Gallery crops
+Gallery tiles are plain crops (no cutout) of the raw 3840 px photos, resized to 900x1000 JPEG.
+
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
