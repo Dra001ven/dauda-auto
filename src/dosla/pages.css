@@ -92,3 +92,27 @@
 .rm .board span { font: 500 11px var(--sans); color: var(--red-b); letter-spacing: .1em; }
 .rm .board b { color: #f1ece6; font: 400 20px var(--serif); }
 .rm .board strong { font: 400 26px 'Cinzel', serif; color: var(--gold); }
+
+/* ---------------- TECHNOLOGY: hotspots + tabs ---------------- */
+.rm .spots { padding: 50px var(--pad) 90px; text-align: center; background: radial-gradient(60% 60% at 50% 60%, #15080a, #070707 70%); }
+.rm .spots-head .kicker { justify-content: center; }
+.rm .spot-stage { position: relative; width: min(1100px, 90%); margin: 50px auto 30px; }
+.rm .spot-stage img { width: 100%; display: block; filter: drop-shadow(0 30px 30px rgba(0,0,0,.8)) brightness(.85) contrast(1.15); }
+.rm .pin { position: absolute; width: 34px; height: 34px; margin: -17px; border-radius: 50%; border: 1px solid rgba(255,255,255,.7); background: rgba(0,0,0,.35); cursor: pointer; padding: 0; }
+.rm .pin i { position: absolute; inset: 11px; border-radius: 50%; background: #fff; transition: background .3s; }
+.rm .pin::after { content: ''; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid #fff; animation: rm-ping 2s infinite; }
+.rm .pin.on { border-color: var(--red-b); } .rm .pin.on i { background: var(--red-b); } .rm .pin.on::after { border-color: var(--red-b); }
+@keyframes rm-ping { to { scale: 2.2; opacity: 0; } }
+.rm .spot-card { max-width: 520px; margin: 0 auto; animation: rm-rise .6s both cubic-bezier(.2,.7,.2,1); }
+.rm .spot-card span { font: 500 11px var(--sans); letter-spacing: .24em; color: var(--red-b); }
+.rm .spot-card h3 { margin: 12px 0 10px; font-size: 34px; }
+.rm .tabs { position: relative; padding: 90px var(--pad) 120px; border-top: 1px solid var(--line); overflow: hidden; }
+.rm .tab-list { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 50px; }
+.rm .tab-list button { flex: 1; text-align: left; padding: 0 0 20px; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer;
+  color: #6f6964; font: 500 11px var(--sans); letter-spacing: .2em; transition: color .3s, border-color .3s; }
+.rm .tab-list button span { display: block; margin-top: 8px; font: 500 24px var(--serif); letter-spacing: .02em; text-transform: none; }
+.rm .tab-list button.on { color: #fff; border-color: var(--red-b); }
+.rm .tab-body { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; animation: rm-rise .7s both cubic-bezier(.2,.7,.2,1); position: relative; z-index: 1; }
+.rm .tab-body img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: brightness(.75) contrast(1.15); }
+.rm .tab-body h2 { margin-bottom: 20px; }
+.rm .tab-wire { position: absolute; right: -40px; bottom: -60px; height: 420px; opacity: .25; pointer-events: none; }
