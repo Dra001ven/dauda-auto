@@ -136,15 +136,15 @@
 .rm .quotes blockquote + blockquote { border-left: 1px solid var(--line); padding-left: calc(var(--u) * 47); }
 .rm .quotes blockquote::before { content: '“'; position: absolute; left: 0; top: calc(var(--u) * -3); font: 600 calc(var(--u) * 16)/1 var(--serif); color: var(--gold); }
 .rm .quotes blockquote + blockquote::before { left: calc(var(--u) * 33); }
-.rm .quotes blockquote p { font: 400 calc(var(--u) * 7.4)/calc(var(--u) * 12) var(--serif); color: #ddd6ce; white-space: nowrap; }
+.rm .quotes blockquote p { font: 400 calc(var(--u) * 8.6)/calc(var(--u) * 12) var(--serif); color: #ddd6ce; white-space: nowrap; }
 .rm .quotes footer { margin-top: calc(var(--u) * 6); font: 500 calc(var(--u) * 4.6)/calc(var(--u) * 9) var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #bdb6ae; }
 .rm .quotes footer b { display: block; color: #a8812f; }
-.rm .seal { position: absolute; left: calc(var(--u) * 627); top: calc(var(--u) * 9); width: calc(var(--u) * 68); opacity: .28; }
+.rm .seal { position: absolute; left: calc(var(--u) * 627); top: calc(var(--u) * 9); width: calc(var(--u) * 68); opacity: .22; filter: grayscale(.6); }
 
 /* ---------- inquire ---------- */
 .rm .inquire { position: relative; height: calc(var(--u) * 157); overflow: hidden;
   background: linear-gradient(90deg, #1c0406 0%, #3c070b 30%, #4a080d 60%, #3a060a 100%); border-top: 1px solid rgba(200,30,40,.35); border-bottom: 1px solid rgba(200,30,40,.25); }
-.rm .duomo { position: absolute; left: calc(var(--u) * 8); top: calc(var(--u) * 8); height: calc(var(--u) * 150); opacity: .35;
+.rm .duomo { position: absolute; left: calc(var(--u) * 8); top: calc(var(--u) * 8); height: calc(var(--u) * 150); opacity: .6;
   -webkit-mask: linear-gradient(90deg, #000 50%, transparent); mask: linear-gradient(90deg, #000 50%, transparent); }
 .rm .inq-copy { position: absolute; left: calc(var(--u) * 152); top: 0; }
 .rm .inquire .kicker { position: absolute; top: calc(var(--u) * 32); white-space: nowrap; letter-spacing: .14em; color: #c8222b; }
