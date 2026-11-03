@@ -78,13 +78,34 @@ export function useScrollMotion(key) {
     }
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
     const onResize = () => { measure(); update() }
-    if (!reduce && par.length) {
+    if (!reduce && (par.length || s3d.length)) {
       measure(); update()
       window.addEventListener('scroll', onScroll, { passive: true })
       window.addEventListener('resize', onResize)
     }
 
-    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize) }
+    // 3D hover tilt: cards lean toward the pointer, with a moving highlight.
+    const tilts = reduce || window.matchMedia('(hover: none)').matches ? [] : [...document.querySelectorAll('[data-tilt]')]
+    const move = (e) => {
+      const el = e.currentTarget, r = el.getBoundingClientRect()
+      const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height
+      const max = parseFloat(el.dataset.tilt) || 8
+      el.style.setProperty('--ry', `${((px - 0.5) * 2 * max).toFixed(2)}deg`)
+      el.style.setProperty('--rx', `${((0.5 - py) * 2 * max).toFixed(2)}deg`)
+      el.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`)
+      el.style.setProperty('--my', `${(py * 100).toFixed(1)}%`)
+      el.classList.add('tilting')
+    }
+    const leave = (e) => {
+      const el = e.currentTarget
+      el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); el.classList.remove('tilting')
+    }
+    tilts.forEach((el) => { el.addEventListener('pointermove', move); el.addEventListener('pointerleave', leave) })
+
+    return () => {
+      io.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize)
+      tilts.forEach((el) => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave) })
+    }
   }, [key])
 }
 
