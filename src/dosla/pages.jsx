@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ArrowRight, ChevronLeft, ChevronRight, X, MapPin, Clock, Phone, Check } from 'lucide-react'
-import { I } from './icons'
 
 /* Shared page banner: every page opens differently, but keeps the nav legible. */
 function Kicker({ children, red }) {
@@ -55,7 +54,7 @@ export function ModelPage() {
 
       <section className="spec-band">
         {specs.map(([k, v], i) => (
-          <div key={k} data-reveal="up" data-delay={i * 70}><span>{k}</span><strong>{v}</strong></div>
+          <div key={k} data-reveal="flip" data-delay={i * 90}><span>{k}</span><strong>{v}</strong></div>
         ))}
       </section>
 
@@ -63,7 +62,7 @@ export function ModelPage() {
         <div className="trims-head" data-reveal="up"><Kicker red>Three ways to own it</Kicker><h2>CHOOSE YOUR <b>CHARACTER</b></h2></div>
         <div className="trim-row">
           {trims.map((t, i) => (
-            <article key={t.n} data-reveal="up" data-delay={i * 120}>
+            <article key={t.n} data-reveal="3d" data-delay={i * 140} data-tilt="7">
               <span className="num">0{i + 1}</span>
               <h3>{t.n}</h3>
               <p>{t.d}</p>
@@ -238,7 +237,7 @@ export function GalleryPage() {
       </section>
       <section className="masonry" key={cat}>
         {list.map((s, i) => (
-          <figure key={s.src} className="in-anim" style={{ animationDelay: `${i * 60}ms` }} onClick={() => setOpen(i)}>
+          <figure key={s.src} className="in-anim" style={{ animationDelay: `${i * 70}ms` }} onClick={() => setOpen(i)} data-tilt="9">
             <img src={s.src} alt={s.t} loading="lazy" />
             <figcaption><span>{s.c}</span>{s.t}</figcaption>
           </figure>
@@ -294,12 +293,12 @@ export function BrandPage() {
 
       <section className="values">
         {values.map(([h, p], i) => (
-          <div key={h} data-reveal="up" data-delay={i * 120}><span>0{i + 1}</span><h3>{h}</h3><p>{p}</p></div>
+          <div key={h} data-reveal="3d" data-delay={i * 140} data-tilt="6"><span>0{i + 1}</span><h3>{h}</h3><p>{p}</p></div>
         ))}
       </section>
 
-      <section className="quote-wide" data-reveal="clip">
-        <img src="/img/p2.jpg" alt="" data-parallax="0.12" />
+      <section className="quote-wide" data-reveal="clip" data-s3d>
+        <img src="/img/x-revuelto.jpg" alt="" data-parallax="0.12" />
         <blockquote>“We do not build the fastest car.<br />We build the one you <b>remember</b>.”<cite>— Giulia Rossi, Design Director</cite></blockquote>
       </section>
     </div>
