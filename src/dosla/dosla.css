@@ -5,7 +5,7 @@
   --red: #b3141c; --red-b: #d21e28; --gold: #c9a35b; --bg: #070707; --line: rgba(255,255,255,.09);
   --txt: #e9e3dc; --muted: #a39d96;
   --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Montserrat', system-ui, sans-serif;
-  background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: hidden;
+  background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: hidden; font-variant-numeric: lining-nums;
   width: calc(var(--u) * 736); margin: 0 auto; position: relative;
 }
 .rm *, .rm *::before, .rm *::after { box-sizing: border-box; }
@@ -58,27 +58,29 @@
 .rm .facts div:first-child { border: 0; padding-left: calc(var(--u) * 5); width: calc(var(--u) * 80); }
 .rm .facts div:nth-child(2) { width: calc(var(--u) * 105); }
 .rm .facts dt { font: 500 calc(var(--u) * 4.2)/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #bdb6ae; margin-bottom: calc(var(--u) * 5); }
-.rm .facts dd { font: 500 calc(var(--u) * 10)/1 var(--serif); letter-spacing: .04em; color: #f1ece6; }
-.rm .hero-car { position: absolute; z-index: 2; left: calc(var(--u) * 252); top: calc(var(--u) * 92); width: calc(var(--u) * 410); transform: scaleX(-1);
-  filter: drop-shadow(0 calc(var(--u) * 10) calc(var(--u) * 12) rgba(0,0,0,.75)) saturate(1.15) contrast(1.05); }
-.rm .hero-reflect { position: absolute; z-index: 1; left: calc(var(--u) * 252); top: calc(var(--u) * 285); width: calc(var(--u) * 410); transform: scale(-1, -1); opacity: .32; filter: blur(calc(var(--u) * 1.2));
+.rm .facts dd { font: 400 calc(var(--u) * 9.4)/1 'Cinzel', var(--serif); letter-spacing: .04em; color: #f1ece6; }
+.rm .hero-car { position: absolute; z-index: 2; left: calc(var(--u) * 246); top: calc(var(--u) * 112); width: calc(var(--u) * 420);
+  filter: drop-shadow(0 calc(var(--u) * 8) calc(var(--u) * 10) rgba(0,0,0,.8)) brightness(.78) contrast(1.25) saturate(1.1); }
+.rm .hero::after { content: ''; position: absolute; z-index: 1; left: calc(var(--u) * 230); top: calc(var(--u) * 250); width: calc(var(--u) * 470); height: calc(var(--u) * 80);
+  background: radial-gradient(50% 50% at 50% 30%, rgba(200,20,30,.38), transparent 70%); filter: blur(calc(var(--u) * 6)); }
+.rm .hero-reflect { position: absolute; z-index: 1; left: calc(var(--u) * 246); top: calc(var(--u) * 276); width: calc(var(--u) * 420); transform: scaleY(-1); opacity: .45; filter: blur(calc(var(--u) * 1.2));
   -webkit-mask: linear-gradient(0deg, #000 0%, transparent 32%); mask: linear-gradient(0deg, #000 0%, transparent 32%); }
 
 /* ---------- performance panel ---------- */
 .rm .perf { position: relative; z-index: 4; margin: 0 calc(var(--u) * 50) 0 calc(var(--u) * 48); height: calc(var(--u) * 98);
   background: linear-gradient(180deg, #0f0f10, #0b0b0c); border: 1px solid rgba(255,255,255,.05); border-bottom: 0; }
-.rm .perf .kicker { justify-content: center; padding-top: calc(var(--u) * 17); letter-spacing: .35em; position: relative; }
+.rm .perf .kicker { gap: 0; justify-content: center; padding-top: calc(var(--u) * 17); letter-spacing: .35em; position: relative; }
 .rm .perf .kicker span { color: var(--red-b); }
 .rm .perf .kicker::after { content: ''; position: absolute; left: 50%; top: calc(var(--u) * 28); width: calc(var(--u) * 16); margin-left: calc(var(--u) * -8); height: 1px; background: var(--red-b); }
 .rm .perf-row { display: grid; grid-template-columns: 165fr 144fr 153fr 176fr; margin-top: calc(var(--u) * 17); }
 .rm .perf-row > div { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 10); height: calc(var(--u) * 42); border-left: 1px solid var(--line); }
 .rm .perf-row > div:first-child { border: 0; }
-.rm .perf .ico { color: var(--gold); width: calc(var(--u) * 42); height: calc(var(--u) * 42); }
+.rm .perf .ico { color: var(--gold); width: calc(var(--u) * 52); height: calc(var(--u) * 52); }
 .rm .perf .ico svg { width: 100%; height: 100%; }
 .rm .perf-row p { display: grid; }
-.rm .perf strong { font: 400 calc(var(--u) * 22)/1 var(--serif); color: #f4efe9; }
+.rm .perf strong { font: 400 calc(var(--u) * 21)/1 'Cinzel', var(--serif); color: #f4efe9; }
 .rm .perf strong small { font: 500 calc(var(--u) * 5)/1 var(--sans); margin-left: calc(var(--u) * 2); letter-spacing: .06em; text-transform: uppercase; }
-.rm .perf-row div:first-child strong small { font: 400 calc(var(--u) * 13)/1 var(--serif); text-transform: none; margin: 0; }
+.rm .perf-row div:first-child strong small { font: 400 calc(var(--u) * 13)/1 'Cinzel', var(--serif); text-transform: none; margin: 0; }
 .rm .perf-row p > span { font: 500 calc(var(--u) * 4.6)/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #d0c9c1; margin-top: calc(var(--u) * 4); }
 
 /* ---------- boxed sections ---------- */
