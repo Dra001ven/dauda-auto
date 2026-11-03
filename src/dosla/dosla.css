@@ -114,3 +114,61 @@
 .rm .tech li { display: flex; align-items: center; gap: calc(var(--u) * 11); font: 500 calc(var(--u) * 5.4)/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #ddd6ce; }
 .rm .tech li svg { width: calc(var(--u) * 11.5); height: calc(var(--u) * 11.5); color: var(--gold); }
 .rm .wire { position: absolute; left: calc(var(--u) * 598); top: calc(var(--u) * 14); width: calc(var(--u) * 76); height: calc(var(--u) * 160); object-fit: contain; opacity: .75; }
+
+/* ---------- gallery ---------- */
+.rm .life { padding-top: calc(var(--u) * 15); text-align: center; }
+.rm .life .kicker { justify-content: center; }
+.rm .life h2 { font-size: calc(var(--u) * 15.5); letter-spacing: .14em; margin-top: calc(var(--u) * 8); color: #f1ece6; }
+.rm .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: calc(var(--u) * 1.5); margin: calc(var(--u) * 11) calc(var(--u) * 28) 0 calc(var(--u) * 24); }
+.rm .grid img { width: 100%; height: calc(var(--u) * 95); object-fit: cover; display: block; filter: brightness(.88) contrast(1.08); transition: filter .4s; }
+.rm .grid img:hover { filter: none; }
+
+/* ---------- quotes ---------- */
+.rm .quotes { position: relative; padding-top: calc(var(--u) * 13); height: calc(var(--u) * 106); }
+.rm .quotes > .kicker { justify-content: center; }
+.rm .q-row { display: grid; grid-template-columns: calc(var(--u) * 164) calc(var(--u) * 206) calc(var(--u) * 200); margin: calc(var(--u) * 10) 0 0 calc(var(--u) * 41); }
+.rm .quotes blockquote { position: relative; padding-left: calc(var(--u) * 14); height: calc(var(--u) * 62); }
+.rm .quotes blockquote + blockquote { border-left: 1px solid var(--line); padding-left: calc(var(--u) * 47); }
+.rm .quotes blockquote::before { content: '“'; position: absolute; left: 0; top: calc(var(--u) * -3); font: 600 calc(var(--u) * 16)/1 var(--serif); color: var(--gold); }
+.rm .quotes blockquote + blockquote::before { left: calc(var(--u) * 33); }
+.rm .quotes blockquote p { font: 400 calc(var(--u) * 7.4)/calc(var(--u) * 12) var(--serif); color: #ddd6ce; white-space: nowrap; }
+.rm .quotes footer { margin-top: calc(var(--u) * 6); font: 500 calc(var(--u) * 4.6)/calc(var(--u) * 9) var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #bdb6ae; }
+.rm .quotes footer b { display: block; color: #a8812f; }
+.rm .seal { position: absolute; left: calc(var(--u) * 627); top: calc(var(--u) * 9); width: calc(var(--u) * 68); opacity: .28; }
+
+/* ---------- inquire ---------- */
+.rm .inquire { position: relative; height: calc(var(--u) * 157); overflow: hidden;
+  background: linear-gradient(90deg, #1c0406 0%, #3c070b 30%, #4a080d 60%, #3a060a 100%); border-top: 1px solid rgba(200,30,40,.35); border-bottom: 1px solid rgba(200,30,40,.25); }
+.rm .duomo { position: absolute; left: calc(var(--u) * 8); top: calc(var(--u) * 8); height: calc(var(--u) * 150); opacity: .35;
+  -webkit-mask: linear-gradient(90deg, #000 50%, transparent); mask: linear-gradient(90deg, #000 50%, transparent); }
+.rm .inq-copy { position: absolute; left: calc(var(--u) * 152); top: 0; }
+.rm .inquire .kicker { position: absolute; top: calc(var(--u) * 32); white-space: nowrap; letter-spacing: .14em; color: #c8222b; }
+.rm .inquire h2 { position: absolute; top: calc(var(--u) * 45); white-space: nowrap; font-size: calc(var(--u) * 22); line-height: calc(var(--u) * 23.5); letter-spacing: .02em; color: #f4efe9; }
+.rm .inquire .body { position: absolute; top: calc(var(--u) * 100); white-space: nowrap; font-size: calc(var(--u) * 7); }
+.rm .inquire form { position: absolute; left: calc(var(--u) * 365); top: calc(var(--u) * 11); width: calc(var(--u) * 315); display: grid; grid-template-columns: 152fr 158fr; gap: calc(var(--u) * 6.5) calc(var(--u) * 5); }
+.rm .inquire input, .rm .inquire textarea { height: calc(var(--u) * 18); background: rgba(0,0,0,.12); border: 1px solid rgba(255,190,170,.2); padding: 0 calc(var(--u) * 8); color: #fff;
+  font: 500 calc(var(--u) * 4.8)/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; outline: none; resize: none; border-radius: 0; }
+.rm .inquire textarea { height: calc(var(--u) * 36); padding-top: calc(var(--u) * 7); }
+.rm .inquire ::placeholder { color: #dccfc4; }
+.rm .inquire input:focus, .rm .inquire textarea:focus { border-color: var(--gold); }
+.rm .inquire .wide { grid-column: 1 / -1; }
+.rm .submit { grid-column: 1 / -1; justify-self: center; width: calc(var(--u) * 142); height: calc(var(--u) * 22); margin-top: 0; justify-content: center; position: relative; background: #a3121a; }
+.rm .submit svg { position: absolute; right: calc(var(--u) * 10); }
+
+/* ---------- footer ---------- */
+.rm .foot { position: relative; height: calc(var(--u) * 72); }
+.rm .foot .brand { position: absolute; left: calc(var(--u) * 37); top: calc(var(--u) * 15); }
+.rm .foot .brand img { width: calc(var(--u) * 22); }
+.rm .foot > div { position: absolute; top: calc(var(--u) * 9); display: grid; gap: calc(var(--u) * 4); }
+.rm .foot > div:nth-of-type(1) { left: calc(var(--u) * 215); }
+.rm .foot > div:nth-of-type(2) { left: calc(var(--u) * 305); }
+.rm .foot > div:nth-of-type(3) { left: calc(var(--u) * 406); }
+.rm .foot h4 { font: 500 calc(var(--u) * 4.8)/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #ddd6ce; margin-bottom: calc(var(--u) * 3); }
+.rm .foot div > a { font: 500 calc(var(--u) * 4.6)/calc(var(--u) * 7) var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #bdb6ae; }
+.rm .foot div > a:hover { color: #fff; }
+.rm .made { left: calc(var(--u) * 503) !important; width: calc(var(--u) * 160); top: calc(var(--u) * 17) !important; text-align: center; justify-items: center; }
+.rm .made p { font: 500 calc(var(--u) * 6.2)/1 var(--sans); letter-spacing: .14em; color: #e6dccb; }
+.rm .made i { display: block; height: calc(var(--u) * 1.4); width: calc(var(--u) * 95); margin: calc(var(--u) * 3) 0 calc(var(--u) * 10);
+  background: linear-gradient(90deg, #1d7a3c 0 33%, #f1ece6 33% 66%, #c4121b 66%); }
+.rm .made small { font: 500 calc(var(--u) * 4.6)/1 var(--sans); letter-spacing: .08em; color: #bdb6ae; white-space: nowrap; }
+.rm .credits { font: 400 calc(var(--u) * 4)/1.5 var(--sans); color: #4e4945; padding: calc(var(--u) * 4) calc(var(--u) * 37) calc(var(--u) * 8); border-top: 1px solid var(--line); }
