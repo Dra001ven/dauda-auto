@@ -56,7 +56,7 @@ function Footer() {
         <div><h4>Connect</h4><a href="#/">Instagram</a><a href="#/">YouTube</a><a href="#/">LinkedIn</a><a href="#/contact">Contact</a></div>
         <div className="made"><p>HANDCRAFTED IN ITALY</p><i /><small>© 2025 ROSSO MILANO. ALL RIGHTS RESERVED.</small></div>
       </footer>
-      <p className="credits">Photography: Wikimedia Commons contributors incl. Tokumeigakarinoaoshima, Francesca Milanini, pjhooker (CC BY-SA). Backgrounds removed / recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
+      <p className="credits">Photography: Calreyn88, Alexander Migl, pjhooker, Francesca Milanini, Tokumeigakarinoaoshima and other Wikimedia Commons contributors (CC BY-SA 3.0 / 4.0), crest lion by ImperialHerald (CC0). Backgrounds removed, some recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
     </>
   )
 }
