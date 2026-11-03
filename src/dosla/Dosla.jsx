@@ -113,7 +113,7 @@ function Home() {
             <div><dt>Deliveries begin</dt><dd>Q4 2025</dd></div>
           </dl>
         </div>
-        <img className="hero-car" src="/img/car-hero.png" alt="Red Italian supercar" />
+        <img className="hero-car" src="/img/car-hero.png" alt="White Lamborghini Revuelto" />
         <img className="hero-reflect" src="/img/car-hero.png" alt="" aria-hidden="true" />
       </section>
 
