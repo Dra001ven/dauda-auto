@@ -74,3 +74,72 @@ export function ModelPage() {
     </div>
   )
 }
+
+/* ========================================================= PERFORMANCE ==== */
+/* Telemetry board: huge counters, acceleration bars, power curve, lap board. */
+const accel = [['0–100 km/h', 3.1, 12], ['0–200 km/h', 7.4, 12], ['0–300 km/h', 18.9, 22], ['100–0 km/h', 2.9, 12]]
+const laps = [
+  ['Nürburgring Nordschleife', '6:58.2'], ['Fiorano', '1:08.7'], ['Mugello', '1:49.1'], ['Monza', '1:42.3'], ['Spa-Francorchamps', '2:21.6'],
+]
+// power (cv) and torque (Nm) every 1000 rpm, 1000–8000
+const power = [110, 230, 360, 480, 600, 710, 800, 820]
+const torque = [520, 760, 880, 900, 900, 870, 790, 700]
+
+function curve(vals, max, w = 600, h = 240) {
+  return vals.map((v, i) => `${i ? 'L' : 'M'}${(i / (vals.length - 1)) * w},${h - (v / max) * h}`).join(' ')
+}
+
+export function PerformancePage() {
+  return (
+    <div className="pg pg-perf">
+      <section className="tele">
+        <div className="tele-bg" data-parallax="0.2" />
+        <div className="tele-copy">
+          <Kicker red>Telemetry</Kicker>
+          <h1 data-reveal="clip">ZERO TO 100<br />IN <em><span data-count="3.1">3.1</span>s</em></h1>
+          <p data-reveal="up" data-delay="200">A 3.9-litre V8 and three electric motors deliver 820 cv through an e-AWD system that thinks 200 times a second.</p>
+        </div>
+        <div className="dial" data-reveal="zoom" data-delay="250">
+          <svg viewBox="0 0 200 200">
+            <circle className="track" cx="100" cy="100" r="86" />
+            <circle className="fill" cx="100" cy="100" r="86" pathLength="100" />
+          </svg>
+          <div><strong data-count="350">350</strong><span>km/h top speed</span></div>
+        </div>
+      </section>
+
+      <section className="accel">
+        <Kicker red>Acceleration</Kicker>
+        {accel.map(([k, v, max], i) => (
+          <div key={k} className="bar" data-reveal="bar" data-delay={i * 120} style={{ '--w': `${(v / max) * 100}%` }}>
+            <span>{k}</span><i /><strong><span data-count={v}>{v}</span> s</strong>
+          </div>
+        ))}
+      </section>
+
+      <section className="curves">
+        <div data-reveal="up">
+          <Kicker red>Power delivery</Kicker>
+          <h2>A CURVE WITH<br /><b>NO FLAT SPOTS</b></h2>
+          <ul className="legend"><li><i className="r" />Power · 820 cv</li><li><i className="g" />Torque · 900 Nm</li></ul>
+        </div>
+        <svg className="chart" viewBox="-30 -10 660 290" data-reveal="draw">
+          {[0, 1, 2, 3, 4].map((i) => <line key={i} x1="0" x2="600" y1={i * 60} y2={i * 60} />)}
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((r, i) => <text key={r} x={(i / 7) * 600} y="270">{r}k</text>)}
+          <path className="pw" d={curve(power, 950)} pathLength="1" />
+          <path className="tq" d={curve(torque, 950)} pathLength="1" />
+        </svg>
+      </section>
+
+      <section className="laps">
+        <div className="laps-img" data-reveal="clip"><img src="/img/p4.jpg" alt="" /></div>
+        <div className="board">
+          <Kicker red>Lap board</Kicker>
+          {laps.map(([t, v], i) => (
+            <div key={t} data-reveal="left" data-delay={i * 90}><span>{String(i + 1).padStart(2, '0')}</span><b>{t}</b><strong>{v}</strong></div>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
