@@ -50,7 +50,7 @@
 
 /* ---------------- PERFORMANCE: telemetry ---------------- */
 .rm .tele { position: relative; min-height: 92vh; padding: 60px var(--pad); display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 40px; overflow: hidden; }
-.rm .tele-bg { position: absolute; inset: -12% 0; background: linear-gradient(90deg, #070707 25%, rgba(7,7,7,.55) 70%, rgba(7,7,7,.85)), url(/img/p3.jpg) right center / cover; filter: saturate(1.1); }
+.rm .tele-bg { position: absolute; inset: -12% 0; background: linear-gradient(90deg, #070707 25%, rgba(7,7,7,.55) 70%, rgba(7,7,7,.85)), url(/img/hero-bg.jpg) right center / cover; filter: saturate(1.1); }
 .rm .tele-copy { position: relative; }
 .rm .tele h1 em { color: var(--red-b); }
 .rm .tele p { max-width: 460px; margin-top: 28px; }
@@ -161,7 +161,7 @@
 .rm .values span { font: 500 11px var(--sans); color: var(--red-b); letter-spacing: .2em; }
 .rm .values h3 { margin: 18px 0 12px; font-size: 38px; font-style: italic; color: var(--gold); }
 .rm .quote-wide { position: relative; height: 70vh; min-height: 420px; overflow: hidden; display: grid; place-items: center; }
-.rm .quote-wide img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; filter: brightness(.35) saturate(1.2); }
+.rm .quote-wide img { position: absolute; inset: -20% 0; width: 100%; height: 140%; object-fit: cover; filter: brightness(.35) saturate(1.2); }
 .rm .quote-wide blockquote { position: relative; margin: 0 var(--pad); text-align: center; font: 500 clamp(28px, 3.6vw, 58px)/1.15 var(--serif); }
 .rm .quote-wide cite { display: block; margin-top: 26px; font: 500 11px var(--sans); letter-spacing: .24em; text-transform: uppercase; font-style: normal; color: var(--gold); }
 
