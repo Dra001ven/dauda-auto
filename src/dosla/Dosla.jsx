@@ -100,7 +100,7 @@ const quotes = [
 function Home() {
   return (
     <>
-      <section className="hero intro">
+      <section className="hero intro" data-s3d>
         <div className="hero-bg" data-parallax="0.12" />
         <div className="hero-copy">
           <p className="eyebrow">Introducing <i /></p>
@@ -117,7 +117,7 @@ function Home() {
         <img className="hero-reflect" src="/img/car-hero.png" alt="" aria-hidden="true" />
       </section>
 
-      <section className="perf" data-reveal="up">
+      <section className="perf" data-reveal="3d">
         <p className="kicker"><span>PU</span>RE PERFORMANCE</p>
         <div className="perf-row">
           {stats.map(({ icon, value, unit, label }, i) => (
@@ -129,7 +129,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="box model">
+      <section className="box model" data-s3d>
         <div className="curtain" data-reveal="fade" />
         <img className="model-car" src="/img/car-side.png" alt="IL CORSA in profile" data-reveal="drive" />
         <img className="model-reflect" src="/img/car-side.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="500" />
@@ -143,7 +143,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="box tech">
+      <section className="box tech" data-s3d>
         <div className="tech-img-wrap" data-reveal="clip"><img className="tech-img" src="/img/interior.jpg" alt="Red leather cockpit" /></div>
         <div className="tech-copy" data-reveal="right" data-delay="150">
           <p className="kicker red">TECHNOLOGY MEETS ARTISTRY</p>
@@ -158,7 +158,7 @@ function Home() {
         <p className="kicker red" data-reveal="up">BEYOND PERFORMANCE</p>
         <h2 data-reveal="up" data-delay="80">A LIFESTYLE. A LEGACY.</h2>
         <div className="grid">{[1, 2, 3, 4, 5].map((g, i) => (
-          <a key={g} href="#/gallery" data-reveal="zoom" data-delay={i * 90}><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /></a>
+          <a key={g} href="#/gallery" data-reveal="flip" data-delay={i * 110} data-tilt="12"><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /></a>
         ))}</div>
       </section>
 
@@ -166,7 +166,7 @@ function Home() {
         <p className="kicker red" data-reveal="up">TRUSTED BY ENTHUSIASTS WORLDWIDE</p>
         <div className="q-row">
           {quotes.map((x, i) => (
-            <blockquote key={x.n} data-reveal="up" data-delay={i * 120}>
+            <blockquote key={x.n} data-reveal="3d" data-delay={i * 120}>
               <p>{x.q.map((l) => <span key={l}>{l}<br /></span>)}</p>
               <footer><b>— {x.n}</b>{x.r}</footer>
             </blockquote>
@@ -175,7 +175,7 @@ function Home() {
         <img className="seal" src="/img/crest.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="400" />
       </section>
 
-      <section className="inquire">
+      <section className="inquire" data-s3d>
         <img className="duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.08" />
         <div className="inq-copy" data-reveal="up">
           <p className="kicker red">OWN A PIECE OF ITALIAN EXCELLENCE</p>
