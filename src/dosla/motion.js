@@ -58,11 +58,23 @@ export function useScrollMotion(key) {
         return Math.max(0, r.top + window.scrollY + r.height / 2 - vh / 2)
       })
     }
+    // Scroll-linked 3D: sections marked data-s3d get two live CSS variables
+    //  --c  -1 → 1 as the section travels from bottom to top of the viewport (0 = centred)
+    //  --x   0 → 1 as the section scrolls out above the top edge (exit progress)
+    const s3d = [...document.querySelectorAll('[data-s3d]')]
     let ticking = false
     const update = () => {
       ticking = false
-      const y = window.scrollY
+      const y = window.scrollY, vh = window.innerHeight
       par.forEach((el, i) => { el.style.translate = `0 ${((y - starts[i]) * parseFloat(el.dataset.parallax)).toFixed(1)}px` })
+      s3d.forEach((el) => {
+        const r = el.getBoundingClientRect()
+        if (r.bottom < -200 || r.top > vh + 200) return
+        const c = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2)))
+        const x = Math.max(0, Math.min(1, -r.top / r.height))
+        el.style.setProperty('--c', c.toFixed(4))
+        el.style.setProperty('--x', x.toFixed(4))
+      })
     }
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
     const onResize = () => { measure(); update() }
