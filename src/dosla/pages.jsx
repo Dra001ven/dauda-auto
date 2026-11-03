@@ -299,3 +299,62 @@ export function BrandPage() {
     </div>
   )
 }
+
+/* ============================================================= CONTACT ==== */
+/* Split screen: showroom finder + private-appointment booking with success state. */
+const rooms = [
+  { city: 'Milano', a: 'Via Montenapoleone 8', h: 'Mon–Sat · 10:00–19:00', t: '+39 02 7600 1952' },
+  { city: 'Monaco', a: 'Avenue Princesse Grace 21', h: 'Mon–Sat · 10:00–19:00', t: '+377 93 30 1952' },
+  { city: 'London', a: '14 Berkeley Square, Mayfair', h: 'Mon–Fri · 09:00–18:00', t: '+44 20 7499 1952' },
+  { city: 'Dubai', a: 'Sheikh Zayed Road, DIFC', h: 'Sun–Thu · 10:00–20:00', t: '+971 4 330 1952' },
+]
+
+export function ContactPage() {
+  const [room, setRoom] = useState(0)
+  const [kind, setKind] = useState('Private viewing')
+  const [sent, setSent] = useState(false)
+  return (
+    <div className="pg pg-contact">
+      <section className="split">
+        <div className="rooms">
+          <div data-reveal="up"><Kicker red>Showrooms</Kicker><h1>VISIT<br /><b>THE HOUSE</b></h1></div>
+          <ul>
+            {rooms.map((r, i) => (
+              <li key={r.city} className={i === room ? 'on' : ''} onClick={() => setRoom(i)} data-reveal="left" data-delay={i * 90}>
+                <h3>{r.city}</h3>
+                <p><MapPin size={13} />{r.a}</p><p><Clock size={13} />{r.h}</p><p><Phone size={13} />{r.t}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="book" data-reveal="right" data-delay="150">
+          {sent ? (
+            <div className="sent">
+              <span><Check /></span>
+              <h2>GRAZIE.</h2>
+              <p>Your {kind.toLowerCase()} request for {rooms[room].city} is with our concierge. Expect a call within 24 hours.</p>
+              <button className="btn" onClick={() => setSent(false)}>New request <ArrowRight /></button>
+            </div>
+          ) : (
+            <form onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
+              <Kicker>Private appointment · {rooms[room].city}</Kicker>
+              <div className="kinds">
+                {['Private viewing', 'Test drive', 'Configuration'].map((k) => (
+                  <button type="button" key={k} className={k === kind ? 'on' : ''} onClick={() => setKind(k)}>{k}</button>
+                ))}
+              </div>
+              <label>Full name<input required placeholder="Alessandro Rossi" /></label>
+              <label>Email<input required type="email" placeholder="you@domain.com" /></label>
+              <div className="row">
+                <label>Preferred date<input required type="date" /></label>
+                <label>Time<select defaultValue="11:00">{['10:00', '11:00', '14:00', '16:00', '18:00'].map((t) => <option key={t}>{t}</option>)}</select></label>
+              </div>
+              <label>Notes<textarea rows="3" placeholder="Paint, interior, delivery country…" /></label>
+              <button className="btn">Request appointment <ArrowRight /></button>
+            </form>
+          )}
+        </div>
+      </section>
+    </div>
+  )
+}
