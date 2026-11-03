@@ -164,3 +164,41 @@
 .rm .quote-wide img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; filter: brightness(.35) saturate(1.2); }
 .rm .quote-wide blockquote { position: relative; margin: 0 var(--pad); text-align: center; font: 500 clamp(28px, 3.6vw, 58px)/1.15 var(--serif); }
 .rm .quote-wide cite { display: block; margin-top: 26px; font: 500 11px var(--sans); letter-spacing: .24em; text-transform: uppercase; font-style: normal; color: var(--gold); }
+
+/* ---------------- CONTACT: split screen ---------------- */
+.rm .split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 96px); }
+.rm .rooms { padding: 40px var(--pad) 80px; }
+.rm .rooms ul { list-style: none; margin-top: 50px; border-top: 1px solid var(--line); }
+.rm .rooms li { padding: 26px 0 26px 24px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; transition: background .4s, padding-left .4s; }
+.rm .rooms li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--red-b); scale: 1 0; transition: scale .4s; }
+.rm .rooms li.on { background: linear-gradient(90deg, rgba(200,30,40,.12), transparent); padding-left: 34px; }
+.rm .rooms li.on::before { scale: 1 1; }
+.rm .rooms li h3 { margin-bottom: 10px; }
+.rm .rooms li p { display: flex; align-items: center; gap: 10px; font: 500 12px/1.9 var(--sans); letter-spacing: .06em; color: #a39d96; }
+.rm .rooms li p svg { color: var(--gold); }
+.rm .book { position: relative; padding: 40px var(--pad) 80px 70px; background: linear-gradient(140deg, #2a0508, #4a080d 55%, #2a0508); }
+.rm .book::before { content: ''; position: absolute; inset: 0; background: url(/img/duomo-line.png) right bottom / 60% no-repeat; opacity: .25; pointer-events: none; }
+.rm .book form { position: relative; display: grid; gap: 20px; max-width: 560px; }
+.rm .book label { display: grid; gap: 8px; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #e4cfc0; }
+.rm .book input, .rm .book select, .rm .book textarea { background: rgba(0,0,0,.2); border: 1px solid rgba(255,190,170,.22); padding: 14px 16px; color: #fff; font: 400 16px var(--serif); outline: none; color-scheme: dark; border-radius: 0; resize: none; }
+.rm .book input:focus, .rm .book select:focus, .rm .book textarea:focus { border-color: var(--gold); }
+.rm .book .row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
+.rm .kinds { display: flex; gap: 6px; flex-wrap: wrap; }
+.rm .kinds button { padding: 11px 16px; border: 1px solid rgba(255,190,170,.25); background: none; color: #e4cfc0; font: 500 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; transition: all .3s; }
+.rm .kinds button.on { background: #fff; color: #2a0508; border-color: #fff; }
+.rm .book .btn { justify-self: start; background: #fff; color: #2a0508; }
+.rm .book .btn:hover { background: var(--gold); }
+.rm .sent { position: relative; display: grid; gap: 22px; justify-items: start; max-width: 480px; margin-top: 10vh; animation: rm-rise .8s both; }
+.rm .sent > span { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; color: var(--gold); }
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 900px) {
+  .rm .spec-band { grid-template-columns: repeat(2, 1fr); }
+  .rm .spec-band div:nth-child(odd) { border-left: 0; }
+  .rm .trim-row, .rm .tele, .rm .curves, .rm .laps, .rm .tab-body, .rm .values, .rm .split { grid-template-columns: 1fr; }
+  .rm .tab-list { overflow-x: auto; } .rm .tab-list button { min-width: 150px; }
+  .rm .bar { grid-template-columns: 110px 1fr 70px; gap: 12px; }
+  .rm .timeline::before { left: 10px; } .rm .timeline article { width: auto; margin-left: 40px !important; text-align: left !important; }
+  .rm .timeline article::after { left: -36px !important; right: auto !important; }
+  .rm .book { padding-left: var(--pad); }
+}
