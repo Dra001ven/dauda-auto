@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ArrowRight, ChevronLeft, ChevronRight, X, MapPin, Clock, Phone, Check } from 'lucide-react'
 import { I } from './icons'
 
@@ -243,7 +244,7 @@ export function GalleryPage() {
           </figure>
         ))}
       </section>
-      {open >= 0 && (
+      {open >= 0 && createPortal(
         <div className="lightbox" onClick={() => setOpen(-1)}>
           <button className="lb-x" aria-label="Close"><X /></button>
           <button className="lb-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + list.length) % list.length) }}><ChevronLeft /></button>
@@ -252,7 +253,7 @@ export function GalleryPage() {
             <figcaption>{list[open].t} · {open + 1} / {list.length}</figcaption>
           </figure>
           <button className="lb-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % list.length) }}><ChevronRight /></button>
-        </div>
+        </div>, document.body,
       )}
     </div>
   )

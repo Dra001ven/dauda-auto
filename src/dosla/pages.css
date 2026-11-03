@@ -131,13 +131,13 @@
 .rm .masonry figcaption span { display: block; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
 .rm .masonry figure:hover figcaption { translate: 0 0; }
 .rm .in-anim { animation: rm-rise .9s both cubic-bezier(.2,.7,.2,1); }
-.rm .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(4,4,5,.94); display: grid; place-items: center; animation: rm-fade .3s; }
-.rm .lightbox figure { margin: 0; max-width: 86vw; animation: rm-rise .5s both; }
-.rm .lightbox img { max-width: 86vw; max-height: 80vh; display: block; }
-.rm .lightbox figcaption { text-align: center; margin-top: 16px; font: 500 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #cfc8c0; }
-.rm .lightbox button { position: absolute; background: none; border: 1px solid rgba(255,255,255,.2); color: #fff; width: 52px; height: 52px; display: grid; place-items: center; cursor: pointer; }
-.rm .lightbox button:hover { border-color: var(--gold); }
-.rm .lb-x { top: 24px; right: 24px; } .rm .lb-prev { left: 24px; } .rm .lb-next { right: 24px; }
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(4,4,5,.94); display: grid; place-items: center; animation: rm-fade .3s; }
+.lightbox figure { margin: 0; max-width: 86vw; animation: rm-rise .5s both; }
+.lightbox img { max-width: 86vw; max-height: 80vh; display: block; }
+.lightbox figcaption { text-align: center; margin-top: 16px; font: 500 11px 'Montserrat', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #cfc8c0; }
+.lightbox button { position: absolute; background: none; border: 1px solid rgba(255,255,255,.2); color: #fff; width: 52px; height: 52px; display: grid; place-items: center; cursor: pointer; }
+.lightbox button:hover { border-color: #c9a35b; }
+.lightbox .lb-x { top: 24px; right: 24px; } .lightbox .lb-prev { left: 24px; } .lightbox .lb-next { right: 24px; }
 
 /* ---------------- BRAND: editorial ---------------- */
 .rm .manifest { position: relative; min-height: 88vh; display: grid; place-content: center; justify-items: center; text-align: center; overflow: hidden;
