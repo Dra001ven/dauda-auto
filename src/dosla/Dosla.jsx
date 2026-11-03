@@ -6,7 +6,7 @@ import { I } from './icons'
 import './dosla.css'
 import './pages.css'
 
-export const routes = [
+const routes = [
   ['Home', '/'], ['Model', '/model'], ['Performance', '/performance'], ['Technology', '/technology'],
   ['Gallery', '/gallery'], ['Brand', '/brand'], ['Contact', '/contact'],
 ]
@@ -27,7 +27,7 @@ function useRoute() {
   return pages[route] ? route : '/'
 }
 
-export function Brand() {
+function Brand() {
   return (
     <a className="brand" href="#/">
       <img src="/img/crest.png" alt="" />
