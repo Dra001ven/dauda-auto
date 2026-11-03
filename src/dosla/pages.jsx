@@ -192,3 +192,63 @@ export function TechnologyPage() {
     </div>
   )
 }
+
+/* ============================================================= GALLERY ==== */
+/* Filterable masonry archive with a keyboard-friendly lightbox. */
+const shots = [
+  { src: '/img/p1.jpg', c: 'Exterior', t: 'Ginza, Tokyo' },
+  { src: '/img/p6.jpg', c: 'Interior', t: 'Bordeaux leather' },
+  { src: '/img/p2.jpg', c: 'Exterior', t: 'Atelier, Modena' },
+  { src: '/img/g4.jpg', c: 'Detail', t: 'Forged wheel' },
+  { src: '/img/p3.jpg', c: 'Exterior', t: 'Salon debut' },
+  { src: '/img/g2.jpg', c: 'Detail', t: 'Light signature' },
+  { src: '/img/p5.jpg', c: 'Interior', t: 'Spider cockpit' },
+  { src: '/img/p4.jpg', c: 'Exterior', t: 'Delivery day' },
+  { src: '/img/p7.jpg', c: 'Detail', t: 'Side intake' },
+  { src: '/img/g1.jpg', c: 'Exterior', t: 'Studio' },
+]
+
+export function GalleryPage() {
+  const [cat, setCat] = useState('All')
+  const [open, setOpen] = useState(-1)
+  const list = shots.filter((s) => cat === 'All' || s.c === cat)
+  useEffect(() => {
+    if (open < 0) return
+    const k = (e) => {
+      if (e.key === 'Escape') setOpen(-1)
+      if (e.key === 'ArrowRight') setOpen((o) => (o + 1) % list.length)
+      if (e.key === 'ArrowLeft') setOpen((o) => (o - 1 + list.length) % list.length)
+    }
+    window.addEventListener('keydown', k)
+    return () => window.removeEventListener('keydown', k)
+  }, [open, list.length])
+  return (
+    <div className="pg pg-gallery">
+      <section className="archive-head">
+        <h1 data-reveal="clip">THE <b>ARCHIVE</b></h1>
+        <div className="chips" data-reveal="up" data-delay="150">
+          {['All', 'Exterior', 'Interior', 'Detail'].map((c) => <button key={c} className={c === cat ? 'on' : ''} onClick={() => setCat(c)}>{c}</button>)}
+        </div>
+      </section>
+      <section className="masonry" key={cat}>
+        {list.map((s, i) => (
+          <figure key={s.src} className="in-anim" style={{ animationDelay: `${i * 60}ms` }} onClick={() => setOpen(i)}>
+            <img src={s.src} alt={s.t} loading="lazy" />
+            <figcaption><span>{s.c}</span>{s.t}</figcaption>
+          </figure>
+        ))}
+      </section>
+      {open >= 0 && (
+        <div className="lightbox" onClick={() => setOpen(-1)}>
+          <button className="lb-x" aria-label="Close"><X /></button>
+          <button className="lb-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + list.length) % list.length) }}><ChevronLeft /></button>
+          <figure onClick={(e) => e.stopPropagation()} key={open}>
+            <img src={list[open].src} alt={list[open].t} />
+            <figcaption>{list[open].t} · {open + 1} / {list.length}</figcaption>
+          </figure>
+          <button className="lb-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % list.length) }}><ChevronRight /></button>
+        </div>
+      )}
+    </div>
+  )
+}
