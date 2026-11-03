@@ -116,3 +116,25 @@
 .rm .tab-body img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; filter: brightness(.75) contrast(1.15); }
 .rm .tab-body h2 { margin-bottom: 20px; }
 .rm .tab-wire { position: absolute; right: -40px; bottom: -60px; height: 420px; opacity: .25; pointer-events: none; }
+
+/* ---------------- GALLERY: masonry + lightbox ---------------- */
+.rm .archive-head { padding: 60px var(--pad) 40px; display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; }
+.rm .chips { display: flex; gap: 8px; }
+.rm .chips button { padding: 12px 22px; border: 1px solid rgba(255,255,255,.14); background: none; color: #cfc8c0; font: 500 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: all .3s; }
+.rm .chips button.on, .rm .chips button:hover { background: var(--red); border-color: var(--red); color: #fff; }
+.rm .masonry { columns: 3 320px; column-gap: 8px; padding: 0 var(--pad) 120px; }
+.rm .masonry figure { position: relative; margin: 0 0 8px; break-inside: avoid; overflow: hidden; cursor: zoom-in; }
+.rm .masonry img { width: 100%; display: block; filter: brightness(.82) contrast(1.1); transition: transform 1s cubic-bezier(.2,.7,.2,1), filter .5s; }
+.rm .masonry figure:hover img { transform: scale(1.05); filter: none; }
+.rm .masonry figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 20px 16px; background: linear-gradient(transparent, rgba(0,0,0,.8));
+  font: 500 18px var(--serif); translate: 0 100%; transition: translate .5s cubic-bezier(.2,.7,.2,1); }
+.rm .masonry figcaption span { display: block; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.rm .masonry figure:hover figcaption { translate: 0 0; }
+.rm .in-anim { animation: rm-rise .9s both cubic-bezier(.2,.7,.2,1); }
+.rm .lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(4,4,5,.94); display: grid; place-items: center; animation: rm-fade .3s; }
+.rm .lightbox figure { margin: 0; max-width: 86vw; animation: rm-rise .5s both; }
+.rm .lightbox img { max-width: 86vw; max-height: 80vh; display: block; }
+.rm .lightbox figcaption { text-align: center; margin-top: 16px; font: 500 11px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #cfc8c0; }
+.rm .lightbox button { position: absolute; background: none; border: 1px solid rgba(255,255,255,.2); color: #fff; width: 52px; height: 52px; display: grid; place-items: center; cursor: pointer; }
+.rm .lightbox button:hover { border-color: var(--gold); }
+.rm .lb-x { top: 24px; right: 24px; } .rm .lb-prev { left: 24px; } .rm .lb-next { right: 24px; }
