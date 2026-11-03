@@ -252,3 +252,50 @@ export function GalleryPage() {
     </div>
   )
 }
+
+/* =============================================================== BRAND ==== */
+/* Editorial: crest hero, alternating timeline, values, manifesto quote. */
+const timeline = [
+  ['1952', 'A workshop in Brera', 'Two brothers open a coachbuilding workshop behind the Pinacoteca, hand-beating aluminium bodies.'],
+  ['1967', 'First victory', 'A Rosso Milano barchetta takes its class at the Targa Florio, beating factory teams.'],
+  ['1988', 'Modena atelier', 'Production moves to Modena; every car is still signed by the craftsman who built its engine.'],
+  ['2011', 'The electric turn', 'A hybrid racing programme begins, laying the groundwork for today’s e-AWD.'],
+  ['2025', 'IL CORSA', '499 numbered cars. The most powerful road car the house has ever built.'],
+]
+const values = [
+  ['Passione', 'We build for the person who will drive it, never for a spec sheet.'],
+  ['Precisione', 'Tolerances measured in microns, stitches counted by hand: 1,800 per seat.'],
+  ['Patrimonio', 'Seventy years of craft, carried forward one apprentice at a time.'],
+]
+
+export function BrandPage() {
+  return (
+    <div className="pg pg-brand">
+      <section className="manifest">
+        <img className="m-duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.18" />
+        <img className="m-crest" src="/img/crest.png" alt="Rosso Milano crest" data-reveal="zoom" />
+        <Kicker red>Since 1952 · Milano</Kicker>
+        <h1 data-reveal="up" data-delay="150">A HOUSE OF<br /><b>MAKERS</b></h1>
+      </section>
+
+      <section className="timeline">
+        {timeline.map(([y, h, p], i) => (
+          <article key={y} className={i % 2 ? 'r' : 'l'} data-reveal={i % 2 ? 'right' : 'left'}>
+            <span className="year">{y}</span><h3>{h}</h3><p>{p}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="values">
+        {values.map(([h, p], i) => (
+          <div key={h} data-reveal="up" data-delay={i * 120}><span>0{i + 1}</span><h3>{h}</h3><p>{p}</p></div>
+        ))}
+      </section>
+
+      <section className="quote-wide" data-reveal="clip">
+        <img src="/img/p2.jpg" alt="" data-parallax="0.12" />
+        <blockquote>“We do not build the fastest car.<br />We build the one you <b>remember</b>.”<cite>— Giulia Rossi, Design Director</cite></blockquote>
+      </section>
+    </div>
+  )
+}
