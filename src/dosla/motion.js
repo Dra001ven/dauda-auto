@@ -46,21 +46,33 @@ export function useScrollMotion(key) {
     const counters = [...document.querySelectorAll('[data-count]')].filter((c) => !c.closest('[data-reveal]') && !c.dataset.reveal)
     counters.forEach((c) => io.observe(c))
 
+    // Parallax: offset is 0 when the element sits where the layout put it (centred in the
+    // viewport, or at scroll 0 for anything above the fold) and lags/leads from there.
     const par = [...document.querySelectorAll('[data-parallax]')]
+    let starts = []
+    const measure = () => {
+      par.forEach((el) => { el.style.translate = '' })
+      const vh = window.innerHeight
+      starts = par.map((el) => {
+        const r = el.getBoundingClientRect()
+        return Math.max(0, r.top + window.scrollY + r.height / 2 - vh / 2)
+      })
+    }
     let ticking = false
     const update = () => {
       ticking = false
-      const vh = window.innerHeight
-      par.forEach((el) => {
-        const r = el.getBoundingClientRect()
-        const mid = r.top + r.height / 2 - vh / 2
-        el.style.translate = `0 ${(-mid * parseFloat(el.dataset.parallax)).toFixed(1)}px`
-      })
+      const y = window.scrollY
+      par.forEach((el, i) => { el.style.translate = `0 ${((y - starts[i]) * parseFloat(el.dataset.parallax)).toFixed(1)}px` })
     }
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
-    if (!reduce && par.length) { update(); window.addEventListener('scroll', onScroll, { passive: true }) }
+    const onResize = () => { measure(); update() }
+    if (!reduce && par.length) {
+      measure(); update()
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onResize)
+    }
 
-    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll) }
+    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize) }
   }, [key])
 }
 
