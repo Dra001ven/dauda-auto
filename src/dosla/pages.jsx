@@ -143,3 +143,52 @@ export function PerformancePage() {
     </div>
   )
 }
+
+/* ========================================================== TECHNOLOGY ==== */
+/* Interactive hotspots on the car + tabbed deep dives. */
+const spots = [
+  { id: 'aero', x: 8, y: 62, t: 'Active front aero', d: 'Flaps in the bumper open in 0.3 s to balance downforce between axles.' },
+  { id: 'light', x: 26, y: 50, t: 'Matrix LED', d: '84-segment headlights shape the beam around oncoming traffic.' },
+  { id: 'brake', x: 47, y: 74, t: 'CCM-R brakes', d: 'Formula-derived carbon ceramics: 398 mm discs, 6-piston callipers.' },
+  { id: 'cabin', x: 58, y: 28, t: 'Carbon cell', d: 'One-piece monocoque weighing 82 kg with 40 % more torsional stiffness.' },
+  { id: 'rear', x: 88, y: 46, t: 'Shut-off Gurney', d: 'Rear spoiler shuts off in high-speed mode for a 6 % drag reduction.' },
+]
+const tabs = [
+  { k: 'Aerodynamics', img: '/img/g2.jpg', h: 'AIR, SCULPTED', p: 'Vortex generators under the nose and a two-position rear wing produce 390 kg of downforce at 250 km/h, without a fixed wing to break the silhouette.' },
+  { k: 'Chassis', img: '/img/g4.jpg', h: 'STIFF WHERE IT MATTERS', p: 'A carbon tub, aluminium subframes and magnetorheological dampers read the road 1,000 times per second.' },
+  { k: 'Powertrain', img: '/img/p3.jpg', h: 'V8 + THREE MOTORS', p: 'Two front motors give torque vectoring, a third sits between engine and an 8-speed dual-clutch gearbox.' },
+  { k: 'Cockpit', img: '/img/interior.jpg', h: 'EYES UP, HANDS ON', p: 'A curved 16" HMI, haptic steering-wheel controls and a head-up display keep every input at your fingertips.' },
+]
+
+export function TechnologyPage() {
+  const [spot, setSpot] = useState(spots[3])
+  const [tab, setTab] = useState(0)
+  return (
+    <div className="pg pg-tech">
+      <section className="spots">
+        <div className="spots-head" data-reveal="up"><Kicker red>Inside the engineering</Kicker><h1>TOUCH THE <b>DETAILS</b></h1></div>
+        <div className="spot-stage" data-reveal="zoom">
+          <img src="/img/car-side.png" alt="IL CORSA" />
+          {spots.map((s) => (
+            <button key={s.id} className={`pin${spot.id === s.id ? ' on' : ''}`} style={{ left: `${s.x}%`, top: `${s.y}%` }} onClick={() => setSpot(s)} aria-label={s.t}><i /></button>
+          ))}
+        </div>
+        <div className="spot-card" key={spot.id}>
+          <span>{String(spots.indexOf(spot) + 1).padStart(2, '0')} / 05</span>
+          <h3>{spot.t}</h3><p>{spot.d}</p>
+        </div>
+      </section>
+
+      <section className="tabs">
+        <div className="tab-list" data-reveal="up">
+          {tabs.map((t, i) => <button key={t.k} className={i === tab ? 'on' : ''} onClick={() => setTab(i)}>{String(i + 1).padStart(2, '0')}<span>{t.k}</span></button>)}
+        </div>
+        <div className="tab-body" key={tab}>
+          <img src={tabs[tab].img} alt="" />
+          <div><h2>{tabs[tab].h}</h2><p>{tabs[tab].p}</p></div>
+        </div>
+        <img className="tab-wire" src="/img/wireframe.png" alt="" aria-hidden="true" data-parallax="0.1" />
+      </section>
+    </div>
+  )
+}
