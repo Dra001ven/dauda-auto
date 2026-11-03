@@ -138,3 +138,29 @@
 .rm .lightbox button { position: absolute; background: none; border: 1px solid rgba(255,255,255,.2); color: #fff; width: 52px; height: 52px; display: grid; place-items: center; cursor: pointer; }
 .rm .lightbox button:hover { border-color: var(--gold); }
 .rm .lb-x { top: 24px; right: 24px; } .rm .lb-prev { left: 24px; } .rm .lb-next { right: 24px; }
+
+/* ---------------- BRAND: editorial ---------------- */
+.rm .manifest { position: relative; min-height: 88vh; display: grid; place-content: center; justify-items: center; text-align: center; overflow: hidden;
+  background: radial-gradient(50% 60% at 50% 45%, #1d0507, #070707 75%); }
+.rm .m-duomo { position: absolute; left: 50%; bottom: -5%; width: min(1100px, 95%); translate: -50% 0; opacity: .22; pointer-events: none; }
+.rm .m-crest { width: 120px; margin-bottom: 30px; position: relative; }
+.rm .manifest .kicker { position: relative; }
+.rm .manifest h1 { position: relative; }
+.rm .timeline { position: relative; padding: 110px var(--pad); display: grid; gap: 70px; }
+.rm .timeline::before { content: ''; position: absolute; left: 50%; top: 110px; bottom: 110px; width: 1px; background: linear-gradient(var(--red-b), var(--gold), transparent); }
+.rm .timeline article { width: calc(50% - 60px); position: relative; }
+.rm .timeline article.r { margin-left: auto; }
+.rm .timeline article.l { text-align: right; }
+.rm .timeline article::after { content: ''; position: absolute; top: 24px; width: 11px; height: 11px; border-radius: 50%; background: var(--red-b); box-shadow: 0 0 0 6px rgba(210,30,40,.15); }
+.rm .timeline article.l::after { right: -66px; } .rm .timeline article.r::after { left: -66px; }
+.rm .year { font: 400 clamp(54px, 6vw, 96px)/1 'Cinzel', serif; color: transparent; -webkit-text-stroke: 1px var(--gold); }
+.rm .timeline h3 { margin: 10px 0; }
+.rm .values { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid var(--line); }
+.rm .values div { padding: 60px 44px; border-left: 1px solid var(--line); }
+.rm .values div:first-child { border: 0; }
+.rm .values span { font: 500 11px var(--sans); color: var(--red-b); letter-spacing: .2em; }
+.rm .values h3 { margin: 18px 0 12px; font-size: 38px; font-style: italic; color: var(--gold); }
+.rm .quote-wide { position: relative; height: 70vh; min-height: 420px; overflow: hidden; display: grid; place-items: center; }
+.rm .quote-wide img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; filter: brightness(.35) saturate(1.2); }
+.rm .quote-wide blockquote { position: relative; margin: 0 var(--pad); text-align: center; font: 500 clamp(28px, 3.6vw, 58px)/1.15 var(--serif); }
+.rm .quote-wide cite { display: block; margin-top: 26px; font: 500 11px var(--sans); letter-spacing: .24em; text-transform: uppercase; font-style: normal; color: var(--gold); }
