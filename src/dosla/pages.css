@@ -214,3 +214,24 @@
 .rm .manifest h1 { transform: perspective(1000px) rotateX(calc(var(--x, 0) * -40deg)) translateZ(calc(var(--x, 0) * -100px)); }
 .rm .quote-wide blockquote { transform: perspective(1200px) rotateX(calc(var(--c, 0) * 22deg)); }
 .rm .timeline article.l:not(.in) { rotate: y 35deg; } .rm .timeline article.r:not(.in) { rotate: y -35deg; }
+
+/* ---------------- "House" sections: rosso velvet ---------------- */
+/* Deep wine base, a soft gold spotlight and fine film grain (inline SVG noise). */
+.rm .manifest, .rm .pg-contact .split { --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.rm .manifest {
+  background:
+    radial-gradient(38% 32% at 50% 30%, rgba(214,176,104,.16), transparent 70%),
+    radial-gradient(90% 75% at 50% 40%, #4a0a11 0%, #2a060a 45%, #140405 80%, #0b0405 100%);
+}
+.rm .manifest::after, .rm .pg-contact .split::after { content: ''; position: absolute; inset: 0; background: var(--grain); opacity: .07; mix-blend-mode: overlay; pointer-events: none; }
+.rm .manifest::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(transparent, #070707); z-index: 1; pointer-events: none; }
+.rm .manifest .m-duomo { opacity: .28; }
+.rm .pg-contact .split { position: relative;
+  background:
+    radial-gradient(60% 70% at 10% 15%, rgba(214,176,104,.08), transparent 60%),
+    linear-gradient(105deg, #1b0b0d 0%, #24090c 48%, #3a0910 52%, #4c0b12 100%); }
+.rm .pg-contact .book { background: radial-gradient(70% 60% at 85% 20%, rgba(214,176,104,.12), transparent 60%), linear-gradient(160deg, rgba(110,14,24,.55), rgba(40,6,10,.4)); border-left: 1px solid rgba(214,176,104,.18); }
+.rm .pg-contact .rooms li.on { background: linear-gradient(90deg, rgba(214,176,104,.10), transparent); }
+.rm .pg-contact .rooms ul, .rm .pg-contact .rooms li { border-color: rgba(214,176,104,.14); }
+.rm .manifest > .m-crest, .rm .manifest > .kicker, .rm .manifest > h1 { position: relative; z-index: 2; }
+.rm .pg-contact .split > * { position: relative; z-index: 2; }
