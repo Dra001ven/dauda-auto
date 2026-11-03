@@ -32,16 +32,25 @@ export function useScrollMotion(key) {
     const els = [...document.querySelectorAll('[data-reveal]')]
     els.forEach((el) => { if (el.dataset.delay) el.style.transitionDelay = `${el.dataset.delay}ms` })
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return
-        e.target.classList.add('in')
-        e.target.querySelectorAll?.('[data-count]').forEach(countUp)
-        if (e.target.dataset.count) countUp(e.target)
-        io.unobserve(e.target)
-      })
-    }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' })
-    els.forEach((el) => (reduce ? el.classList.add('in') : io.observe(el)))
+    const reveal = (el) => {
+      el.classList.add('in')
+      const d = parseFloat(el.dataset.delay) || 0
+      setTimeout(() => { el.style.transitionDelay = '' }, d + 1500)
+      el.querySelectorAll?.('[data-count]').forEach(countUp)
+      if (el.dataset.count) countUp(el)
+    }
+    const onHit = (obs) => (entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return
+      reveal(e.target); obs.unobserve(e.target)
+    })
+    const io = new IntersectionObserver((entries) => onHit(io)(entries), { threshold: 0.18, rootMargin: '0px 0px -6% 0px' })
+    // Clip reveals start almost fully clipped (a 1px sliver stays visible so the observer
+    // can see them), so they need a zero threshold.
+    const clipIO = new IntersectionObserver((entries) => onHit(clipIO)(entries), { threshold: 0, rootMargin: '0px 0px -10% 0px' })
+    els.forEach((el) => {
+      if (reduce) return el.classList.add('in')
+      ;(el.dataset.reveal === 'clip' ? clipIO : io).observe(el)
+    })
 
     const counters = [...document.querySelectorAll('[data-count]')].filter((c) => !c.closest('[data-reveal]') && !c.dataset.reveal)
     counters.forEach((c) => io.observe(c))
@@ -103,7 +112,7 @@ export function useScrollMotion(key) {
     tilts.forEach((el) => { el.addEventListener('pointermove', move); el.addEventListener('pointerleave', leave) })
 
     return () => {
-      io.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize)
+      io.disconnect(); clipIO.disconnect(); window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize)
       tilts.forEach((el) => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave) })
     }
   }, [key])
