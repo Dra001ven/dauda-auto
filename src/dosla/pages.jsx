@@ -132,7 +132,7 @@ export function PerformancePage() {
       </section>
 
       <section className="laps">
-        <div className="laps-img" data-reveal="clip"><img src="/img/p4.jpg" alt="" /></div>
+        <div className="laps-img" data-reveal="clip"><img src="/img/x-sto.jpg" alt="" /></div>
         <div className="board">
           <Kicker red>Lap board</Kicker>
           {laps.map(([t, v], i) => (
@@ -154,9 +154,9 @@ const spots = [
   { id: 'rear', x: 88, y: 46, t: 'Shut-off Gurney', d: 'Rear spoiler shuts off in high-speed mode for a 6 % drag reduction.' },
 ]
 const tabs = [
-  { k: 'Aerodynamics', img: '/img/g2.jpg', h: 'AIR, SCULPTED', p: 'Vortex generators under the nose and a two-position rear wing produce 390 kg of downforce at 250 km/h, without a fixed wing to break the silhouette.' },
-  { k: 'Chassis', img: '/img/g4.jpg', h: 'STIFF WHERE IT MATTERS', p: 'A carbon tub, aluminium subframes and magnetorheological dampers read the road 1,000 times per second.' },
-  { k: 'Powertrain', img: '/img/p3.jpg', h: 'V8 + THREE MOTORS', p: 'Two front motors give torque vectoring, a third sits between engine and an 8-speed dual-clutch gearbox.' },
+  { k: 'Aerodynamics', img: '/img/x-750s-nose.jpg', h: 'AIR, SCULPTED', p: 'Vortex generators under the nose and a two-position rear wing produce 390 kg of downforce at 250 km/h, without a fixed wing to break the silhouette.' },
+  { k: 'Chassis', img: '/img/x-sto-wheel.jpg', h: 'STIFF WHERE IT MATTERS', p: 'A carbon tub, aluminium subframes and magnetorheological dampers read the road 1,000 times per second.' },
+  { k: 'Powertrain', img: '/img/x-gt3rs.jpg', h: 'V8 + THREE MOTORS', p: 'Two front motors give torque vectoring, a third sits between engine and an 8-speed dual-clutch gearbox.' },
   { k: 'Cockpit', img: '/img/interior.jpg', h: 'EYES UP, HANDS ON', p: 'A curved 16" HMI, haptic steering-wheel controls and a head-up display keep every input at your fingertips.' },
 ]
 
@@ -196,16 +196,21 @@ export function TechnologyPage() {
 /* ============================================================= GALLERY ==== */
 /* Filterable masonry archive with a keyboard-friendly lightbox. */
 const shots = [
-  { src: '/img/p1.jpg', c: 'Exterior', t: 'Ginza, Tokyo' },
+  { src: '/img/x-sto.jpg', c: 'Exterior', t: 'Lamborghini Huracán STO' },
   { src: '/img/p6.jpg', c: 'Interior', t: 'Bordeaux leather' },
-  { src: '/img/p2.jpg', c: 'Exterior', t: 'Atelier, Modena' },
-  { src: '/img/g4.jpg', c: 'Detail', t: 'Forged wheel' },
-  { src: '/img/p3.jpg', c: 'Exterior', t: 'Salon debut' },
-  { src: '/img/g2.jpg', c: 'Detail', t: 'Light signature' },
+  { src: '/img/x-artura.jpg', c: 'Exterior', t: 'McLaren Artura' },
+  { src: '/img/x-sto-wheel.jpg', c: 'Detail', t: 'Forged centre-lock' },
+  { src: '/img/x-revuelto.jpg', c: 'Exterior', t: 'Lamborghini Revuelto' },
+  { src: '/img/x-750s-nose.jpg', c: 'Detail', t: 'Eye-socket headlights' },
+  { src: '/img/x-gt3rs.jpg', c: 'Exterior', t: 'Porsche 911 GT3 RS' },
   { src: '/img/p5.jpg', c: 'Interior', t: 'Spider cockpit' },
-  { src: '/img/p4.jpg', c: 'Exterior', t: 'Delivery day' },
-  { src: '/img/p7.jpg', c: 'Detail', t: 'Side intake' },
-  { src: '/img/g1.jpg', c: 'Exterior', t: 'Studio' },
+  { src: '/img/x-mc20.jpg', c: 'Exterior', t: 'Maserati MC20' },
+  { src: '/img/x-750s.jpg', c: 'Exterior', t: 'McLaren 750S' },
+  { src: '/img/g4.jpg', c: 'Detail', t: 'Five-spoke forged wheel' },
+  { src: '/img/x-sto-blu.jpg', c: 'Exterior', t: 'Huracán STO, Blu Laufey' },
+  { src: '/img/p1.jpg', c: 'Exterior', t: 'Ginza, Tokyo' },
+  { src: '/img/x-750s-stand.jpg', c: 'Exterior', t: 'McLaren 750S, salon' },
+  { src: '/img/g2.jpg', c: 'Detail', t: 'Bonnet scoop' },
 ]
 
 export function GalleryPage() {
