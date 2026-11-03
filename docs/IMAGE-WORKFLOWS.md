@@ -51,6 +51,13 @@ neighbouring objects: ghost SUV and a pole survived on two of the SF90 shots).
 - Put files in `public/cars/`, reference as `/cars/NAME.png`.
 - Add credit line to the footer in `src/dosla/Dosla.jsx`.
 
+## 6. Recolour + cleanup (used for the IL CORSA side view)
+- Source was a blue F8 on a show stand. After rembg: keep the largest alpha component
+  (`scipy.ndimage.label`), then blank rectangles that still contain a person / second car.
+- Hue shift only saturated blue pixels (HSV hue 130-190 of 255) by +100 -> red. Metallic
+  highlights stay slightly silver-blue; acceptable.
+- Cover dealer plates/text with a dark patch inside the alpha mask (`im.paste(patch, box, alpha.crop(box))`).
+
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
