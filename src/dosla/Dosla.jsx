@@ -112,8 +112,9 @@ const quotes = [
 function Home() {
   return (
     <>
-      <section className="hero intro" data-s3d>
-        <div className="hero-bg" data-parallax="0.12"><DepthImage className="hero-bg-depth" src="/img/hero-bg.jpg" depth="/img/hero-bg-depth.jpg" strength={0.012} focus={0.3} drift={0.25} /></div>
+      <div className="scene scene-hero" data-pin><div className="scene-inner">
+      <section className="hero intro">
+        <div className="hero-bg"><DepthImage className="hero-bg-depth" src="/img/hero-bg.jpg" depth="/img/hero-bg-depth.jpg" strength={0.012} focus={0.3} drift={0.25} /></div>
         <div className="hero-copy">
           <p className="eyebrow">Introducing <i /></p>
           <h1>BORN IN ITALY.<br /><em>CRAFTED TO</em><br /><b>INSPIRE.</b></h1>
@@ -130,7 +131,7 @@ function Home() {
         <div className="hero-arc" aria-hidden="true" />
       </section>
 
-      <section className="perf" data-reveal="3d">
+      <section className="perf">
         <p className="kicker"><span>PU</span>RE PERFORMANCE</p>
         <div className="perf-row">
           {stats.map(({ icon, value, unit, label }, i) => (
@@ -141,12 +142,14 @@ function Home() {
           ))}
         </div>
       </section>
+      </div></div>
 
-      <section className="box model" data-s3d>
-        <div className="curtain" data-reveal="fade" />
-        <img className="model-car" src="/img/car-side.png" alt="IL CORSA in profile" data-reveal="drive" />
-        <img className="model-reflect" src="/img/car-side.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="500" />
-        <div className="model-copy" data-reveal="up">
+      <div className="scene scene-model" data-pin><div className="scene-inner">
+      <section className="box model">
+        <div className="curtain" />
+        <img className="model-car" src="/img/car-side.png" alt="IL CORSA in profile" />
+        <img className="model-reflect" src="/img/car-side.png" alt="" aria-hidden="true" />
+        <div className="model-copy">
           <p className="kicker red">THE DEBUT MODEL <i /></p>
           <h2>IL CORSA</h2>
           <p className="sub">Designed without compromise.</p>
@@ -155,6 +158,7 @@ function Home() {
           <a className="film" href="#/performance">WATCH FILM {I.play}</a>
         </div>
       </section>
+      </div></div>
 
       <section className="box tech" data-s3d>
         <div className="tech-img-wrap" data-reveal="clip"><img className="tech-img" src="/img/interior.jpg" alt="Red leather cockpit" /></div>
@@ -171,7 +175,7 @@ function Home() {
         <p className="kicker red" data-reveal="up">BEYOND PERFORMANCE</p>
         <h2 data-reveal="up" data-delay="80">A LIFESTYLE. A LEGACY.</h2>
         <div className="grid">{[1, 2, 3, 4, 5].map((g, i) => (
-          <a key={g} href="#/gallery" data-reveal="flip" data-delay={i * 110} data-tilt="12"><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /></a>
+          <a key={g} href="#/gallery" data-reveal="up" data-delay={i * 110} data-tilt="8"><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /><span className="cap"><b>{tiles[i][0]}</b>{tiles[i][1]}</span></a>
         ))}</div>
       </section>
 
