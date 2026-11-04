@@ -164,3 +164,4 @@
 .rm .hero-bg::after { opacity: .22; }
 .rm .hero-video { filter: brightness(.86) contrast(1.05); }
 .rm .hero::after { display: none; }  /* glow was for the old cut-out car */
+.rm .hero-arc { display: none; }  /* the arc covered the hero film */

@@ -170,7 +170,6 @@ function Home() {
             <div><dt>Delivery</dt><dd>NATIONWIDE</dd></div>
           </dl>
         </div>
-        <div className="hero-arc" aria-hidden="true" />
       </section>
 
       <section className="perf light">
