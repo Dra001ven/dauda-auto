@@ -30,7 +30,7 @@ VIEWS = {
     "911-wheel":    ("images (3).jpeg", 0, (36, 528, 415, 737), ("hue", (330, 32, 0.16))),
     "911-front":    ("images (4).jpeg", 0, (0, 170, 335, 450), None),  # black car in a B&W photo: glass = paint, view only
     "bentley-cabin": ("images (2).jpeg", 0, None, ("hue", (320, 360, 0.30))),
-    "amg-gt":       ("images (5).jpeg", 90, None, ("white", 0.5)),
+    "amg-gt":       ("images (5).jpeg", 90, None, ("car", 0.12)),
     "challenger":   ("images (6).jpeg", 90, None, None),  # black car on a dark scene: no clean paint mask, view only
     "r8":           ("images (9).jpeg", 0, None, ("seed", ([(0.5, 0.3), (0.3, 0.45), (0.85, 0.35)], 10))),
     "812":          ("images (10).jpeg", -90, None, ("hue", (340, 20, 0.45))),
@@ -54,7 +54,18 @@ VIEWS = {
 
 # areas never to recolour, as polygons in fractions of width/height (mostly windscreens)
 EXCLUDE = {
-    "amg-gt": [[(0.40, 0.25), (0.73, 0.25), (0.70, 0.44), (0.36, 0.45)]],
+    # wheels, tyres and lamps are excluded so only bodywork changes colour
+    "911-rear34": [("ellipse", 0.36, 0.70, 0.068, 0.19), ("ellipse", 0.08, 0.335, 0.052, 0.18)],
+    "911-rear": [("ellipse", 0.585, 0.655, 0.085, 0.21), ("ellipse", 0.94, 0.38, 0.065, 0.17)],
+    "f40": [("ellipse", 0.222, 0.482, 0.022, 0.072), ("ellipse", 0.373, 0.546, 0.031, 0.1)],
+    "sf90": [("ellipse", 0.35, 0.645, 0.068, 0.1), ("ellipse", 0.065, 0.565, 0.048, 0.085)],
+    "jesko": [("ellipse", 0.159, 0.562, 0.04, 0.125), ("ellipse", 0.50, 0.652, 0.06, 0.135)],
+    "amg-gt": [[(0.40, 0.25), (0.73, 0.25), (0.70, 0.44), (0.36, 0.45)],                       # windscreen
+               [(0.70, 0.30), (0.80, 0.33), (0.79, 0.42), (0.69, 0.42)],                       # side window
+               [(0.185, 0.56), (0.30, 0.545), (0.44, 0.555), (0.445, 0.695), (0.19, 0.69)],   # grille
+               [(0.47, 0.555), (0.53, 0.50), (0.585, 0.475), (0.592, 0.52), (0.56, 0.59), (0.48, 0.605)],  # headlight R
+               [(0.162, 0.52), (0.195, 0.50), (0.19, 0.60), (0.16, 0.60)],                    # headlight L
+               ("ellipse", 0.645, 0.70, 0.048, 0.125), ("ellipse", 0.835, 0.60, 0.03, 0.10)],  # wheels
     "challenger": [
         [(0.39, 0.24), (0.80, 0.22), (0.80, 0.41), (0.38, 0.41)],          # windscreen
         [(0.15, 0.41), (0.46, 0.41), (0.46, 0.55), (0.15, 0.55)],          # grille + lamps
@@ -137,9 +148,13 @@ def masks(only=None):
             m = win(lo, hi) & (s >= smin) & (v > 0.06)
             weak = win((lo - 18) % 360, (hi + 18) % 360) & (s >= smin * 0.45) & (v > 0.04)
             if vid.endswith(("cabin", "wheel")): car = np.ones_like(car)  # interiors fill the frame
+        elif kind == "car":  # whole car body brighter than p; glass/grille/wheels go in EXCLUDE
+            m = v >= p
+            weak = m
         elif kind == "white":
-            m = (v >= p) & (s <= 0.22)
-            weak = (v >= p - 0.18) & (s <= 0.3)
+            vmin, wsat = p if isinstance(p, tuple) else (p, 0.3)
+            m = (v >= vmin) & (s <= 0.22)
+            weak = (v >= vmin - 0.18) & (s <= wsat)
         else:  # seed flood in Lab
             seeds, tol = p
             lab = cv2.cvtColor((a * 255).astype(np.uint8), cv2.COLOR_RGB2LAB)
@@ -153,10 +168,15 @@ def masks(only=None):
         # hysteresis: weak pixels count when they touch a strong region (fills shading gaps
         # on curved panels without flooding the background)
         m &= car; weak &= car
+        if kind == "car":  # LED rings / hot specular stay white (not for white cars: their paint IS that bright)
+            hot = (v > 0.97) & (s < 0.08)
+            m &= ~hot; weak &= ~hot
         for poly in EXCLUDE.get(vid, []):  # glass etc. that matches the paint colour
             cut = np.zeros((H, W), np.uint8)
             if poly[0] == "circle":
                 cv2.circle(cut, (int(poly[1] * W), int(poly[2] * H)), int(poly[3] * W), 1, -1)
+            elif poly[0] == "ellipse":  # cx, cy, rx, ry as fractions of W / H
+                cv2.ellipse(cut, (int(poly[1] * W), int(poly[2] * H)), (int(poly[3] * W), int(poly[4] * H)), 0, 0, 360, 1, -1)
             else:
                 cv2.fillPoly(cut, [np.array([(x * W, y * H) for x, y in poly], np.int32)], 1)
             m &= cut == 0; weak &= cut == 0
