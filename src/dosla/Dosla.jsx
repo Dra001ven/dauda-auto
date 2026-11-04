@@ -45,7 +45,7 @@ function Nav({ route }) {
     return () => window.removeEventListener('scroll', on)
   }, [route])
   return (
-    <header className="nav">
+    <header className={`nav${glass ? ' glass' : ''}`}>
       <Brand />
       <nav>{routes.map(([l, p]) => <a key={p} className={route === p ? 'on' : ''} href={`#${p}`}>{l}</a>)}</nav>
       <a className="btn-outline" href="#/contact">Inquire now</a>
@@ -122,6 +122,7 @@ function Home() {
         </div>
         <DepthImage className="hero-car" src="/img/car-hero.png" depth="/img/car-hero-depth.png" alt="White Lamborghini Revuelto" strength={0.022} focus={0.6} />
         <img className="hero-reflect" src="/img/car-hero.png" alt="" aria-hidden="true" />
+        <div className="hero-arc" aria-hidden="true" />
       </section>
 
       <section className="perf" data-reveal="3d">
