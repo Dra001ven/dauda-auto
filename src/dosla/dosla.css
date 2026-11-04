@@ -272,3 +272,37 @@
 .rm .grid .cap b { display: block; font: 500 calc(var(--u) * 7)/1.2 var(--serif); color: #fff; margin-bottom: calc(var(--u) * 1.5); }
 .rm .grid a:hover .cap { translate: 0 0; opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .rm .hero-arc { opacity: .3; transform: none; } .rm .box.model, .rm .box.tech, .rm .perf { transform: none !important; } .rm [data-reveal] { filter: none !important; } }
+
+/* ================= pinned scroll scenes (scroll scrubs the animation) ================= */
+.rm .scene-hero { height: calc(var(--u) * 436 + 90vh); }
+.rm .scene-model { height: calc(var(--u) * 205 + 85vh); }
+.rm .scene-inner { position: sticky; top: 0; }
+.rm .scene-model .scene-inner { top: calc(50vh - var(--u) * 102); }
+
+/* hero: copy lifts + blurs away, car drives toward you, arc rises */
+.rm .scene-hero .hero .hero-copy { transform: translate3d(0, calc(var(--p, 0) * -150px), 0); opacity: calc(1 - var(--p, 0) * 1.5); filter: blur(calc(var(--p, 0) * 12px)); }
+.rm .scene-hero .hero .hero-car { transform-origin: 50% 85%;
+  transform: perspective(1400px) translate3d(calc(var(--p, 0) * -14%), calc(var(--p, 0) * 10%), calc(var(--p, 0) * 170px)) rotateY(calc(var(--p, 0) * 12deg)); }
+.rm .scene-hero .hero .hero-reflect { transform: perspective(1400px) translate3d(calc(var(--p, 0) * -14%), calc(var(--p, 0) * 10%), calc(var(--p, 0) * 170px)) rotateY(calc(var(--p, 0) * 12deg)) scaleY(-1); }
+.rm .scene-hero .hero .hero-arc { opacity: calc(.25 + var(--p, 0) * 1.1); transform: translateY(calc((.3 - var(--p, 0)) * var(--u) * 280)) scale(calc(.9 + var(--p, 0) * .3)); }
+.rm .scene-hero .hero .hero-bg { scale: calc(1 + var(--p, 0) * .12); }
+.rm .scene-hero .perf { transform: translateY(calc(var(--p, 0) * -24px)); }
+
+/* IL CORSA: curtain opens, car drives in from the right, copy resolves */
+.rm .scene-model .box.model { transform: none; border-radius: 0; }
+.rm .scene-model .model .curtain { transform: none; --o: min(var(--p, 0) * 2.2, 1);
+  clip-path: inset(0 calc((1 - var(--o)) * 50%) 0 calc((1 - var(--o)) * 50%)); }
+.rm .scene-model .model .model-car { --d: min(var(--p, 0) * 1.6, 1); opacity: min(var(--p, 0) * 4, 1);
+  transform: translateX(calc((1 - var(--d)) * 75%)) rotateY(0deg); transition: none; }
+.rm .scene-model .model .model-reflect { --d: min(var(--p, 0) * 1.6, 1); opacity: calc(min(var(--p, 0) * 4, 1) * .25);
+  transform: translateX(calc((1 - var(--d)) * 75%)) scaleY(-1); }
+.rm .scene-model .model .model-copy { --t: min(var(--p, 0) * 2.4, 1); opacity: var(--t);
+  transform: translateY(calc((1 - var(--t)) * 40px)); filter: blur(calc((1 - var(--t)) * 10px)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rm .scene-hero, .rm .scene-model { height: auto; }
+  .rm .scene-inner { position: static; }
+  .rm .scene-model .model .model-car, .rm .scene-model .model .model-copy { opacity: 1; transform: none; filter: none; }
+  .rm .scene-model .model .model-reflect { opacity: .25; transform: scaleY(-1); }
+  .rm .scene-model .model .curtain { clip-path: none; }
+}
