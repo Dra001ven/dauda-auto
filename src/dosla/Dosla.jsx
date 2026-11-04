@@ -56,14 +56,14 @@ function Nav({ route }) {
 function Footer() {
   return (
     <>
-      <footer className="foot">
-        <Brand />
+      <footer className="foot light">
+        <Brand tone="wine" />
         <div><h4>Company</h4><a href="#/brand">About us</a><a href="#/brand">Craftsmanship</a><a href="#/brand">Careers</a><a href="#/brand">News</a></div>
         <div><h4>Information</h4><a href="#/contact">Ownership</a><a href="#/contact">Warranty</a><a href="#/contact">FAQ</a><a href="#/contact">Privacy policy</a></div>
         <div><h4>Connect</h4><a href="#/">Instagram</a><a href="#/">YouTube</a><a href="#/">LinkedIn</a><a href="#/contact">Contact</a></div>
         <div className="made"><p>HANDCRAFTED IN ITALY</p><i /><small>© 2025 DAUDA MOTOS. ALL RIGHTS RESERVED.</small></div>
       </footer>
-      <p className="credits">Photography: Calreyn88, Alexander Migl, pjhooker, Francesca Milanini, Tokumeigakarinoaoshima and other Wikimedia Commons contributors (CC BY-SA 3.0 / 4.0), crest lion by ImperialHerald (CC0). Backgrounds removed, some recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
+      <p className="credits light">Photography: Calreyn88, Alexander Migl, pjhooker, Francesca Milanini, Tokumeigakarinoaoshima and other Wikimedia Commons contributors (CC BY-SA 3.0 / 4.0), crest lion by ImperialHerald (CC0). Backgrounds removed, some recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
     </>
   )
 }
@@ -131,7 +131,7 @@ function Home() {
         <div className="hero-arc" aria-hidden="true" />
       </section>
 
-      <section className="perf">
+      <section className="perf light">
         <p className="kicker"><span>PU</span>RE PERFORMANCE</p>
         <div className="perf-row">
           {stats.map(({ icon, value, unit, label }, i) => (
@@ -160,7 +160,7 @@ function Home() {
       </section>
       </div></div>
 
-      <section className="box tech" data-s3d>
+      <section className="box tech light" data-s3d>
         <div className="tech-img-wrap" data-reveal="clip"><img className="tech-img" src="/img/interior.jpg" alt="Red leather cockpit" /></div>
         <div className="tech-copy" data-reveal="right" data-delay="150">
           <p className="kicker red">TECHNOLOGY MEETS ARTISTRY</p>
@@ -179,7 +179,7 @@ function Home() {
         ))}</div>
       </section>
 
-      <section className="quotes">
+      <section className="quotes light">
         <p className="kicker red" data-reveal="up">TRUSTED BY ENTHUSIASTS WORLDWIDE</p>
         <div className="q-row">
           {quotes.map((x, i) => (
