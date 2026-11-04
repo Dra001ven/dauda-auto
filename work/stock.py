@@ -63,6 +63,8 @@ EXCLUDE = {
         [(0.86, 0.40), (0.95, 0.40), (0.95, 0.72), (0.86, 0.72)],          # rear wheel
     ],
     "r8": [[(0.36, 0.56), (1.0, 0.56), (1.0, 0.9), (0.36, 0.9)]],     # honeycomb grille
+    "tucson": [[(0.37, 0.0), (1.0, 0.0), (1.0, 1.0), (0.37, 1.0)]],   # the rest of the dealer row
+    "812": [("circle", 0.214, 0.705, 0.074), ("circle", 0.793, 0.705, 0.074)],  # wheels (cx, cy, r as fraction of width)
 }
 
 
@@ -153,7 +155,10 @@ def masks(only=None):
         m &= car; weak &= car
         for poly in EXCLUDE.get(vid, []):  # glass etc. that matches the paint colour
             cut = np.zeros((H, W), np.uint8)
-            cv2.fillPoly(cut, [np.array([(x * W, y * H) for x, y in poly], np.int32)], 1)
+            if poly[0] == "circle":
+                cv2.circle(cut, (int(poly[1] * W), int(poly[2] * H)), int(poly[3] * W), 1, -1)
+            else:
+                cv2.fillPoly(cut, [np.array([(x * W, y * H) for x, y in poly], np.int32)], 1)
             m &= cut == 0; weak &= cut == 0
         n, lbl = cv2.connectedComponents(weak.astype(np.uint8))
         hit = np.unique(lbl[m]); hit = hit[hit > 0]
@@ -170,6 +175,65 @@ def masks(only=None):
         out = Image.fromarray(keep).filter(ImageFilter.GaussianBlur(1.2))
         out.save(OUT / f"{vid}-mask.png", optimize=True)
         print(vid, f"{(keep > 0).mean() * 100:.1f}% painted")
+
+
+# exterior views that get a background-free cut-out (tucson: several cars touch, skipped)
+# (r8 is a tight crop: the car runs off the frame, so its cut-out looks chopped; kept as photo)
+CUT = ["911-rear34", "911-rear", "911-front", "amg-gt", "challenger", "812", "f40", "sf90", "m3", "jesko",
+       "study-lumen", "study-rosso", "study-notte", "study-sabbia", "study-corsa"]
+
+
+# areas to force transparent in a cut-out (fractions of the full view)
+CUT_CLEAR = {
+    "f40": [[(0, 0.74), (1, 0.74), (1, 1), (0, 1)], [(0.30, 0.672), (0.45, 0.672), (0.45, 0.76), (0.30, 0.76)]],  # wet-floor reflection
+    "study-corsa": [[(0.36, 0.0), (0.56, 0.0), (0.56, 0.36), (0.36, 0.36)]],  # wall logo
+}
+
+
+def cutout(only=None):
+    """rembg cut-out -> public/stock/<view>-cut.webp, cropped to the car; its paint mask is
+    cropped by the same box -> <view>-cut-mask.png so the live recolour still lines up."""
+    import cv2
+    from rembg import new_session, remove
+    rs = new_session("isnet-general-use")
+    for vid in CUT:
+        if only and vid not in only: continue
+        src = OUT / f"{vid}.jpg"
+        if not src.exists(): print("skip (not upscaled yet)", vid); continue
+        im = Image.open(src).convert("RGB")
+        a = np.array(remove(im, session=rs, only_mask=True))
+        for poly in CUT_CLEAR.get(vid, []):
+            H0, W0 = a.shape
+            cv2.fillPoly(a, [np.array([(x * W0, y * H0) for x, y in poly], np.int32)], 0)
+        # keep the main body only: biggest component plus anything big touching it
+        n, lbl, st, _ = cv2.connectedComponentsWithStats((a > 128).astype(np.uint8))
+        if n > 1:
+            big = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
+            keep = np.isin(lbl, [i for i in range(1, n) if i == big or st[i, cv2.CC_STAT_AREA] > st[big, cv2.CC_STAT_AREA] * 0.25])
+            a = np.where(cv2.dilate(keep.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0, a, 0)
+        # trim the 1-2px background halo, then soften the edge
+        a = cv2.erode(a, np.ones((3, 3), np.uint8))
+        a = cv2.GaussianBlur(a, (3, 3), 0)
+        ys, xs = np.where(a > 10)
+        H, W = a.shape
+        pad = int(max(H, W) * 0.02)
+        box = (max(0, xs.min() - pad), max(0, ys.min() - pad), min(W, xs.max() + pad + 1), min(H, ys.max() + pad + 1))
+        rgba = im.copy(); rgba.putalpha(Image.fromarray(a))
+        rgba.crop(box).save(OUT / f"{vid}-cut.webp", quality=90, method=6)
+        mk = OUT / f"{vid}-mask.png"
+        if mk.exists(): Image.open(mk).crop(box).save(OUT / f"{vid}-cut-mask.png", optimize=True)
+        print(vid, "box", box, f"{(a > 128).mean() * 100:.0f}% car")
+
+
+def cut_sheet():
+    from PIL import ImageDraw
+    tiles = [(v, Image.open(OUT / f"{v}-cut.webp")) for v in CUT if (OUT / f"{v}-cut.webp").exists()]
+    c, W, Hh = 4, 424, 280
+    s = Image.new("RGB", (W * c, Hh * ((len(tiles) + c - 1) // c)), (66, 10, 21)); d = ImageDraw.Draw(s)
+    for i, (v, t) in enumerate(tiles):
+        t = t.copy(); t.thumbnail((W - 8, Hh - 8)); x, y = (i % c) * W, (i // c) * Hh
+        s.paste(t, (x + 4 + (W - 8 - t.width) // 2, y + 4 + (Hh - 8 - t.height) // 2), t); d.text((x + 6, y + 6), v, fill=(255, 230, 0))
+    s.save(WORK / "cut-sheet.jpg", quality=85); print(WORK / "cut-sheet.jpg")
 
 
 def preview(only=None):
@@ -191,4 +255,4 @@ def preview(only=None):
 
 if __name__ == "__main__":
     cmd, rest = (sys.argv[1] if len(sys.argv) > 1 else ""), sys.argv[2:] or None
-    {"prep": prep, "upscale": lambda: upscale(rest), "masks": lambda: masks(rest), "preview": lambda: preview(rest)}.get(cmd, lambda: print(__doc__))()
+    {"cutout": lambda: cutout(rest), "cutsheet": cut_sheet, "prep": prep, "upscale": lambda: upscale(rest), "masks": lambda: masks(rest), "preview": lambda: preview(rest)}.get(cmd, lambda: print(__doc__))()
