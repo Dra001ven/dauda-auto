@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { useSmoothScroll, useScrollMotion, scrollTop } from './motion'
 import { ModelPage, PerformancePage, TechnologyPage, GalleryPage, BrandPage, ContactPage } from './pages'
 import { I } from './icons'
+import DepthImage from './DepthImage'
 import './dosla.css'
 import './pages.css'
 
@@ -101,7 +102,7 @@ function Home() {
   return (
     <>
       <section className="hero intro" data-s3d>
-        <div className="hero-bg" data-parallax="0.12" />
+        <div className="hero-bg" data-parallax="0.12"><DepthImage className="hero-bg-depth" src="/img/hero-bg.jpg" depth="/img/hero-bg-depth.jpg" strength={0.012} focus={0.3} drift={0.25} /></div>
         <div className="hero-copy">
           <p className="eyebrow">Introducing <i /></p>
           <h1>BORN IN ITALY.<br /><em>CRAFTED TO</em><br /><b>INSPIRE.</b></h1>
@@ -113,7 +114,7 @@ function Home() {
             <div><dt>Deliveries begin</dt><dd>Q4 2025</dd></div>
           </dl>
         </div>
-        <img className="hero-car" src="/img/car-hero.png" alt="White Lamborghini Revuelto" />
+        <DepthImage className="hero-car" src="/img/car-hero.png" depth="/img/car-hero-depth.png" alt="White Lamborghini Revuelto" strength={0.022} focus={0.6} />
         <img className="hero-reflect" src="/img/car-hero.png" alt="" aria-hidden="true" />
       </section>
 

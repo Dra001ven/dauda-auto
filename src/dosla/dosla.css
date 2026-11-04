@@ -41,7 +41,9 @@
 
 /* ---------- hero ---------- */
 .rm .hero { position: relative; height: calc(var(--u) * 338); overflow: hidden; }
-.rm .hero-bg { position: absolute; left: 0; right: 0; top: calc(var(--u) * -30); height: calc(var(--u) * 398); background: #050609 url(/img/hero-bg.jpg) 0 calc(var(--u) * 30) / 100% calc(var(--u) * 338) no-repeat; }
+.rm .hero-bg { position: absolute; left: 0; right: 0; top: calc(var(--u) * -30); height: calc(var(--u) * 398); background: #050609; }
+.rm .hero-bg-depth { position: absolute; left: 0; top: calc(var(--u) * 30); width: 100%; height: calc(var(--u) * 338) !important; aspect-ratio: auto !important; display: block; }
+.rm canvas.hero-car { display: block; aspect-ratio: 2.5; height: auto; }
 .rm .hero::before { content: ''; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(90deg, rgba(4,4,6,.94) 0%, rgba(4,4,6,.82) 22%, rgba(4,4,6,.35) 42%, rgba(4,4,6,0) 60%),
               linear-gradient(180deg, rgba(4,4,6,.65) 0%, rgba(4,4,6,0) 18%, rgba(4,4,6,0) 70%, rgba(7,7,7,.95) 100%); }
