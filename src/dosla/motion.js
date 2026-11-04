@@ -8,7 +8,8 @@ export function getLenis() { return lenis }
 export function useSmoothScroll() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4), smoothWheel: true })
+    // heavy, gliding scroll: low lerp = the page keeps drifting after the wheel stops
+    lenis = new Lenis({ lerp: 0.055, wheelMultiplier: 0.85, touchMultiplier: 1.4, smoothWheel: true })
     let id
     const raf = (time) => { lenis.raf(time); id = requestAnimationFrame(raf) }
     id = requestAnimationFrame(raf)
@@ -71,11 +72,20 @@ export function useScrollMotion(key) {
     //  --c  -1 → 1 as the section travels from bottom to top of the viewport (0 = centred)
     //  --x   0 → 1 as the section scrolls out above the top edge (exit progress)
     const s3d = [...document.querySelectorAll('[data-s3d]')]
+    // Pinned scenes: <div data-pin><div class=pin-inner (sticky)>. --p runs 0 → 1 while the inner is stuck.
+    const pins = [...document.querySelectorAll('[data-pin]')]
     let ticking = false
     const update = () => {
       ticking = false
       const y = window.scrollY, vh = window.innerHeight
       par.forEach((el, i) => { el.style.translate = `0 ${((y - starts[i]) * parseFloat(el.dataset.parallax)).toFixed(1)}px` })
+      pins.forEach((el) => {
+        const inner = el.firstElementChild, r = el.getBoundingClientRect()
+        if (r.bottom < -200 || r.top > vh + 200) return
+        const top = parseFloat(getComputedStyle(inner).top) || 0
+        const span = Math.max(1, r.height - inner.offsetHeight)
+        el.style.setProperty('--p', Math.max(0, Math.min(1, (top - r.top) / span)).toFixed(4))
+      })
       s3d.forEach((el) => {
         const r = el.getBoundingClientRect()
         if (r.bottom < -200 || r.top > vh + 200) return
@@ -87,7 +97,7 @@ export function useScrollMotion(key) {
     }
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
     const onResize = () => { measure(); update() }
-    if (!reduce && (par.length || s3d.length)) {
+    if (!reduce && (par.length || s3d.length || pins.length)) {
       measure(); update()
       window.addEventListener('scroll', onScroll, { passive: true })
       window.addEventListener('resize', onResize)
