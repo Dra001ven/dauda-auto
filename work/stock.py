@@ -24,14 +24,14 @@ OUT = ROOT / "public" / "stock"
 #   white : bright, low-saturation body;      params = min value
 #   seed  : flood from seed points (fractions of w,h) with a Lab tolerance (dark/grey bodies)
 VIEWS = {
-    "911-rear34":   ("images (1).jpeg", 0, (0, 0, 235, 142), ("hue", (320, 360, 0.30))),
+    "911-rear34":   ("images (1).jpeg", 0, (0, 0, 235, 142), ("hue", (315, 28, 0.2))),
     "911-cabin":    ("images (1).jpeg", 0, (0, 142, 235, 280), ("hue", (320, 360, 0.30))),
-    "911-rear":     ("images (3).jpeg", 0, (36, 322, 415, 528), ("hue", (320, 360, 0.25))),
-    "911-wheel":    ("images (3).jpeg", 0, (36, 528, 415, 737), ("hue", (320, 360, 0.25))),
-    "911-front":    ("images (4).jpeg", 0, None, ("seed", ([(0.5, 0.52), (0.3, 0.55), (0.7, 0.55), (0.5, 0.46)], 9))),
+    "911-rear":     ("images (3).jpeg", 0, (36, 322, 415, 528), ("hue", (315, 28, 0.18))),
+    "911-wheel":    ("images (3).jpeg", 0, (36, 528, 415, 737), ("hue", (330, 32, 0.16))),
+    "911-front":    ("images (4).jpeg", 0, (0, 170, 335, 450), None),  # black car in a B&W photo: glass = paint, view only
     "bentley-cabin": ("images (2).jpeg", 0, None, ("hue", (320, 360, 0.30))),
-    "amg-gt":       ("images (5).jpeg", 90, None, ("white", 0.55)),
-    "challenger":   ("images (6).jpeg", 90, None, ("seed", ([(0.42, 0.52), (0.6, 0.47), (0.75, 0.55)], 8))),
+    "amg-gt":       ("images (5).jpeg", 90, None, ("white", 0.5)),
+    "challenger":   ("images (6).jpeg", 90, None, None),  # black car on a dark scene: no clean paint mask, view only
     "r8":           ("images (9).jpeg", 0, None, ("seed", ([(0.5, 0.3), (0.3, 0.45), (0.85, 0.35)], 10))),
     "812":          ("images (10).jpeg", -90, None, ("hue", (340, 20, 0.45))),
     "f40":          ("images (11).jpeg", 0, None, ("white", 0.55)),
@@ -49,6 +49,20 @@ VIEWS = {
     # scenery (no customiser)
     "hypercars":    ("images (16).jpeg", 0, None, None),
     "lot-aerial":   ("E10FZVNE.avif", 0, None, None),
+}
+
+
+# areas never to recolour, as polygons in fractions of width/height (mostly windscreens)
+EXCLUDE = {
+    "amg-gt": [[(0.40, 0.25), (0.73, 0.25), (0.70, 0.44), (0.36, 0.45)]],
+    "challenger": [
+        [(0.39, 0.24), (0.80, 0.22), (0.80, 0.41), (0.38, 0.41)],          # windscreen
+        [(0.15, 0.41), (0.46, 0.41), (0.46, 0.55), (0.15, 0.55)],          # grille + lamps
+        [(0.14, 0.58), (0.52, 0.58), (0.52, 0.72), (0.14, 0.72)],          # lower intake / splitter
+        [(0.53, 0.47), (0.66, 0.47), (0.66, 0.80), (0.53, 0.80)],          # front wheel
+        [(0.86, 0.40), (0.95, 0.40), (0.95, 0.72), (0.86, 0.72)],          # rear wheel
+    ],
+    "r8": [[(0.36, 0.56), (1.0, 0.56), (1.0, 0.9), (0.36, 0.9)]],     # honeycomb grille
 }
 
 
@@ -117,11 +131,13 @@ def masks(only=None):
         kind, p = rule
         if kind == "hue":
             lo, hi, smin = p
-            inh = (h >= lo) & (h <= hi) if lo < hi else (h >= lo) | (h <= hi)
-            m = inh & (s >= smin) & (v > 0.06)
-            if vid.endswith("cabin") or vid.startswith("bentley"): car = np.ones_like(car)  # interiors fill the frame
+            def win(lo, hi): return (h >= lo) & (h <= hi) if lo < hi else (h >= lo) | (h <= hi)
+            m = win(lo, hi) & (s >= smin) & (v > 0.06)
+            weak = win((lo - 18) % 360, (hi + 18) % 360) & (s >= smin * 0.45) & (v > 0.04)
+            if vid.endswith(("cabin", "wheel")): car = np.ones_like(car)  # interiors fill the frame
         elif kind == "white":
             m = (v >= p) & (s <= 0.22)
+            weak = (v >= p - 0.18) & (s <= 0.3)
         else:  # seed flood in Lab
             seeds, tol = p
             lab = cv2.cvtColor((a * 255).astype(np.uint8), cv2.COLOR_RGB2LAB)
@@ -131,9 +147,19 @@ def masks(only=None):
                 cv2.floodFill(lab.copy(), ff, (int(fx * W), int(fy * H)), 0, (tol,) * 3, (tol,) * 3,
                               cv2.FLOODFILL_MASK_ONLY | cv2.FLOODFILL_FIXED_RANGE * 0 | 4 | (255 << 8))
                 m |= ff[1:-1, 1:-1] > 0
-        m &= car
+            weak = m
+        # hysteresis: weak pixels count when they touch a strong region (fills shading gaps
+        # on curved panels without flooding the background)
+        m &= car; weak &= car
+        for poly in EXCLUDE.get(vid, []):  # glass etc. that matches the paint colour
+            cut = np.zeros((H, W), np.uint8)
+            cv2.fillPoly(cut, [np.array([(x * W, y * H) for x, y in poly], np.int32)], 1)
+            m &= cut == 0; weak &= cut == 0
+        n, lbl = cv2.connectedComponents(weak.astype(np.uint8))
+        hit = np.unique(lbl[m]); hit = hit[hit > 0]
+        m = m | np.isin(lbl, hit)
         k = np.ones((5, 5), np.uint8)
-        m = cv2.morphologyEx(m.astype(np.uint8) * 255, cv2.MORPH_CLOSE, k, iterations=2)
+        m = cv2.morphologyEx(m.astype(np.uint8) * 255, cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8), iterations=2)
         m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
         # keep the big pieces only (drops stray specks in the background)
         n, lbl, st, _ = cv2.connectedComponentsWithStats(m)
