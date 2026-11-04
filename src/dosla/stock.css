@@ -1,0 +1,5 @@
+/* Logo (replaces the old crest image) */
+.rm .brand .logo { width: calc(var(--u) * 22); height: calc(var(--u) * 22); min-width: 30px; min-height: 30px; color: #fff; flex: none; }
+.rm .brand .logo-wine { color: var(--wine); }
+.rm svg.seal { height: auto; color: var(--wine); }
+.rm svg.m-crest { height: 120px; color: #fff; }
