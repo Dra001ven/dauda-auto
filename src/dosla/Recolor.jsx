@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 // Live re-paint of a real photo. A grayscale mask (white = paint / leather) comes from
-// work/stock.py. Each masked pixel keeps its own light and shade: its brightness
-// relative to the body's median brightness drives the new colour, and highlights roll
-// off to white, so reflections and panel shapes survive the colour change.
+// work/stock.py. Each masked pixel keeps its own light and shade: where its brightness
+// sits inside the body's own range (darkest → brightest panel) drives the new colour,
+// and only the brightest few percent become white gloss, so reflections and panel
+// shapes survive the change on white, red or silver source cars alike.
 
 const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src })
 const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255)
@@ -26,7 +27,7 @@ export default function Recolor({ src, mask, color, finish = 'gloss', alt = '', 
       const ctx = c.getContext('2d', { willReadFrequently: true })
       ctx.drawImage(img, 0, 0)
       const base = ctx.getImageData(0, 0, w, h)
-      let idx = null, lum = null, a = null, mid = 0.5
+      let idx = null, lum = null, a = null, lo = 0, hi = 1
       if (mk) {
         ctx.drawImage(mk, 0, 0, w, h)
         const m = ctx.getImageData(0, 0, w, h).data
@@ -40,12 +41,14 @@ export default function Recolor({ src, mask, color, finish = 'gloss', alt = '', 
           lum[k] = (0.2126 * px[o] + 0.7152 * px[o + 1] + 0.0722 * px[o + 2]) / 255
           a[k] = m[o] / 255
         }
-        // median body brightness (sampled) = the "flat panel" tone
-        const step = Math.max(1, Math.floor(lum.length / 4000)), s = []
+        // the body's own brightness range (sampled): 3rd and 97th percentile
+        const step = Math.max(1, Math.floor(lum.length / 6000)), s = []
         for (let k = 0; k < lum.length; k += step) s.push(lum[k])
-        s.sort((x, y) => x - y); mid = Math.max(0.04, s[Math.floor(s.length * 0.5)] || 0.5)
+        s.sort((x, y) => x - y)
+        lo = s[Math.floor(s.length * 0.03)] ?? 0; hi = s[Math.floor(s.length * 0.97)] ?? 1
+        if (hi - lo < 0.08) { const c = (hi + lo) / 2; lo = c - 0.04; hi = c + 0.04 }
       }
-      data.current = { ctx, base, idx, lum, a, mid, out: new ImageData(new Uint8ClampedArray(base.data), w, h) }
+      data.current = { ctx, base, idx, lum, a, lo, hi, out: new ImageData(new Uint8ClampedArray(base.data), w, h) }
       setReady(true)
     }).catch(() => {})
     return () => { alive = false }
@@ -54,24 +57,31 @@ export default function Recolor({ src, mask, color, finish = 'gloss', alt = '', 
   useEffect(() => {
     const d = data.current
     if (!ready || !d) return
-    const { ctx, base, idx, lum, a, mid, out } = d
+    const { ctx, base, idx, lum, a, lo, hi, out } = d
     const px = base.data, o8 = out.data
     o8.set(px)
     if (idx && (color || finish !== 'gloss')) {
       const t = color ? hexRgb(color) : null
       const flat = FLAT[finish] ?? 1
+      const span = hi - lo
+      // shade from where the pixel sits in the body's OWN range (0 = darkest panel, 1 = brightest),
+      // so white, red or silver source cars all repaint evenly; only the top few percent turn
+      // into white gloss highlights (fewer for satin / matte)
+      const shadeOf = (q) => 0.32 + 0.9 * q
       for (let k = 0; k < idx.length; k++) {
         const o = idx[k] * 4, l = lum[k]
-        let shade = l / mid
-        if (shade > 1) shade = 1 + (shade - 1) * flat
-        else shade = 1 - (1 - shade) * (0.75 + 0.25 * flat)
+        let q = Math.min(1.15, Math.max(0, (l - lo) / span))
+        const q0 = q
+        q = 0.55 + (q - 0.55) * (0.55 + 0.45 * flat)
+        const sh = shadeOf(Math.min(1, q))
+        const gloss = flat * Math.max(0, (q0 - 0.93) / 0.22) ** 1.5
         for (let ch = 0; ch < 3; ch++) {
           let v
           if (t) {
-            const tc = t[ch]
-            v = shade <= 1 ? tc * shade : tc + (1 - tc) * Math.min(1, (shade - 1) * mid / Math.max(0.05, 1 - mid))
+            v = Math.min(1, t[ch] * sh + Math.max(0, sh - 1) * 0.5)
+            v = v + (1 - v) * Math.min(0.85, gloss)
           } else {
-            v = (px[o + ch] / 255) * (l > 0.001 ? (shade * mid) / l : 1)
+            v = (px[o + ch] / 255) * (shadeOf(Math.min(1, q)) / shadeOf(Math.min(1, q0)))
           }
           o8[o + ch] = px[o + ch] + (v * 255 - px[o + ch]) * a[k]
         }
