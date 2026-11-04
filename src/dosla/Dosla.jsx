@@ -35,7 +35,7 @@ function useRoute() {
 function Brand({ tone = 'white' }) {
   return (
     <a className="brand" href="#/">
-      <img src={`/img/crest-${tone}.png`} alt="" />
+      <Logo className={`logo logo-${tone}`} />
       <span>DAUDA<small>MOTOS</small></span>
     </a>
   )
@@ -194,7 +194,7 @@ function Home() {
             </blockquote>
           ))}
         </div>
-        <img className="seal" src="/img/crest-wine.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="400" />
+        <Logo className="seal" data-reveal="fade" data-delay="400" />
       </section>
 
       <section className="inquire" data-s3d>
