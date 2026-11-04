@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Logo } from './icons'
+import { CarSwitcher, useShowroom, showroom } from './StockPages'
+import { paints, finishes, naira } from './stock'
 import { ArrowRight, MapPin, Clock, Phone, Check } from 'lucide-react'
 
 /* Shared page banner: every page opens differently, but keeps the nav legible. */
@@ -8,53 +10,48 @@ function Kicker({ children, red }) {
 }
 
 /* =============================================================== MODEL ==== */
-/* A configurator: giant outlined name, real photo recoloured per paint. */
-const paints = [
-  { id: 'rosso', name: 'Rosso Corsa', hex: '#b3141c' },
-  { id: 'giallo', name: 'Giallo Modena', hex: '#e2b21a' },
-  { id: 'blu', name: 'Blu Pozzi', hex: '#1d3c9c' },
-  { id: 'verde', name: 'Verde Brit', hex: '#1f6b34' },
-  { id: 'nero', name: 'Nero Daytona', hex: '#141414' },
-  { id: 'bianco', name: 'Bianco Avus', hex: '#efeeea' },
-]
-const specs = [
-  ['Engine', '3.9 L twin-turbo V8 + 2 e-motors'], ['Power', '820 cv @ 7,500 rpm'], ['Torque', '900 Nm'],
-  ['0–100 km/h', '3.1 s'], ['Top speed', '350 km/h'], ['Dry weight', '1,420 kg'],
-]
-const trims = [
-  { n: 'Stradale', p: '₦ 640M', d: 'The road-going benchmark. Carbon ceramic brakes, adaptive damping, daily comfort.' },
-  { n: 'Assetto Fiorano', p: '₦ 725M', d: 'Lightweight pack: titanium exhaust, Lexan rear screen, multimatic shocks, -30 kg.' },
-  { n: 'Corsa Clienti', p: 'By invitation', d: 'Track-only programme with factory engineers at Mugello, Spa and Fiorano.' },
+/* Showroom configurator: arrows switch between the real cars in stock, the name sits
+   under the car, and the paint swatches repaint whichever car is showing. */
+const NA = '—'
+const sixSpecs = (c) => [
+  ['Engine', c.specs?.Engine ?? NA], ['Power', c.specs?.Power ?? NA], ['Torque', c.specs?.Torque ?? NA],
+  ['0–100 km/h', c.zero ? `${c.zero} s` : NA], ['Top speed', c.top ? `${c.top} km/h` : NA], ['Weight', c.specs?.Weight ?? NA],
 ]
 
 export function ModelPage() {
-  const [paint, setPaint] = useState(paints[0])
+  const sw = useShowroom()
+  const { car } = sw
+  const [paint, setPaint] = useState('orig')
+  const [finish, setFinish] = useState('gloss')
+  const p = paints.find((x) => x.id === paint)
+  const canPaint = car.views.some((v) => v.kind === 'paint')
   return (
     <div className="pg pg-model">
       <section className="cfg" data-s3d>
-        <h1 className="ghost" data-parallax="-0.15">IL CORSA</h1>
+        <h1 className="ghost" key={car.slug} data-parallax="-0.15">{car.model.replace(/\s*\(.*\)/, '').toUpperCase()}</h1>
         <div className="cfg-head" data-reveal="up">
           <Kicker red>Configure your</Kicker>
-          <h2>IL CORSA <b>{paint.name}</b></h2>
         </div>
-        <div className="cfg-stage">
-          {paints.map((p) => (
-            <img key={p.id} className={p.id === paint.id ? 'on' : ''} src={`/img/paint-${p.id}.png`} alt={`IL CORSA in ${p.name}`} />
-          ))}
-          <div className="cfg-floor" style={{ '--glow': paint.hex }} />
-        </div>
+        <CarSwitcher sw={sw} color={canPaint ? p.hex : null} finish={canPaint ? finish : 'gloss'}>
+          <div className="cfg-links"><a href={`#/stock/${car.slug}`}>Full details <ArrowRight size={14} /></a><a href="#/technology">Technology <ArrowRight size={14} /></a></div>
+        </CarSwitcher>
         <div className="swatches" data-reveal="up" data-delay="200">
-          {paints.map((p) => (
-            <button key={p.id} className={p.id === paint.id ? 'on' : ''} onClick={() => setPaint(p)} aria-label={p.name}>
-              <i style={{ background: p.hex }} /><span>{p.name}</span>
+          {canPaint ? paints.map((x) => (
+            <button key={x.id} className={x.id === paint ? 'on' : ''} onClick={() => setPaint(x.id)} aria-label={x.name} title={x.name}>
+              <i style={x.hex ? { background: x.hex } : undefined} className={x.hex ? '' : 'orig'} /><span>{x.id === 'orig' ? 'Original' : x.name}</span>
             </button>
-          ))}
+          )) : <p className="cfg-note">This photo can’t be repainted online. Ask our Lagos studio for any paint or wrap.</p>}
         </div>
+        {canPaint && (
+          <div className="seg cfg-seg">
+            {finishes.map((f) => <button key={f.id} className={finish === f.id ? 'on' : ''} onClick={() => setFinish(f.id)}>{f.name}</button>)}
+          </div>
+        )}
       </section>
 
-      <section className="spec-band light">
-        {specs.map(([k, v], i) => (
-          <div key={k} data-reveal="flip" data-delay={i * 90}><span>{k}</span><strong>{v}</strong></div>
+      <section className="spec-band light" key={car.slug}>
+        {sixSpecs(car).map(([k, v], i) => (
+          <div key={k} className="rise" style={{ animationDelay: `${i * 70}ms` }}><span>{k}</span><strong>{v}</strong></div>
         ))}
       </section>
 
