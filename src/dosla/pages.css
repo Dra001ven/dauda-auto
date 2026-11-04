@@ -177,7 +177,7 @@
 .rm .rooms li p { display: flex; align-items: center; gap: 10px; font: 500 12px/1.9 var(--sans); letter-spacing: .06em; color: #a39d96; }
 .rm .rooms li p svg { color: var(--gold); }
 .rm .book { position: relative; padding: 40px var(--pad) 80px 70px; background: linear-gradient(140deg, #2a0508, #4a080d 55%, #2a0508); }
-.rm .book::before { content: ''; position: absolute; inset: 0; background: url(/img/duomo-line.png) right bottom / 60% no-repeat; opacity: .25; pointer-events: none; }
+.rm .book::before { content: ''; position: absolute; inset: 0; background: url(/img/duomo-white.png) right bottom / 60% no-repeat; opacity: .25; pointer-events: none; }
 .rm .book form { position: relative; display: grid; gap: 20px; max-width: 560px; }
 .rm .book label { display: grid; gap: 8px; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #e4cfc0; }
 .rm .book input, .rm .book select, .rm .book textarea { background: rgba(0,0,0,.2); border: 1px solid rgba(255,190,170,.22); padding: 14px 16px; color: #fff; font: 400 16px var(--serif); outline: none; color-scheme: dark; border-radius: 0; resize: none; }
@@ -235,3 +235,28 @@
 .rm .pg-contact .rooms ul, .rm .pg-contact .rooms li { border-color: rgba(214,176,104,.14); }
 .rm .manifest > .m-crest, .rm .manifest > .kicker, .rm .manifest > h1 { position: relative; z-index: 2; }
 .rm .pg-contact .split > * { position: relative; z-index: 2; }
+
+/* =====================================================================
+   WINE + WHITE THEME (alternating sections)
+   Wine sections: deep burgundy, white type, white buttons with wine text.
+   .light sections: ivory/white, wine type, wine buttons with white text.
+   ===================================================================== */
+.rm {
+  --wine: #6a1022; --wine-d: #420a15; --wine-dd: #2b060e; --wine-l: #8c2236; --ivory: #fbf7f5;
+  --gold: #ffffff; --red: #ffffff; --red-b: rgba(255,255,255,.78);
+  --bg: var(--wine-d); --txt: #fff; --line: rgba(255,255,255,.14); --muted: rgba(255,255,255,.7);
+  background: var(--wine-d); color: #fff;
+}
+.rm .body, .rm .lead, .rm .pg p { color: rgba(255,255,255,.78); }
+.rm b { color: #fff; font-style: italic; }
+.rm .kicker, .rm .kicker.red, .rm .eyebrow { color: rgba(255,255,255,.72); }
+
+/* buttons */
+.rm .btn { background: #fff; color: var(--wine); }
+.rm .btn:hover { background: #f4e4e8; }
+.rm .btn-outline { border-color: rgba(255,255,255,.7); color: #fff; }
+.rm .btn-outline:hover { background: #fff; color: var(--wine); }
+
+/* nav */
+.rm .nav nav a.on::after { background: #fff; }
+.rm .nav.glass { background: rgba(43,6,14,.62); border-bottom-color: rgba(255,255,255,.08); }
