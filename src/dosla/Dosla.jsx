@@ -38,6 +38,12 @@ function Brand() {
 }
 
 function Nav({ route }) {
+  const [glass, setGlass] = useState(false)
+  useEffect(() => {
+    const on = () => setGlass(window.scrollY > 40)
+    on(); window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
+  }, [route])
   return (
     <header className="nav">
       <Brand />
