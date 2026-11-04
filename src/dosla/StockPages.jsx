@@ -95,3 +95,129 @@ export function StockPage() {
     </div>
   )
 }
+
+/* ================================================================== CAR ==== */
+function Swatches({ items, value, onPick, custom, onCustom }) {
+  return (
+    <div className="sw-row">
+      {items.map((p) => (
+        <button key={p.id} className={value === p.id ? 'on' : ''} onClick={() => onPick(p.id)} title={p.name} aria-label={p.name}>
+          <i style={p.hex ? { background: p.hex } : undefined} className={p.hex ? '' : 'orig'}>{!p.hex && <RotateCcw size={13} />}</i>
+        </button>
+      ))}
+      <label className={`sw-custom${value === 'custom' ? ' on' : ''}`} title="Any colour">
+        <i style={{ background: custom }} />
+        <input type="color" value={custom} onChange={(e) => onCustom(e.target.value)} aria-label="Pick any colour" />
+      </label>
+    </div>
+  )
+}
+
+export function CarPage({ slug }) {
+  const car = findCar(slug)
+  const [view, setView] = useState(0)
+  const [paint, setPaint] = useState('orig')
+  const [paintHex, setPaintHex] = useState('#3a7bd5')
+  const [finish, setFinish] = useState('gloss')
+  const [leather, setLeather] = useState('orig')
+  const [leatherHex, setLeatherHex] = useState('#8a4a22')
+  useEffect(() => { setView(0); setPaint('orig'); setFinish('gloss'); setLeather('orig') }, [slug])
+
+  if (!car) {
+    return <div className="pg pg-car"><section className="car-missing"><h2>That car isn’t in stock any more</h2><a className="btn" href="#/stock">Back to stock <ArrowRight /></a></section></div>
+  }
+  const v = car.views[view]
+  const hasPaint = car.views.some((x) => x.kind === 'paint')
+  const hasLeather = car.views.some((x) => x.kind === 'leather')
+  const goto = (kind) => { if (v.kind !== kind) { const i = car.views.findIndex((x) => x.kind === kind); if (i >= 0) setView(i) } }
+  const pObj = paints.find((p) => p.id === paint), lObj = leathers.find((p) => p.id === leather)
+  const pHex = paint === 'custom' ? paintHex : pObj?.hex
+  const lHex = leather === 'custom' ? leatherHex : lObj?.hex
+  const fObj = finishes.find((f) => f.id === finish)
+
+  const extras = [
+    paint !== 'orig' && [`Paint: ${paint === 'custom' ? `Custom ${paintHex}` : pObj.name}`, OPTION_USD.paint],
+    finish !== 'gloss' && [`${fObj.name} finish`, fObj.usd],
+    leather !== 'orig' && [`Leather: ${leather === 'custom' ? `Custom ${leatherHex}` : lObj.name}`, OPTION_USD.leather],
+  ].filter(Boolean)
+  const total = car.usd == null ? null : car.usd + extras.reduce((s, [, u]) => s + u, 0)
+  const related = cars.filter((c) => c.slug !== car.slug && (c.cat === car.cat || (c.usd && car.usd && Math.abs(c.usd - car.usd) / car.usd < 0.5))).slice(0, 3)
+
+  return (
+    <div className="pg pg-car">
+      <nav className="crumbs"><a href="#/stock"><ArrowLeft size={14} /> Stock</a><span>/</span><span>{car.cat}</span><span>/</span><b>{car.make} {car.model}</b></nav>
+
+      <section className="car-main">
+        <div className="car-stage">
+          <div className="stage-frame" key={v.src}>
+            <Recolor src={v.src} mask={v.mask} color={v.kind === 'paint' ? pHex : v.kind === 'leather' ? lHex : null}
+              finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}, ${v.label}`} />
+            <span className="stage-tag">{v.label}{v.kind && (v.kind === 'paint' ? (pHex || finish !== 'gloss' ? ' · customised' : '') : lHex ? ' · customised' : '')}</span>
+          </div>
+          {car.views.length > 1 && (
+            <div className="thumbs">
+              {car.views.map((x, i) => (
+                <button key={x.src} className={i === view ? 'on' : ''} onClick={() => setView(i)}>
+                  <img src={x.src} alt="" /><span>{x.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <aside className="car-side">
+          <small>{car.make} · {car.year}</small>
+          <h1>{car.model}</h1>
+          <p className="car-meta"><span>{car.condition}</span><span><MapPin size={13} /> {car.location}</span></p>
+          <p className="car-blurb">{car.blurb}</p>
+
+          {hasPaint && (
+            <div className="opt">
+              <h4>Exterior paint <em>{paint === 'custom' ? paintHex : pObj?.name}</em></h4>
+              <Swatches items={paints} value={paint} onPick={(id) => { setPaint(id); goto('paint') }} custom={paintHex} onCustom={(h) => { setPaintHex(h); setPaint('custom'); goto('paint') }} />
+              <div className="seg">
+                {finishes.map((f) => <button key={f.id} className={finish === f.id ? 'on' : ''} onClick={() => { setFinish(f.id); goto('paint') }}>{f.name}</button>)}
+              </div>
+            </div>
+          )}
+          {hasLeather && (
+            <div className="opt">
+              <h4>Interior leather <em>{leather === 'custom' ? leatherHex : lObj?.name}</em></h4>
+              <Swatches items={leathers} value={leather} onPick={(id) => { setLeather(id); goto('leather') }} custom={leatherHex} onCustom={(h) => { setLeatherHex(h); setLeather('custom'); goto('leather') }} />
+            </div>
+          )}
+
+          <div className="build">
+            <div><span>{car.usd == null ? 'Status' : 'Car'}</span><b>{car.usd == null ? 'Design render · not for sale' : naira(car.usd)}</b></div>
+            {car.usd != null && extras.map(([k, u]) => <div key={k}><span>{k}</span><b>+ {naira(u)}</b></div>)}
+            {total != null && <div className="total"><span>Your build (est.)</span><strong>{naira(total)}</strong></div>}
+            <a className="btn" href="#/contact">{car.usd == null ? 'Commission something similar' : 'Reserve this build'} <ArrowRight /></a>
+          </div>
+        </aside>
+      </section>
+
+      {car.specs && (
+        <section className="car-specs light">
+          <div className="cs-head" data-reveal="up"><p className="kicker">Specification{car.specFor ? ` · shown for ${car.specFor}` : ''}</p><h2>THE <b>NUMBERS</b></h2></div>
+          <div className="cs-grid">
+            {[['0–100 km/h', stat(car.zero, ' s')], ['Top speed', stat(car.top, ' km/h')], ...Object.entries(car.specs)].map(([k, val], i) => (
+              <div key={k} data-reveal="flip" data-delay={i * 60}><span>{k}</span><strong>{val}</strong></div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className={`id-note${car.specs ? '' : ' light'}`} data-reveal="up">
+        <Info size={18} />
+        <div><h4>How we identified this car</h4><p>{car.idNote}</p></div>
+      </section>
+
+      {related.length > 0 && (
+        <section className="related">
+          <div className="cs-head" data-reveal="up"><p className="kicker">You may also like</p><h2>MORE <b>IN STOCK</b></h2></div>
+          <div className="stock-grid">{related.map((c, i) => <CarCard key={c.slug} car={c} i={i} />)}</div>
+        </section>
+      )}
+    </div>
+  )
+}
