@@ -40,7 +40,7 @@ function Brand({ tone = 'white' }) {
 function Nav({ route }) {
   const [glass, setGlass] = useState(false)
   useEffect(() => {
-    const on = () => setGlass(window.scrollY > 40)
+    const on = () => setGlass(route !== '/' || window.scrollY > 40)
     on(); window.addEventListener('scroll', on, { passive: true })
     return () => window.removeEventListener('scroll', on)
   }, [route])
