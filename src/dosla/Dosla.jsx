@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useSmoothScroll, useScrollMotion, scrollTop } from './motion'
 import { ModelPage, PerformancePage, TechnologyPage, BrandPage, ContactPage } from './pages'
@@ -57,9 +57,41 @@ function Nav({ route }) {
   )
 }
 
+// Footer film: GT3 RS clip (0:40–0:47.55 of the source), muted and looped. Plays only while
+// on screen; reduced-motion users get the still poster.
+function FooterFilm() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause() }, { threshold: 0.05 })
+    io.observe(v)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <section className="foot-film" data-s3d>
+      <video ref={ref} autoPlay muted loop playsInline preload="metadata" poster="/video/footer-gt3.jpg" aria-hidden="true">
+        <source src="/video/footer-gt3-720.mp4" type="video/mp4" media="(max-width: 760px)" />
+        <source src="/video/footer-gt3.webm" type="video/webm" />
+        <source src="/video/footer-gt3.mp4" type="video/mp4" />
+      </video>
+      <div className="ff-copy" data-reveal="up">
+        <p className="kicker">Lagos · Abuja · Delivered nationwide</p>
+        <h2>DRIVE SOMETHING<br /><b>EXCEPTIONAL.</b></h2>
+        <div className="ff-cta">
+          <a className="btn" href="#/stock">Browse the stock <ArrowRight /></a>
+          <a className="btn-outline" href="#/contact">Book a viewing</a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <>
+      <FooterFilm />
       <footer className="foot light">
         <Brand tone="wine" />
         <div><h4>Company</h4><a href="#/brand">About us</a><a href="#/brand">Craftsmanship</a><a href="#/brand">Careers</a><a href="#/brand">News</a></div>
