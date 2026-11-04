@@ -97,7 +97,7 @@ export function StockPage() {
 }
 
 /* ================================================================== CAR ==== */
-function Swatches({ items, value, onPick, custom, onCustom }) {
+export function Swatches({ items, value, onPick, custom, onCustom }) {
   return (
     <div className="sw-row">
       {items.map((p) => (
@@ -237,7 +237,9 @@ export function CarPage({ slug }) {
 // Shared by the Model and Technology pages: side arrows (plus keyboard ← → and swipe)
 // step through the real cars in stock, and the name sits under the picture.
 // The chosen car is remembered for the session, so Model → Technology keeps it.
-export const showroom = cars.filter((c) => c.cat !== 'Concept')
+// only cars with a clean background-free cut-out that can also be repainted
+export const showroomView = (car) => car.views.find((v) => v.cut && v.kind === 'paint')
+export const showroom = cars.filter((c) => c.cat !== 'Concept' && showroomView(c))
 const KEY = 'dm-showroom-car'
 export function useShowroom() {
   const [i, setI] = useState(() => {
@@ -259,11 +261,10 @@ export function useShowroom() {
   return { car: showroom[i], i, dir, go, pick }
 }
 
-export const paintView = (car) => car.views.find((v) => v.kind === 'paint') || car.views[0]
 
 export function CarSwitcher({ sw, color = null, finish = 'gloss', children }) {
   const { car, i, dir, go } = sw
-  const v = color || finish !== 'gloss' ? paintView(car) : car.views[0]
+  const v = showroomView(car)
   const x0 = useRef(null)
   return (
     <div className="switcher">
@@ -272,8 +273,7 @@ export function CarSwitcher({ sw, color = null, finish = 'gloss', children }) {
         onPointerUp={(e) => { if (x0.current != null && Math.abs(e.clientX - x0.current) > 50) go(e.clientX < x0.current ? 1 : -1); x0.current = null }}>
         <button className="sw-arrow prev" onClick={() => go(-1)} aria-label="Previous car"><ChevronLeft /></button>
         <div className={`sw-frame ${dir > 0 ? 'from-r' : 'from-l'}`} key={car.slug}>
-          <Recolor src={(v.cut || v).src} mask={v.kind === 'paint' ? (v.cut || v).mask : null} color={v.kind === 'paint' ? color : null}
-            finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}`} className={v.cut ? 'cut' : ''} />
+          <Recolor src={v.cut.src} mask={v.cut.mask} color={color} finish={finish} alt={`${car.make} ${car.model}`} className="cut" />
         </div>
         <button className="sw-arrow next" onClick={() => go(1)} aria-label="Next car"><ChevronRight /></button>
       </div>
