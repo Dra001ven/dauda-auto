@@ -62,7 +62,7 @@ export const cars = [
   },
   {
     slug: 'ferrari-sf90-stradale', make: 'Ferrari', model: 'SF90 Stradale', year: 2022, cat: 'Hypercar', usd: 560000,
-    colour: 'Bianco with black roof', condition: 'Brand new', location: 'Lagos',
+    colour: 'White with black roof', condition: 'Brand new', location: 'Lagos',
     views: [S('sf90', 'Front ¾')],
     blurb: 'Ferrari’s plug-in hybrid flagship: a twin-turbo V8 and three electric motors, with all-wheel drive.',
     specs: { Engine: '4.0 L twin-turbo V8 + 3 e-motors', Power: '1,000 cv', Torque: '800 Nm', Gearbox: '8-speed dual-clutch', Drive: 'All-wheel drive', Weight: '1,570 kg (dry)' },
@@ -71,7 +71,7 @@ export const cars = [
   },
   {
     slug: 'ferrari-812-superfast', make: 'Ferrari', model: '812 Superfast', year: 2020, cat: 'Grand Tourer', usd: 420000,
-    colour: 'Rosso Corsa', condition: 'Tokunbo (foreign used)', location: 'Lagos',
+    colour: 'Red', condition: 'Tokunbo (foreign used)', location: 'Lagos',
     views: [S('812', 'Side profile')],
     blurb: 'A front-mounted, naturally aspirated V12 revving to 8,900 rpm. The fastest series-production front-engined Ferrari of its time.',
     specs: { Engine: '6.5 L naturally aspirated V12', Power: '800 cv', Torque: '718 Nm', Gearbox: '7-speed dual-clutch', Drive: 'Rear-wheel drive', Weight: '1,525 kg (dry)' },
@@ -99,7 +99,7 @@ export const cars = [
   {
     slug: 'porsche-911-992', make: 'Porsche', model: '911 Carrera (992)', year: 2022, cat: 'Sports', usd: 135000,
     colour: 'Burgundy metallic, Bordeaux leather', condition: 'Brand new', location: 'Lagos',
-    views: [S('911-rear34', 'Rear ¾'), S('911-rear', 'Rear'), S('911-front', 'Front (black car)'), S('911-cabin', 'Dashboard', 'leather'), S('911-wheel', 'Cockpit', 'leather')],
+    views: [S('911-rear34', 'Rear ¾'), S('911-rear', 'Rear'), S('911-front', 'Front · black car', null), S('911-cabin', 'Dashboard', 'leather'), S('911-wheel', 'Cockpit', 'leather')],
     blurb: 'The current-generation 911 with a full-width rear light bar, an 8-speed PDK and a matching Bordeaux leather cabin.',
     specs: { Engine: '3.0 L twin-turbo flat-six', Power: '385 PS', Torque: '450 Nm', Gearbox: '8-speed PDK', Drive: 'Rear-wheel drive', Weight: '1,505 kg' },
     hp: 379, zero: 4.2, top: 293, specFor: '911 Carrera',
@@ -107,7 +107,7 @@ export const cars = [
   },
   {
     slug: 'mercedes-amg-gt', make: 'Mercedes-AMG', model: 'GT', year: 2019, cat: 'Sports', usd: 115000,
-    colour: 'Iridium silver', condition: 'Tokunbo (foreign used)', location: 'Abuja',
+    colour: 'Silver', condition: 'Tokunbo (foreign used)', location: 'Abuja',
     views: [S('amg-gt', 'Front ¾')],
     blurb: 'Front-mid-engined AMG GT with the Panamericana grille, a hand-built 4.0-litre biturbo V8 and a rear transaxle.',
     specs: { Engine: '4.0 L twin-turbo V8', Power: '522 PS', Torque: '670 Nm', Gearbox: '7-speed dual-clutch', Drive: 'Rear-wheel drive', Weight: '1,570 kg' },
@@ -116,7 +116,7 @@ export const cars = [
   },
   {
     slug: 'bmw-m3-f80', make: 'BMW', model: 'M3 (F80)', year: 2018, cat: 'Saloon', usd: 52000,
-    colour: 'Alpine White', condition: 'Tokunbo (foreign used)', location: 'Lagos',
+    colour: 'White', condition: 'Tokunbo (foreign used)', location: 'Lagos',
     views: [S('m3', 'Front')],
     blurb: 'A four-door M car with the S55 straight-six, lowered on aftermarket wheels with a carbon front lip.',
     specs: { Engine: '3.0 L twin-turbo inline-six (S55)', Power: '431 PS', Torque: '550 Nm', Gearbox: '7-speed M DCT', Drive: 'Rear-wheel drive', Weight: '1,560 kg' },
@@ -125,8 +125,8 @@ export const cars = [
   },
   {
     slug: 'dodge-challenger-srt', make: 'Dodge', model: 'Challenger SRT', year: 2021, cat: 'Muscle', usd: 78000,
-    colour: 'Pitch black', condition: 'Tokunbo (foreign used)', location: 'Lagos',
-    views: [S('challenger', 'Front ¾')],
+    colour: 'Gloss black', condition: 'Tokunbo (foreign used)', location: 'Lagos',
+    views: [S('challenger', 'Front ¾', null)],
     blurb: 'An American muscle coupé with a supercharged HEMI V8, quad halo headlamps and a scooped bonnet.',
     specs: { Engine: '6.2 L supercharged HEMI V8', Power: '717 hp', Torque: '889 Nm', Gearbox: '8-speed automatic', Drive: 'Rear-wheel drive', Weight: '2,000 kg' },
     hp: 717, zero: 3.6, top: 320, specFor: 'SRT Hellcat',
@@ -134,7 +134,7 @@ export const cars = [
   },
   {
     slug: 'bentley-continental-gt', make: 'Bentley', model: 'Continental GT', year: 2021, cat: 'Grand Tourer', usd: 240000,
-    colour: 'Cabin: Damson diamond-quilted leather', condition: 'Brand new', location: 'Abuja',
+    colour: 'Burgundy diamond-quilted leather', condition: 'Brand new', location: 'Abuja',
     views: [S('bentley-cabin', 'Cabin', 'leather')],
     blurb: 'Third-generation Continental GT with diamond-in-diamond quilted seats and the Bentley wings embroidered on the headrests.',
     specs: { Engine: '6.0 L twin-turbo W12', Power: '635 PS', Torque: '900 Nm', Gearbox: '8-speed dual-clutch', Drive: 'All-wheel drive', Weight: '2,244 kg' },
@@ -143,7 +143,7 @@ export const cars = [
   },
   {
     slug: 'hyundai-tucson', make: 'Hyundai', model: 'Tucson', year: 2020, cat: 'SUV', usd: 24000,
-    colour: 'Fiery Red', condition: 'Tokunbo (foreign used)', location: 'Lagos',
+    colour: 'Red', condition: 'Tokunbo (foreign used)', location: 'Lagos',
     views: [S('tucson', 'Front ¾')],
     blurb: 'Third-generation Tucson (TL facelift) with the cascading grille. An easy-to-own family SUV.',
     specs: { Engine: '2.0 L inline-four', Power: '164 hp', Torque: '205 Nm', Gearbox: '6-speed automatic', Drive: 'Front-wheel drive', Weight: '1,520 kg' },
