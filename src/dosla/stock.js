@@ -48,7 +48,13 @@ export const finishes = [
 export const OPTION_USD = { paint: 6000, leather: 5000 } // re-spray / re-trim, Lagos workshop estimate
 
 // view: [file in /stock, label, kind] where kind 'paint' | 'leather' | null (not customisable)
-const S = (id, label, kind = 'paint') => ({ src: `/stock/${id}.jpg`, mask: kind ? `/stock/${id}-mask.png` : null, label, kind })
+// views with a background-free cut-out (work/stock.py cutout): /stock/<id>-cut.webp + -cut-mask.png
+const CUTS = new Set(['911-rear34', '911-rear', '911-front', 'amg-gt', 'challenger', '812', 'f40', 'sf90', 'm3', 'jesko',
+  'study-lumen', 'study-rosso', 'study-notte', 'study-sabbia', 'study-corsa'])
+const S = (id, label, kind = 'paint') => ({
+  src: `/stock/${id}.jpg`, mask: kind ? `/stock/${id}-mask.png` : null, label, kind,
+  cut: CUTS.has(id) ? { src: `/stock/${id}-cut.webp`, mask: kind ? `/stock/${id}-cut-mask.png` : null } : null,
+})
 
 export const cars = [
   {

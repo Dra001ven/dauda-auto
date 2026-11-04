@@ -121,6 +121,7 @@ export function CarPage({ slug }) {
   const [finish, setFinish] = useState('gloss')
   const [leather, setLeather] = useState('orig')
   const [leatherHex, setLeatherHex] = useState('#8a4a22')
+  const [studio, setStudio] = useState(true)
   useEffect(() => { setView(0); setPaint('orig'); setFinish('gloss'); setLeather('orig') }, [slug])
 
   if (!car) {
@@ -149,9 +150,15 @@ export function CarPage({ slug }) {
 
       <section className="car-main">
         <div className="car-stage">
-          <div className="stage-frame" key={v.src}>
-            <Recolor src={v.src} mask={v.mask} color={v.kind === 'paint' ? pHex : v.kind === 'leather' ? lHex : null}
-              finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}, ${v.label}`} />
+          <div className={`stage-frame${studio && v.cut ? ' studio' : ''}`} key={v.src + (studio && v.cut ? 'c' : '')}>
+            <Recolor src={studio && v.cut ? v.cut.src : v.src} mask={studio && v.cut ? v.cut.mask : v.mask} color={v.kind === 'paint' ? pHex : v.kind === 'leather' ? lHex : null}
+              finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}, ${v.label}`} className={studio && v.cut ? 'cut' : ''} />
+            {v.cut && (
+              <div className="seg stage-mode">
+                <button className={studio ? 'on' : ''} onClick={() => setStudio(true)}>Studio</button>
+                <button className={!studio ? 'on' : ''} onClick={() => setStudio(false)}>Photo</button>
+              </div>
+            )}
             <span className="stage-tag">{v.label}{v.kind && (v.kind === 'paint' ? (pHex || finish !== 'gloss' ? ' · customised' : '') : lHex ? ' · customised' : '')}</span>
           </div>
           {car.views.length > 1 && (
@@ -265,7 +272,8 @@ export function CarSwitcher({ sw, color = null, finish = 'gloss', children }) {
         onPointerUp={(e) => { if (x0.current != null && Math.abs(e.clientX - x0.current) > 50) go(e.clientX < x0.current ? 1 : -1); x0.current = null }}>
         <button className="sw-arrow prev" onClick={() => go(-1)} aria-label="Previous car"><ChevronLeft /></button>
         <div className={`sw-frame ${dir > 0 ? 'from-r' : 'from-l'}`} key={car.slug}>
-          <Recolor src={v.src} mask={v.kind === 'paint' ? v.mask : null} color={v.kind === 'paint' ? color : null} finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}`} />
+          <Recolor src={(v.cut || v).src} mask={v.kind === 'paint' ? (v.cut || v).mask : null} color={v.kind === 'paint' ? color : null}
+            finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}`} className={v.cut ? 'cut' : ''} />
         </div>
         <button className="sw-arrow next" onClick={() => go(1)} aria-label="Next car"><ChevronRight /></button>
       </div>
