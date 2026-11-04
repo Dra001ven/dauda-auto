@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Logo } from './icons'
-import { CarSwitcher, useShowroom, showroom } from './StockPages'
+import { CarSwitcher, useShowroom, showroom, Swatches } from './StockPages'
 import { paints, finishes, naira } from './stock'
 import { ArrowRight, MapPin, Clock, Phone, Check } from 'lucide-react'
 
@@ -22,31 +22,25 @@ export function ModelPage() {
   const sw = useShowroom()
   const { car } = sw
   const [paint, setPaint] = useState('orig')
+  const [custom, setCustom] = useState('#3a7bd5')
   const [finish, setFinish] = useState('gloss')
   const p = paints.find((x) => x.id === paint)
-  const canPaint = car.views.some((v) => v.kind === 'paint')
+  const hex = paint === 'custom' ? custom : p?.hex
   return (
     <div className="pg pg-model">
       <section className="cfg" data-s3d>
-        <h1 className="ghost" key={car.slug} data-parallax="-0.15">{car.model.replace(/\s*\(.*\)/, '').toUpperCase()}</h1>
-        <div className="cfg-head" data-reveal="up">
-          <Kicker red>Configure your</Kicker>
-        </div>
-        <CarSwitcher sw={sw} color={canPaint ? p.hex : null} finish={canPaint ? finish : 'gloss'}>
+        <h1 className="ghost" key={car.slug}>{car.model.replace(/\s*\(.*\)/, '').toUpperCase()}</h1>
+        <CarSwitcher sw={sw} color={hex} finish={finish}>
+          {/* paint is part of the first screen: no scrolling needed to start changing colour */}
+          <div className="cfg-paint">
+            <Swatches items={paints} value={paint} onPick={setPaint} custom={custom} onCustom={(h) => { setCustom(h); setPaint('custom') }} />
+            <div className="seg cfg-seg">
+              {finishes.map((f) => <button key={f.id} className={finish === f.id ? 'on' : ''} onClick={() => setFinish(f.id)}>{f.name}</button>)}
+            </div>
+          </div>
+          <p className="cfg-paint-name">{paint === 'custom' ? `Custom ${custom}` : paint === 'orig' ? 'Original paint' : p.name} · {finishes.find((f) => f.id === finish).name}</p>
           <div className="cfg-links"><a href={`#/stock/${car.slug}`}>Full details <ArrowRight size={14} /></a><a href="#/technology">Technology <ArrowRight size={14} /></a></div>
         </CarSwitcher>
-        <div className="swatches" data-reveal="up" data-delay="200">
-          {canPaint ? paints.map((x) => (
-            <button key={x.id} className={x.id === paint ? 'on' : ''} onClick={() => setPaint(x.id)} aria-label={x.name} title={x.name}>
-              <i style={x.hex ? { background: x.hex } : undefined} className={x.hex ? '' : 'orig'} /><span>{x.id === 'orig' ? 'Original' : x.name}</span>
-            </button>
-          )) : <p className="cfg-note">This photo can’t be repainted online. Ask our Lagos studio for any paint or wrap.</p>}
-        </div>
-        {canPaint && (
-          <div className="seg cfg-seg">
-            {finishes.map((f) => <button key={f.id} className={finish === f.id ? 'on' : ''} onClick={() => setFinish(f.id)}>{f.name}</button>)}
-          </div>
-        )}
       </section>
 
       <section className="spec-band light" key={car.slug}>
@@ -165,21 +159,24 @@ export function TechnologyPage() {
         <div className="chip-row">
           {entries.map(([k]) => <button key={k} className={k === chip ? 'on' : ''} onClick={() => setChip(k)}>{k}</button>)}
         </div>
-        <div className="spot-card" key={spot.id}>
-          <span>{String(spots.indexOf(spot) + 1).padStart(2, '0')} / 05</span>
-          <h3>{spot.t}</h3><p>{spot.d}</p>
+        <div className="spot-card" key={car.slug + chip}>
+          <span>{car.make} {car.model}{car.specFor ? ` · specs for ${car.specFor}` : ''}</span>
+          <h3>{chip}</h3><p>{chipVal}</p>
         </div>
       </section>
 
       <section className="tabs light">
         <div className="tab-list" data-reveal="up">
-          {tabs.map((t, i) => <button key={t.k} className={i === tab ? 'on' : ''} onClick={() => setTab(i)}>{String(i + 1).padStart(2, '0')}<span>{t.k}</span></button>)}
+          {techTabs.map((x, i) => <button key={x.k} className={i === tab ? 'on' : ''} onClick={() => setTab(i)}>{String(i + 1).padStart(2, '0')}<span>{x.k}</span></button>)}
         </div>
-        <div className="tab-body" key={tab}>
-          <img src={tabs[tab].img} alt="" />
-          <div><h2>{tabs[tab].h}</h2><p>{tabs[tab].p}</p></div>
+        <div className="tab-body" key={car.slug + tab}>
+          <img src={img.src} alt={`${car.make} ${car.model}`} />
+          <div>
+            <h2>{t.h}</h2>
+            <dl className="tab-dl">{t.rows(car).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || '—'}</dd></div>)}</dl>
+            <a className="btn" href={`#/stock/${car.slug}`}>Customise this {car.make} <ArrowRight /></a>
+          </div>
         </div>
-        <img className="tab-wire" src="/img/wireframe-wine.png" alt="" aria-hidden="true" data-parallax="0.1" />
       </section>
     </div>
   )
