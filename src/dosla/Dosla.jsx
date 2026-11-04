@@ -65,7 +65,7 @@ function Footer() {
         <div><h4>Company</h4><a href="#/brand">About us</a><a href="#/brand">Craftsmanship</a><a href="#/brand">Careers</a><a href="#/brand">News</a></div>
         <div><h4>Information</h4><a href="#/contact">Ownership</a><a href="#/contact">Warranty</a><a href="#/contact">FAQ</a><a href="#/contact">Privacy policy</a></div>
         <div><h4>Connect</h4><a href="#/">Instagram</a><a href="#/">YouTube</a><a href="#/">LinkedIn</a><a href="#/contact">Contact</a></div>
-        <div className="made"><p>HANDCRAFTED IN ITALY</p><i /><small>© 2025 DAUDA MOTOS. ALL RIGHTS RESERVED.</small></div>
+        <div className="made"><p>LAGOS · ABUJA · NIGERIA</p><i /><small>© 2026 DAUDA MOTOS. ALL RIGHTS RESERVED.</small></div>
       </footer>
       <p className="credits light">Photography: Calreyn88, Alexander Migl, pjhooker, Francesca Milanini, Tokumeigakarinoaoshima and other Wikimedia Commons contributors (CC BY-SA 3.0 / 4.0), crest lion by ImperialHerald (CC0). Backgrounds removed, some recoloured. Full list in docs/IMAGE-WORKFLOWS.md.</p>
     </>
@@ -109,9 +109,9 @@ const tiles = [
 ]
 
 const quotes = [
-  { q: ['IL CORSA is a masterpiece. The', 'attention to detail and driving', 'experience are unmatched.'], n: 'Alessandro R.', r: 'Collector, Monaco' },
-  { q: ['A perfect blend of power, beauty,', 'and innovation. Dauda Motos', 'has redefined Italian excellence.'], n: 'James T.', r: 'Entrepreneur, London' },
-  { q: ['Every drive feels personal.', 'IL CORSA is not just a car,', 'it’s an emotion.'], n: 'Matteo B.', r: 'Racing driver, Italy' },
+  { q: ['They found the exact spec I wanted,', 'inspected it abroad and cleared it', 'at Tin Can. Zero stress.'], n: 'Tunde A.', r: 'Collector, Lagos' },
+  { q: ['Transparent pricing in naira,', 'no surprises at delivery. Dauda Motos', 'is the standard in Abuja.'], n: 'Amina B.', r: 'Entrepreneur, Abuja' },
+  { q: ['I changed the paint online,', 'and the car arrived exactly', 'like the picture.'], n: 'Chidi O.', r: 'Engineer, Port Harcourt' },
 ]
 
 function Home() {
@@ -121,14 +121,14 @@ function Home() {
       <section className="hero intro">
         <div className="hero-bg"><DepthImage className="hero-bg-depth" src="/img/hero-bg.jpg" depth="/img/hero-bg-depth.jpg" strength={0.012} focus={0.3} drift={0.25} /></div>
         <div className="hero-copy">
-          <p className="eyebrow">Introducing <i /></p>
-          <h1>BORN IN ITALY.<br /><em>CRAFTED TO</em><br /><b>INSPIRE.</b></h1>
-          <p className="lead">Where Italian passion meets precision engineering.<br />A new era of performance begins.</p>
-          <a className="btn" href="#/model">Discover IL CORSA <ArrowRight /></a>
+          <p className="eyebrow">Lagos · Abuja <i /></p>
+          <h1>BORN IN LAGOS.<br /><em>CURATED TO</em><br /><b>INSPIRE.</b></h1>
+          <p className="lead">Nigeria’s home for exceptional cars.<br />Verified, imported, cleared and delivered to your door.</p>
+          <a className="btn" href="#/stock">Browse the stock <ArrowRight /></a>
           <dl className="facts">
-            <div><dt>Limited to</dt><dd>499 UNITS</dd></div>
-            <div><dt>Handcrafted</dt><dd>IN MODENA</dd></div>
-            <div><dt>Deliveries begin</dt><dd>Q4 2025</dd></div>
+            <div><dt>Showrooms</dt><dd>LAGOS · ABUJA</dd></div>
+            <div><dt>Every car</dt><dd>INSPECTED</dd></div>
+            <div><dt>Delivery</dt><dd>NATIONWIDE</dd></div>
           </dl>
         </div>
         <DepthImage className="hero-car" src="/img/car-hero.png" depth="/img/car-hero-depth.png" alt="White Lamborghini Revuelto" strength={0.022} focus={0.6} />
@@ -185,7 +185,7 @@ function Home() {
       </section>
 
       <section className="quotes light">
-        <p className="kicker red" data-reveal="up">TRUSTED BY ENTHUSIASTS WORLDWIDE</p>
+        <p className="kicker red" data-reveal="up">TRUSTED BY DRIVERS ACROSS NIGERIA</p>
         <div className="q-row">
           {quotes.map((x, i) => (
             <blockquote key={x.n} data-reveal="3d" data-delay={i * 120}>
@@ -198,16 +198,15 @@ function Home() {
       </section>
 
       <section className="inquire" data-s3d>
-        <img className="duomo" src="/img/duomo-white.png" alt="" aria-hidden="true" data-parallax="0.08" />
         <div className="inq-copy" data-reveal="up">
-          <p className="kicker red">OWN A PIECE OF ITALIAN EXCELLENCE</p>
+          <p className="kicker red">OWN SOMETHING EXCEPTIONAL</p>
           <h2>INQUIRE<br />ABOUT <b>IL CORSA</b></h2>
           <p className="body">Limited production. Bespoke experience.<br />Submit your inquiry and our concierge team<br />will connect with you.</p>
         </div>
         <form onSubmit={(e) => { e.preventDefault(); window.location.hash = '/contact' }} data-reveal="right" data-delay="150">
           <input placeholder="First name" /><input placeholder="Last name" />
           <input placeholder="Email address" /><input placeholder="Phone number" />
-          <input className="wide" placeholder="Country" />
+          <input className="wide" placeholder="State (e.g. Lagos)" />
           <textarea className="wide" placeholder="Message" />
           <button className="btn submit">Submit inquiry <ArrowRight /></button>
         </form>
