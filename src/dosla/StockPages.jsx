@@ -3,7 +3,7 @@ import { ArrowRight, ArrowLeft, Search, MapPin, Info, RotateCcw, ChevronLeft, Ch
 import Recolor from './Recolor'
 import { cars, categories, naira, paints, leathers, finishes, OPTION_USD, findCar } from './stock'
 
-const stat = (v, unit) => (v == null ? '—' : `${v.toLocaleString()}${unit}`)
+const stat = (v, unit) => (v == null ? 'N/A' : `${v.toLocaleString()}${unit}`)
 
 function CarCard({ car, i = 0 }) {
   const v = car.views[0]
@@ -16,7 +16,7 @@ function CarCard({ car, i = 0 }) {
         <h3>{car.model}</h3>
         <dl>
           <div><dt>Power</dt><dd>{stat(car.hp, ' hp')}</dd></div>
-          <div><dt>0–100</dt><dd>{stat(car.zero, ' s')}</dd></div>
+          <div><dt>0-100</dt><dd>{stat(car.zero, ' s')}</dd></div>
           <div><dt>Top</dt><dd>{stat(car.top, ' km/h')}</dd></div>
         </dl>
         <footer><strong>{naira(car.usd)}</strong><em>Customise <ArrowRight size={14} /></em></footer>
@@ -211,7 +211,7 @@ export function CarPage({ slug }) {
         <section className="car-specs light">
           <div className="cs-head" data-reveal="up"><p className="kicker">Specification{car.specFor ? ` · shown for ${car.specFor}` : ''}</p><h2>THE <b>NUMBERS</b></h2></div>
           <div className="cs-grid">
-            {[['0–100 km/h', stat(car.zero, ' s')], ['Top speed', stat(car.top, ' km/h')], ...Object.entries(car.specs)].map(([k, val], i) => (
+            {[['0-100 km/h', stat(car.zero, ' s')], ['Top speed', stat(car.top, ' km/h')], ...Object.entries(car.specs)].map(([k, val], i) => (
               <div key={k} data-reveal="flip" data-delay={i * 60}><span>{k}</span><strong>{val}</strong></div>
             ))}
           </div>

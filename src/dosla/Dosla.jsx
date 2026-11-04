@@ -157,7 +157,7 @@ function Home() {
     <>
       <div className="scene scene-hero" data-pin><div className="scene-inner">
       <section className="hero intro">
-        {/* hero film: 0:40–0:47.55 of the GT3 RS source (headlight, wing, profile) */}
+        {/* hero film: 0:40-0:47.55 of the GT3 RS source (headlight, wing, profile) */}
         <div className="hero-bg"><LoopVideo name="hero-gt3" className="hero-video" /></div>
         <div className="hero-copy">
           <p className="eyebrow">Lagos · Abuja <i /></p>
@@ -194,7 +194,7 @@ function Home() {
           <p className="kicker red">THE DEBUT MODEL <i /></p>
           <h2>IL CORSA</h2>
           <p className="sub">Designed without compromise.</p>
-          <p className="body">IL CORSA is more than a supercar—<br />it’s a statement of intent.<br />Every curve, every detail,<br />engineered to stir emotion.</p>
+          <p className="body">IL CORSA is more than a supercar.<br />it’s a statement of intent.<br />Every curve, every detail,<br />engineered to stir emotion.</p>
           <a className="btn" href="#/model">Explore model <ArrowRight /></a>
           <a className="film" href="#/performance">WATCH FILM {I.play}</a>
         </div>
@@ -226,7 +226,7 @@ function Home() {
           {quotes.map((x, i) => (
             <blockquote key={x.n} data-reveal="3d" data-delay={i * 120}>
               <p>{x.q.map((l) => <span key={l}>{l}<br /></span>)}</p>
-              <footer><b>— {x.n}</b>{x.r}</footer>
+              <footer><b>{x.n}</b>{x.r}</footer>
             </blockquote>
           ))}
         </div>

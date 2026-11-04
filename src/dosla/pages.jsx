@@ -12,10 +12,10 @@ function Kicker({ children, red }) {
 /* =============================================================== MODEL ==== */
 /* Showroom configurator: arrows switch between the real cars in stock, the name sits
    under the car, and the paint swatches repaint whichever car is showing. */
-const NA = '—'
+const NA = 'N/A'
 const sixSpecs = (c) => [
   ['Engine', c.specs?.Engine ?? NA], ['Power', c.specs?.Power ?? NA], ['Torque', c.specs?.Torque ?? NA],
-  ['0–100 km/h', c.zero ? `${c.zero} s` : NA], ['Top speed', c.top ? `${c.top} km/h` : NA], ['Weight', c.specs?.Weight ?? NA],
+  ['0-100 km/h', c.zero ? `${c.zero} s` : NA], ['Top speed', c.top ? `${c.top} km/h` : NA], ['Weight', c.specs?.Weight ?? NA],
 ]
 
 export function ModelPage() {
@@ -66,11 +66,11 @@ export function ModelPage() {
 
 /* ========================================================= PERFORMANCE ==== */
 /* Telemetry board: huge counters, acceleration bars, power curve, lap board. */
-const accel = [['0–100 km/h', 3.1, 12], ['0–200 km/h', 7.4, 12], ['0–300 km/h', 18.9, 22], ['100–0 km/h', 2.9, 12]]
+const accel = [['0-100 km/h', 3.1, 12], ['0-200 km/h', 7.4, 12], ['0-300 km/h', 18.9, 22], ['100-0 km/h', 2.9, 12]]
 const laps = [
   ['Nürburgring Nordschleife', '6:58.2'], ['Fiorano', '1:08.7'], ['Mugello', '1:49.1'], ['Monza', '1:42.3'], ['Spa-Francorchamps', '2:21.6'],
 ]
-// power (cv) and torque (Nm) every 1000 rpm, 1000–8000
+// power (cv) and torque (Nm) every 1000 rpm, 1000 to 8000
 const power = [110, 230, 360, 480, 600, 710, 800, 820]
 const torque = [520, 760, 880, 900, 900, 870, 790, 700]
 
@@ -138,7 +138,7 @@ export function PerformancePage() {
 const techTabs = [
   { k: 'Powertrain', h: 'THE ENGINE', rows: (c) => [['Engine', c.specs?.Engine], ['Power', c.specs?.Power], ['Torque', c.specs?.Torque]] },
   { k: 'Transmission', h: 'POWER, DELIVERED', rows: (c) => [['Gearbox', c.specs?.Gearbox], ['Drive', c.specs?.Drive]] },
-  { k: 'Performance', h: 'THE NUMBERS', rows: (c) => [['0–100 km/h', c.zero && `${c.zero} s`], ['Top speed', c.top && `${c.top} km/h`], ['Weight', c.specs?.Weight]] },
+  { k: 'Performance', h: 'THE NUMBERS', rows: (c) => [['0-100 km/h', c.zero && `${c.zero} s`], ['Top speed', c.top && `${c.top} km/h`], ['Weight', c.specs?.Weight]] },
   { k: 'This car', h: 'IN OUR STOCK', rows: (c) => [['Colour', c.colour], ['Condition', c.condition], ['Location', c.location], ['Price', naira(c.usd)]] },
 ]
 
@@ -173,7 +173,7 @@ export function TechnologyPage() {
           <img src={img.src} alt={`${car.make} ${car.model}`} />
           <div>
             <h2>{t.h}</h2>
-            <dl className="tab-dl">{t.rows(car).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || '—'}</dd></div>)}</dl>
+            <dl className="tab-dl">{t.rows(car).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || 'N/A'}</dd></div>)}</dl>
             <a className="btn" href={`#/stock/${car.slug}`}>Customise this {car.make} <ArrowRight /></a>
           </div>
         </div>
@@ -222,7 +222,7 @@ export function BrandPage() {
 
       <section className="quote-wide" data-reveal="clip" data-s3d>
         <img src="/img/x-revuelto.jpg" alt="" data-parallax="0.12" />
-        <blockquote>“We don’t just sell the fastest car.<br />We find the one you <b>remember</b>.”<cite>— Dauda Motos</cite></blockquote>
+        <blockquote>“We don’t just sell the fastest car.<br />We find the one you <b>remember</b>.”<cite>Dauda Motos</cite></blockquote>
       </section>
     </div>
   )
@@ -232,10 +232,10 @@ export function BrandPage() {
 /* Split screen: showroom finder + private-appointment booking with success state. */
 const rooms = [
   // placeholder addresses and numbers: replace with the real ones
-  { city: 'Lagos · Victoria Island', a: 'Adeola Odeku Street, Victoria Island', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0001' },
-  { city: 'Lagos · Lekki', a: 'Admiralty Way, Lekki Phase 1', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0002' },
-  { city: 'Abuja', a: 'Aminu Kano Crescent, Wuse 2', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0003' },
-  { city: 'Port Harcourt', a: 'Aba Road, GRA Phase 2', h: 'Mon–Fri · 09:00–17:00', t: '+234 800 000 0004' },
+  { city: 'Lagos · Victoria Island', a: 'Adeola Odeku Street, Victoria Island', h: 'Mon to Sat · 09:00 to 18:00', t: '+234 800 000 0001' },
+  { city: 'Lagos · Lekki', a: 'Admiralty Way, Lekki Phase 1', h: 'Mon to Sat · 09:00 to 18:00', t: '+234 800 000 0002' },
+  { city: 'Abuja', a: 'Aminu Kano Crescent, Wuse 2', h: 'Mon to Sat · 09:00 to 18:00', t: '+234 800 000 0003' },
+  { city: 'Port Harcourt', a: 'Aba Road, GRA Phase 2', h: 'Mon to Fri · 09:00 to 17:00', t: '+234 800 000 0004' },
 ]
 
 export function ContactPage() {
