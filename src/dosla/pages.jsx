@@ -196,26 +196,25 @@ export function TechnologyPage() {
 /* =============================================================== BRAND ==== */
 /* Editorial: crest hero, alternating timeline, values, manifesto quote. */
 const timeline = [
-  ['1952', 'A workshop in Brera', 'Two brothers open a coachbuilding workshop behind the Pinacoteca, hand-beating aluminium bodies.'],
-  ['1967', 'First victory', 'A Dauda Motos barchetta takes its class at the Targa Florio, beating factory teams.'],
-  ['1988', 'Modena atelier', 'Production moves to Modena; every car is still signed by the craftsman who built its engine.'],
-  ['2011', 'The electric turn', 'A hybrid racing programme begins, laying the groundwork for today’s e-AWD.'],
-  ['2025', 'IL CORSA', '499 numbered cars. The most powerful road car the house has ever built.'],
+  ['2012', 'A forecourt in Lekki', 'Dauda Motos starts with three imported cars on a rented lot in Lekki Phase 1.'],
+  ['2015', 'Tokunbo, done properly', 'Pre-shipment inspections begin: every foreign-used car is checked abroad before it is shipped to Lagos.'],
+  ['2018', 'Abuja showroom', 'A second showroom opens in Wuse 2 for clients in the capital and the North.'],
+  ['2022', 'The studio', 'An in-house paint, wrap and leather studio in Lagos: the customiser online, done for real.'],
+  ['2026', 'Stock online', 'Search, customise and reserve any car in stock from your phone, priced in naira.'],
 ]
 const values = [
-  ['Passione', 'We build for the person who will drive it, never for a spec sheet.'],
-  ['Precisione', 'Tolerances measured in microns, stitches counted by hand: 1,800 per seat.'],
-  ['Patrimonio', 'Seventy years of craft, carried forward one apprentice at a time.'],
+  ['Verified', 'Every car is inspected, history-checked and road-tested before it reaches you.'],
+  ['Transparent', 'One price in naira, including duty and clearing. No surprises on delivery day.'],
+  ['Delivered', 'From the port to your gate, anywhere in Nigeria, with papers in order.'],
 ]
 
 export function BrandPage() {
   return (
     <div className="pg pg-brand">
       <section className="manifest" data-s3d>
-        <img className="m-duomo" src="/img/duomo-white.png" alt="" aria-hidden="true" data-parallax="0.18" />
-        <img className="m-crest" src="/img/crest-white.png" alt="Dauda Motos crest" data-reveal="zoom" />
-        <Kicker red>Since 1952 · Milano</Kicker>
-        <h1 data-reveal="up" data-delay="150">A HOUSE OF<br /><b>MAKERS</b></h1>
+        <Logo className="m-crest" data-reveal="zoom" />
+        <Kicker red>Since 2012 · Lagos</Kicker>
+        <h1 data-reveal="up" data-delay="150">A HOUSE OF<br /><b>DRIVERS</b></h1>
       </section>
 
       <section className="timeline light">
@@ -234,7 +233,7 @@ export function BrandPage() {
 
       <section className="quote-wide" data-reveal="clip" data-s3d>
         <img src="/img/x-revuelto.jpg" alt="" data-parallax="0.12" />
-        <blockquote>“We do not build the fastest car.<br />We build the one you <b>remember</b>.”<cite>— Giulia Rossi, Design Director</cite></blockquote>
+        <blockquote>“We don’t just sell the fastest car.<br />We find the one you <b>remember</b>.”<cite>— Dauda Motos</cite></blockquote>
       </section>
     </div>
   )
@@ -243,10 +242,11 @@ export function BrandPage() {
 /* ============================================================= CONTACT ==== */
 /* Split screen: showroom finder + private-appointment booking with success state. */
 const rooms = [
-  { city: 'Milano', a: 'Via Montenapoleone 8', h: 'Mon–Sat · 10:00–19:00', t: '+39 02 7600 1952' },
-  { city: 'Monaco', a: 'Avenue Princesse Grace 21', h: 'Mon–Sat · 10:00–19:00', t: '+377 93 30 1952' },
-  { city: 'London', a: '14 Berkeley Square, Mayfair', h: 'Mon–Fri · 09:00–18:00', t: '+44 20 7499 1952' },
-  { city: 'Dubai', a: 'Sheikh Zayed Road, DIFC', h: 'Sun–Thu · 10:00–20:00', t: '+971 4 330 1952' },
+  // placeholder addresses and numbers: replace with the real ones
+  { city: 'Lagos · Victoria Island', a: 'Adeola Odeku Street, Victoria Island', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0001' },
+  { city: 'Lagos · Lekki', a: 'Admiralty Way, Lekki Phase 1', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0002' },
+  { city: 'Abuja', a: 'Aminu Kano Crescent, Wuse 2', h: 'Mon–Sat · 09:00–18:00', t: '+234 800 000 0003' },
+  { city: 'Port Harcourt', a: 'Aba Road, GRA Phase 2', h: 'Mon–Fri · 09:00–17:00', t: '+234 800 000 0004' },
 ]
 
 export function ContactPage() {
@@ -271,7 +271,7 @@ export function ContactPage() {
           {sent ? (
             <div className="sent">
               <span><Check /></span>
-              <h2>GRAZIE.</h2>
+              <h2>THANK YOU.</h2>
               <p>Your {kind.toLowerCase()} request for {rooms[room].city} is with our concierge. Expect a call within 24 hours.</p>
               <button className="btn" onClick={() => setSent(false)}>New request <ArrowRight /></button>
             </div>
@@ -279,17 +279,17 @@ export function ContactPage() {
             <form onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
               <Kicker>Private appointment · {rooms[room].city}</Kicker>
               <div className="kinds">
-                {['Private viewing', 'Test drive', 'Configuration'].map((k) => (
+                {['Private viewing', 'Test drive', 'Custom build'].map((k) => (
                   <button type="button" key={k} className={k === kind ? 'on' : ''} onClick={() => setKind(k)}>{k}</button>
                 ))}
               </div>
-              <label>Full name<input required placeholder="Alessandro Rossi" /></label>
+              <label>Full name<input required placeholder="Adaeze Okafor" /></label>
               <label>Email<input required type="email" placeholder="you@domain.com" /></label>
               <div className="row">
                 <label>Preferred date<input required type="date" /></label>
                 <label>Time<select defaultValue="11:00">{['10:00', '11:00', '14:00', '16:00', '18:00'].map((t) => <option key={t}>{t}</option>)}</select></label>
               </div>
-              <label>Notes<textarea rows="3" placeholder="Paint, interior, delivery country…" /></label>
+              <label>Notes<textarea rows="3" placeholder="Car, paint, delivery state…" /></label>
               <button className="btn">Request appointment <ArrowRight /></button>
             </form>
           )}
