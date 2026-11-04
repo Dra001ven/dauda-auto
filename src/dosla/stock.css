@@ -240,3 +240,7 @@
 .rm .cfg-paint-name { margin: 10px 0 0 !important; font: 500 10px var(--sans) !important; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.7) !important; justify-content: center; }
 .rm .pg-model .cfg-links { margin-top: 12px; }
 @media (max-width: 640px) { .rm .pg-model .sw-frame { height: 32vh; } .rm .cfg-paint .sw-row button, .rm .cfg-paint .sw-custom { width: 32px; height: 32px; } }
+
+/* nav: active underline sits 12px under the text (was ~20px) */
+.rm .nav nav a { padding: 4px 0; }
+.rm .nav nav a.on::after { bottom: -8px; }
