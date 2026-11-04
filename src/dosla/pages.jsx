@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { ArrowRight, ChevronLeft, ChevronRight, X, MapPin, Clock, Phone, Check } from 'lucide-react'
+import { useState } from 'react'
+import { Logo } from './icons'
+import { ArrowRight, MapPin, Clock, Phone, Check } from 'lucide-react'
 
 /* Shared page banner: every page opens differently, but keeps the nav legible. */
 function Kicker({ children, red }) {
@@ -189,71 +189,6 @@ export function TechnologyPage() {
         </div>
         <img className="tab-wire" src="/img/wireframe-wine.png" alt="" aria-hidden="true" data-parallax="0.1" />
       </section>
-    </div>
-  )
-}
-
-/* ============================================================= GALLERY ==== */
-/* Filterable masonry archive with a keyboard-friendly lightbox. */
-const shots = [
-  { src: '/img/x-sto.jpg', c: 'Exterior', t: 'Lamborghini Huracán STO' },
-  { src: '/img/p6.jpg', c: 'Interior', t: 'Bordeaux leather' },
-  { src: '/img/x-artura.jpg', c: 'Exterior', t: 'McLaren Artura' },
-  { src: '/img/x-sto-wheel.jpg', c: 'Detail', t: 'Forged centre-lock' },
-  { src: '/img/x-revuelto.jpg', c: 'Exterior', t: 'Lamborghini Revuelto' },
-  { src: '/img/x-750s-nose.jpg', c: 'Detail', t: 'Eye-socket headlights' },
-  { src: '/img/x-gt3rs.jpg', c: 'Exterior', t: 'Porsche 911 GT3 RS' },
-  { src: '/img/p5.jpg', c: 'Interior', t: 'Spider cockpit' },
-  { src: '/img/x-mc20.jpg', c: 'Exterior', t: 'Maserati MC20' },
-  { src: '/img/x-750s.jpg', c: 'Exterior', t: 'McLaren 750S' },
-  { src: '/img/g4.jpg', c: 'Detail', t: 'Five-spoke forged wheel' },
-  { src: '/img/x-sto-blu.jpg', c: 'Exterior', t: 'Huracán STO, Blu Laufey' },
-  { src: '/img/p1.jpg', c: 'Exterior', t: 'Ginza, Tokyo' },
-  { src: '/img/x-750s-stand.jpg', c: 'Exterior', t: 'McLaren 750S, salon' },
-  { src: '/img/g2.jpg', c: 'Detail', t: 'Bonnet scoop' },
-]
-
-export function GalleryPage() {
-  const [cat, setCat] = useState('All')
-  const [open, setOpen] = useState(-1)
-  const list = shots.filter((s) => cat === 'All' || s.c === cat)
-  useEffect(() => {
-    if (open < 0) return
-    const k = (e) => {
-      if (e.key === 'Escape') setOpen(-1)
-      if (e.key === 'ArrowRight') setOpen((o) => (o + 1) % list.length)
-      if (e.key === 'ArrowLeft') setOpen((o) => (o - 1 + list.length) % list.length)
-    }
-    window.addEventListener('keydown', k)
-    return () => window.removeEventListener('keydown', k)
-  }, [open, list.length])
-  return (
-    <div className="pg pg-gallery">
-      <section className="archive-head">
-        <h1 data-reveal="clip">THE <b>ARCHIVE</b></h1>
-        <div className="chips" data-reveal="up" data-delay="150">
-          {['All', 'Exterior', 'Interior', 'Detail'].map((c) => <button key={c} className={c === cat ? 'on' : ''} onClick={() => setCat(c)}>{c}</button>)}
-        </div>
-      </section>
-      <section className="masonry light" key={cat}>
-        {list.map((s, i) => (
-          <figure key={s.src} className="in-anim" style={{ animationDelay: `${i * 70}ms` }} onClick={() => setOpen(i)} data-tilt="9">
-            <img src={s.src} alt={s.t} loading="lazy" />
-            <figcaption><span>{s.c}</span>{s.t}</figcaption>
-          </figure>
-        ))}
-      </section>
-      {open >= 0 && createPortal(
-        <div className="lightbox" onClick={() => setOpen(-1)}>
-          <button className="lb-x" aria-label="Close"><X /></button>
-          <button className="lb-prev" aria-label="Previous" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + list.length) % list.length) }}><ChevronLeft /></button>
-          <figure onClick={(e) => e.stopPropagation()} key={open}>
-            <img src={list[open].src} alt={list[open].t} />
-            <figcaption>{list[open].t} · {open + 1} / {list.length}</figcaption>
-          </figure>
-          <button className="lb-next" aria-label="Next" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % list.length) }}><ChevronRight /></button>
-        </div>, document.body,
-      )}
     </div>
   )
 }
