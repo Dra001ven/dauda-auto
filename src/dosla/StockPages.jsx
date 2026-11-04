@@ -8,7 +8,7 @@ const stat = (v, unit) => (v == null ? '—' : `${v.toLocaleString()}${unit}`)
 function CarCard({ car, i = 0 }) {
   const v = car.views[0]
   return (
-    <a className="car-card" href={`#/stock/${car.slug}`} style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }} data-tilt="5">
+    <a className="car-card" href={`#/stock/${car.slug}`} style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}>
       <div className="cc-img"><img src={v.src} alt={`${car.make} ${car.model}`} loading="lazy" /></div>
       <div className="cc-body">
         <p className="cc-tags"><span>{car.cat}</span><span>{car.condition}</span></p>
@@ -105,8 +105,8 @@ function Swatches({ items, value, onPick, custom, onCustom }) {
           <i style={p.hex ? { background: p.hex } : undefined} className={p.hex ? '' : 'orig'}>{!p.hex && <RotateCcw size={13} />}</i>
         </button>
       ))}
-      <label className={`sw-custom${value === 'custom' ? ' on' : ''}`} title="Any colour">
-        <i style={{ background: custom }} />
+      <label className={`sw-custom${value === 'custom' ? ' on' : ''}`} title="Any colour" style={{ '--c': custom }}>
+        <i />
         <input type="color" value={custom} onChange={(e) => onCustom(e.target.value)} aria-label="Pick any colour" />
       </label>
     </div>
@@ -185,6 +185,10 @@ export function CarPage({ slug }) {
               <h4>Interior leather <em>{leather === 'custom' ? leatherHex : lObj?.name}</em></h4>
               <Swatches items={leathers} value={leather} onPick={(id) => { setLeather(id); goto('leather') }} custom={leatherHex} onCustom={(h) => { setLeatherHex(h); setLeather('custom'); goto('leather') }} />
             </div>
+          )}
+
+          {!hasPaint && !hasLeather && (
+            <div className="opt"><h4>Customise</h4><p className="opt-note">This photo can’t be repainted online yet. Our Lagos studio can still do any paint, wrap or leather. Ask when you reserve.</p></div>
           )}
 
           <div className="build">
