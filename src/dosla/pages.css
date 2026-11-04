@@ -275,3 +275,68 @@
   box-shadow: 0 calc(var(--u) * -20) calc(var(--u) * 80) rgba(255,190,205,.18); }
 .rm .facts div { border-color: rgba(255,255,255,.22); }
 .rm .facts dt { color: rgba(255,255,255,.65); }
+
+/* ---------- .light sections ---------- */
+.rm .light { --line: rgba(66,10,21,.12); --muted: #7a5560; background: var(--ivory); color: var(--wine-d); }
+.rm .light :is(h1, h2, h3, h4, strong, dd, blockquote, figcaption, label, li, b) { color: var(--wine-d); }
+.rm .light :is(.body, p) { color: #6f5058; }
+.rm .light .kicker, .rm .light .kicker.red { color: var(--wine); }
+.rm .light b { color: var(--wine); }
+.rm .light .btn { background: var(--wine); color: #fff; }
+.rm .light .btn:hover { background: var(--wine-l); }
+.rm .light svg { color: var(--wine); }
+
+/* home: performance card */
+.rm .perf.light { background: #fff; border: 0; box-shadow: 0 30px 60px -30px rgba(20,0,5,.55); }
+.rm .perf.light .kicker { color: var(--wine); }
+.rm .perf.light .kicker span { color: var(--wine-l); }
+.rm .perf.light .kicker::after { background: var(--wine); }
+.rm .perf.light .ico { color: var(--wine); }
+.rm .perf.light strong, .rm .perf.light strong small { color: var(--wine-d); }
+.rm .perf.light .perf-row p > span { color: #8a6a72; }
+.rm .perf.light .perf-row > div { border-color: rgba(66,10,21,.12); }
+
+/* home: IL CORSA (wine) */
+.rm .model { background: linear-gradient(90deg, var(--wine-dd) 0%, #34070f 30%, #5a0d1c 60%, #420a15 100%); border-color: rgba(255,255,255,.1); }
+.rm .curtain { background:
+    linear-gradient(90deg, var(--wine-dd) 0%, rgba(43,6,14,0) 18%),
+    repeating-linear-gradient(90deg, #3a0812 0 calc(var(--u) * 3), #6e1426 calc(var(--u) * 3) calc(var(--u) * 5), #9a2b40 calc(var(--u) * 5) calc(var(--u) * 6), #4c0b18 calc(var(--u) * 6) calc(var(--u) * 10)); }
+.rm .model::after { background: linear-gradient(180deg, rgba(43,6,14,0), rgba(43,6,14,.92)); }
+.rm .film { color: #fff; }
+
+/* home: technology (white) */
+.rm .box.tech.light { margin: 0; border: 0; background: #fff; }
+.rm .tech.light::after { background: linear-gradient(90deg, rgba(255,255,255,0), #fff); }
+.rm .tech.light .tech-img { filter: brightness(.82) contrast(1.1) saturate(1.05); }
+.rm .tech.light li { color: var(--wine-d); }
+.rm .tech.light .wire { opacity: .8; filter: none; }
+
+/* home: gallery band (wine) + captions */
+.rm .life { background: var(--wine-d); }
+.rm .grid .cap { background: rgba(43,6,14,.78); }
+
+/* home: testimonials (white) */
+.rm .quotes.light { background: #fff; }
+.rm .quotes.light blockquote p { color: var(--wine-d); }
+.rm .quotes.light footer { color: #8a6a72; }
+.rm .quotes.light footer b { color: var(--wine); font-style: normal; }
+.rm .quotes.light blockquote::before { color: var(--wine-l); }
+.rm .quotes.light .seal { opacity: .14; filter: none; }
+
+/* home: inquiry (wine) */
+.rm .inquire { background: linear-gradient(90deg, var(--wine-dd) 0%, #4e0b18 35%, var(--wine) 70%, #540c1a 100%); border-color: rgba(255,255,255,.12); }
+.rm .inquire .kicker { color: rgba(255,255,255,.72); }
+.rm .inquire input, .rm .inquire textarea { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.05); }
+.rm .inquire ::placeholder { color: rgba(255,255,255,.75); }
+.rm .inquire input:focus, .rm .inquire textarea:focus { border-color: #fff; }
+.rm .submit { background: #fff; color: var(--wine); }
+.rm .duomo { opacity: .35; }
+
+/* footer (white) */
+.rm .foot.light { background: #fff; }
+.rm .foot.light .brand span { color: var(--wine-d); }
+.rm .foot.light .brand small, .rm .foot.light div > a { color: #8a6a72; }
+.rm .foot.light div > a:hover { color: var(--wine); }
+.rm .foot.light .made p { color: var(--wine-d); }
+.rm .foot.light .made i { background: linear-gradient(90deg, var(--wine) 0 50%, #e9dfe1 50%); }
+.rm .credits.light { background: #fff; color: #a08890; margin: 0; }
