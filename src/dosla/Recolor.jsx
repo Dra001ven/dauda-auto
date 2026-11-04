@@ -18,7 +18,8 @@ export default function Recolor({ src, mask, color, finish = 'gloss', alt = '', 
   useEffect(() => {
     let alive = true
     setReady(false); data.current = null
-    Promise.all([load(src), mask ? load(mask) : Promise.resolve(null)]).then(([img, mk]) => {
+    // a missing mask must never hide the photo: fall back to showing it unpainted
+    Promise.all([load(src), mask ? load(mask).catch(() => null) : Promise.resolve(null)]).then(([img, mk]) => {
       if (!alive) return
       const w = img.naturalWidth, h = img.naturalHeight
       const c = ref.current; c.width = w; c.height = h
