@@ -208,9 +208,9 @@
 .rm .intro .hero-bg { animation: rm-fade 1.6s both; }
 .rm .nav { animation: rm-fade 1s .2s both; }
 /* ---------- 3D ---------- */
-.rm, .rm section, .rm .q-row, .rm .grid, .rm .spec-band, .rm .trim-row, .rm .values, .rm .rooms ul, .rm .perf-row, .rm .timeline, .rm .masonry, .rm .tab-body { perspective: 1600px; }
+.rm section, .rm .q-row, .rm .grid, .rm .spec-band, .rm .trim-row, .rm .values, .rm .rooms ul, .rm .perf-row, .rm .timeline, .rm .masonry, .rm .tab-body { perspective: 1600px; }
 .rm [data-reveal="3d"] { transform-origin: 50% 100%; }
-.rm [data-reveal="3d"]:not(.in) { rotate: x 40deg; translate: 0 80px; }
+.rm [data-reveal="3d"]:not(.in) { rotate: x 14deg; translate: 0 60px; }
 .rm [data-reveal="flip"] { transform-origin: 50% 50%; }
 .rm [data-reveal="flip"]:not(.in) { rotate: y -70deg; }
 .rm [data-reveal="left"], .rm [data-reveal="right"] { transform-origin: 50% 50%; }
@@ -237,3 +237,38 @@
 .rm [data-tilt].tilting::after { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) { .rm *, .rm *::before { animation: none !important; transition: none !important; } .rm [data-reveal] { opacity: 1 !important; translate: none !important; clip-path: none !important; scale: none !important; rotate: none !important; } }
+
+/* ================= "Redsun" style transitions ================= */
+/* frosted glass nav once you leave the top */
+.rm .nav { border-bottom: 1px solid transparent; }
+.rm .nav.glass { background: rgba(10,10,12,.55); -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5); border-bottom-color: rgba(255,255,255,.07); }
+
+/* blur-to-sharp reveals (soft, like the reference) */
+.rm [data-reveal]:not([data-reveal="drive"]):not([data-reveal="clip"]) { transition-property: opacity, translate, rotate, scale, filter, clip-path; transition-duration: 1.1s; transition-timing-function: cubic-bezier(.2,.7,.2,1); }
+.rm [data-reveal]:not([data-reveal="drive"]):not([data-reveal="clip"]):not(.in) { filter: blur(14px); }
+.rm [data-tilt] { transition: opacity 1.1s cubic-bezier(.2,.7,.2,1), translate 1.1s cubic-bezier(.2,.7,.2,1), rotate 1.3s cubic-bezier(.2,.7,.2,1), scale 1.2s, filter 1.1s, transform .6s cubic-bezier(.2,.7,.2,1), border-color .4s !important; }
+
+/* hero lifts away: copy fades + blurs upward, a red glow arc rises behind the car */
+.rm .hero .hero-copy { filter: blur(calc(var(--x, 0) * 10px)); }
+.rm .hero-arc { position: absolute; z-index: 1; left: 50%; top: calc(var(--u) * 250); width: calc(var(--u) * 900); height: calc(var(--u) * 900); margin-left: calc(var(--u) * -450);
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(10,4,5,1) 93%, rgba(255,90,60,.9) 96.5%, rgba(210,30,40,.55) 98%, transparent 100%);
+  box-shadow: 0 calc(var(--u) * -20) calc(var(--u) * 80) rgba(210,30,40,.35);
+  opacity: calc(.25 + var(--x, 0) * 1.2);
+  transform: translateY(calc((.35 - var(--x, 0)) * var(--u) * 260)) scale(calc(.9 + var(--x, 0) * .25)); }
+.rm .intro .hero-arc { animation: rm-fade 2s .8s both; }
+
+/* framed sections rise and flatten into place (container-scroll) */
+.rm .box.model, .rm .box.tech { transform-origin: 50% 0; will-change: transform;
+  transform: perspective(1400px) translateY(calc(max(var(--c, 0), 0) * 70px)) rotateX(calc(max(var(--c, 0), 0) * 16deg)) scale(calc(1 - max(var(--c, 0), 0) * .07));
+  border-radius: calc(max(var(--c, 0), 0) * 24px); }
+.rm .perf { transform: translateY(calc(max(var(--c, 0), 0) * 40px)); }
+
+/* gallery tiles: caption panel slides up on hover */
+.rm .grid a { position: relative; }
+.rm .grid .cap { position: absolute; left: calc(var(--u) * 5); right: calc(var(--u) * 5); bottom: calc(var(--u) * 5); z-index: 2; padding: calc(var(--u) * 6) calc(var(--u) * 7);
+  background: rgba(14,10,11,.72); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); border-radius: calc(var(--u) * 3);
+  text-align: left; font: 400 calc(var(--u) * 5.6)/1.4 var(--serif); color: #cfc8c0; translate: 0 130%; opacity: 0; transition: translate .5s cubic-bezier(.2,.7,.2,1), opacity .4s; }
+.rm .grid .cap b { display: block; font: 500 calc(var(--u) * 7)/1.2 var(--serif); color: #fff; margin-bottom: calc(var(--u) * 1.5); }
+.rm .grid a:hover .cap { translate: 0 0; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .rm .hero-arc { opacity: .3; transform: none; } .rm .box.model, .rm .box.tech, .rm .perf { transform: none !important; } .rm [data-reveal] { filter: none !important; } }
