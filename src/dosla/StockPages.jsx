@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
-import { ArrowRight, ArrowLeft, Search, MapPin, Info, RotateCcw } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { ArrowRight, ArrowLeft, Search, MapPin, Info, RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react'
 import Recolor from './Recolor'
 import { cars, categories, naira, paints, leathers, finishes, OPTION_USD, findCar } from './stock'
 
@@ -222,6 +222,59 @@ export function CarPage({ slug }) {
           <div className="stock-grid">{related.map((c, i) => <CarCard key={c.slug} car={c} i={i} />)}</div>
         </section>
       )}
+    </div>
+  )
+}
+
+/* ======================================================= CAR SWITCHER ==== */
+// Shared by the Model and Technology pages: side arrows (plus keyboard ← → and swipe)
+// step through the real cars in stock, and the name sits under the picture.
+// The chosen car is remembered for the session, so Model → Technology keeps it.
+export const showroom = cars.filter((c) => c.cat !== 'Concept')
+const KEY = 'dm-showroom-car'
+export function useShowroom() {
+  const [i, setI] = useState(() => {
+    try { const k = sessionStorage.getItem(KEY); const n = showroom.findIndex((c) => c.slug === k); return n >= 0 ? n : 0 } catch { return 0 }
+  })
+  const [dir, setDir] = useState(1)
+  const go = (d) => { setDir(d); setI((x) => (x + d + showroom.length) % showroom.length) }
+  const pick = (n) => { setDir(n >= i ? 1 : -1); setI(n) }
+  useEffect(() => { try { sessionStorage.setItem(KEY, showroom[i].slug) } catch { /* private mode */ } }, [i])
+  useEffect(() => {
+    const k = (e) => {
+      if (e.target.closest?.('input, textarea, select')) return
+      if (e.key === 'ArrowRight') go(1)
+      if (e.key === 'ArrowLeft') go(-1)
+    }
+    window.addEventListener('keydown', k)
+    return () => window.removeEventListener('keydown', k)
+  }, [])
+  return { car: showroom[i], i, dir, go, pick }
+}
+
+export const paintView = (car) => car.views.find((v) => v.kind === 'paint') || car.views[0]
+
+export function CarSwitcher({ sw, color = null, finish = 'gloss', children }) {
+  const { car, i, dir, go } = sw
+  const v = color || finish !== 'gloss' ? paintView(car) : car.views[0]
+  const x0 = useRef(null)
+  return (
+    <div className="switcher">
+      <div className="sw-stage"
+        onPointerDown={(e) => { x0.current = e.clientX }}
+        onPointerUp={(e) => { if (x0.current != null && Math.abs(e.clientX - x0.current) > 50) go(e.clientX < x0.current ? 1 : -1); x0.current = null }}>
+        <button className="sw-arrow prev" onClick={() => go(-1)} aria-label="Previous car"><ChevronLeft /></button>
+        <div className={`sw-frame ${dir > 0 ? 'from-r' : 'from-l'}`} key={car.slug}>
+          <Recolor src={v.src} mask={v.kind === 'paint' ? v.mask : null} color={v.kind === 'paint' ? color : null} finish={v.kind === 'paint' ? finish : 'gloss'} alt={`${car.make} ${car.model}`} />
+        </div>
+        <button className="sw-arrow next" onClick={() => go(1)} aria-label="Next car"><ChevronRight /></button>
+      </div>
+      <div className="sw-name" key={`n-${car.slug}`} aria-live="polite">
+        <small>{car.make} · {car.year} · {car.cat}</small>
+        <h2>{car.model}</h2>
+        <p><b>{naira(car.usd)}</b><span>{String(i + 1).padStart(2, '0')} / {String(showroom.length).padStart(2, '0')}</span></p>
+        {children}
+      </div>
     </div>
   )
 }
