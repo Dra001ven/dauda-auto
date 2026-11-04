@@ -77,7 +77,21 @@ function LoopVideo({ name, className }) {
   )
 }
 
-// Footer film: the driving shot (0:29.3–0:37.4 of the source).
+// small looping tile (mp4 + poster only); same on-screen play / pause as LoopVideo
+function TileVideo({ name }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause() }, { threshold: 0.1 })
+    io.observe(v)
+    return () => io.disconnect()
+  }, [])
+  return <video ref={ref} src={`/video/${name}.mp4`} poster={`/video/${name}.jpg`} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+}
+
+// Footer film: the driving shot (0:29.3-0:37.4 of the source).
 function FooterFilm() {
   return (
     <section className="foot-film" data-s3d>
@@ -127,11 +141,9 @@ export default function DaudaMotos() {
 
 /* ------------------------------------------------------------------ home -- */
 
-const stats = [
-  { icon: I.gauge, value: '3.1', unit: 's', label: '0-100 km/h' },
-  { icon: I.engine, value: '820', unit: '', label: 'Horsepower' },
-  { icon: I.gauge, value: '350', unit: 'km/h', label: 'Top speed' },
-  { icon: I.track, value: '1:08.7', unit: '', label: 'Nurburgring lap' },
+const reel = [
+  ['tile-road', 'Mountain roads', 'Tested where it counts'], ['tile-wheel', 'Behind the wheel', 'Every car road-tested'],
+  ['tile-mirror', 'Every detail', 'Inspected before shipping'], ['tile-night', 'After dark', 'Delivered day or night'],
 ]
 
 const tech = [
@@ -172,18 +184,20 @@ function Home() {
         </div>
       </section>
 
-      <section className="perf light">
-        <p className="kicker"><span>PU</span>RE PERFORMANCE</p>
-        <div className="perf-row">
-          {stats.map(({ icon, value, unit, label }, i) => (
-            <div key={label} data-reveal="up" data-delay={120 + i * 90}>
-              <span className="ico">{icon}</span>
-              <p><strong>{value.includes(':') ? value : <span data-count={value}>{value}</span>}<small>{unit}</small></strong><span>{label}</span></p>
-            </div>
+      </div></div>
+
+      {/* film strip: four short loops cut from the GT3 RS film (see docs/IMAGE-WORKFLOWS.md) */}
+      <section className="perf light reel">
+        <p className="kicker"><span>ON</span>&nbsp;THE ROAD</p>
+        <div className="reel-row">
+          {reel.map(([name, title, sub], i) => (
+            <figure key={name} data-reveal="up" data-delay={120 + i * 90}>
+              <TileVideo name={name} />
+              <figcaption><b>{title}</b><span>{sub}</span></figcaption>
+            </figure>
           ))}
         </div>
       </section>
-      </div></div>
 
       <div className="scene scene-model" data-pin><div className="scene-inner">
       <section className="box model">
