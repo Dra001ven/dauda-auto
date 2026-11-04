@@ -56,15 +56,13 @@ export function ModelPage() {
       </section>
 
       <section className="trims">
-        <div className="trims-head" data-reveal="up"><Kicker red>Three ways to own it</Kicker><h2>CHOOSE YOUR <b>CHARACTER</b></h2></div>
-        <div className="trim-row">
-          {trims.map((t, i) => (
-            <article key={t.n} data-reveal="3d" data-delay={i * 140} data-tilt="7">
-              <span className="num">0{i + 1}</span>
-              <h3>{t.n}</h3>
-              <p>{t.d}</p>
-              <footer><b>{t.p}</b><a href="#/contact">Reserve <ArrowRight size={14} /></a></footer>
-            </article>
+        <div className="trims-head" data-reveal="up"><Kicker red>{showroom.length} cars in the showroom</Kicker><h2>PICK YOUR <b>CAR</b></h2></div>
+        <div className="pick-row">
+          {showroom.map((c, i) => (
+            <button key={c.slug} className={c.slug === car.slug ? 'on' : ''} onClick={() => { sw.pick(i); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+              <img src={c.views[0].src} alt="" loading="lazy" />
+              <small>{c.make}</small><b>{c.model}</b><span>{naira(c.usd)}</span>
+            </button>
           ))}
         </div>
       </section>
@@ -142,33 +140,30 @@ export function PerformancePage() {
 }
 
 /* ========================================================== TECHNOLOGY ==== */
-/* Interactive hotspots on the car + tabbed deep dives. */
-const spots = [
-  { id: 'aero', x: 8, y: 62, t: 'Active front aero', d: 'Flaps in the bumper open in 0.3 s to balance downforce between axles.' },
-  { id: 'light', x: 26, y: 50, t: 'Matrix LED', d: '84-segment headlights shape the beam around oncoming traffic.' },
-  { id: 'brake', x: 47, y: 74, t: 'CCM-R brakes', d: 'Formula-derived carbon ceramics: 398 mm discs, 6-piston callipers.' },
-  { id: 'cabin', x: 58, y: 28, t: 'Carbon cell', d: 'One-piece monocoque weighing 82 kg with 40 % more torsional stiffness.' },
-  { id: 'rear', x: 88, y: 46, t: 'Shut-off Gurney', d: 'Rear spoiler shuts off in high-speed mode for a 6 % drag reduction.' },
-]
-const tabs = [
-  { k: 'Aerodynamics', img: '/img/x-750s-nose.jpg', h: 'AIR, SCULPTED', p: 'Vortex generators under the nose and a two-position rear wing produce 390 kg of downforce at 250 km/h, without a fixed wing to break the silhouette.' },
-  { k: 'Chassis', img: '/img/x-sto-wheel.jpg', h: 'STIFF WHERE IT MATTERS', p: 'A carbon tub, aluminium subframes and magnetorheological dampers read the road 1,000 times per second.' },
-  { k: 'Powertrain', img: '/img/x-gt3rs.jpg', h: 'V8 + THREE MOTORS', p: 'Two front motors give torque vectoring, a third sits between engine and an 8-speed dual-clutch gearbox.' },
-  { k: 'Cockpit', img: '/img/interior.jpg', h: 'EYES UP, HANDS ON', p: 'A curved 16" HMI, haptic steering-wheel controls and a head-up display keep every input at your fingertips.' },
+/* The same car switcher; the detail chips and tabs show the chosen car's real specs. */
+const techTabs = [
+  { k: 'Powertrain', h: 'THE ENGINE', rows: (c) => [['Engine', c.specs?.Engine], ['Power', c.specs?.Power], ['Torque', c.specs?.Torque]] },
+  { k: 'Transmission', h: 'POWER, DELIVERED', rows: (c) => [['Gearbox', c.specs?.Gearbox], ['Drive', c.specs?.Drive]] },
+  { k: 'Performance', h: 'THE NUMBERS', rows: (c) => [['0–100 km/h', c.zero && `${c.zero} s`], ['Top speed', c.top && `${c.top} km/h`], ['Weight', c.specs?.Weight]] },
+  { k: 'This car', h: 'IN OUR STOCK', rows: (c) => [['Colour', c.colour], ['Condition', c.condition], ['Location', c.location], ['Price', naira(c.usd)]] },
 ]
 
 export function TechnologyPage() {
-  const [spot, setSpot] = useState(spots[3])
+  const sw = useShowroom()
+  const { car } = sw
+  const [chip, setChip] = useState('Engine')
   const [tab, setTab] = useState(0)
+  const entries = Object.entries(car.specs || {})
+  const chipVal = car.specs?.[chip] ?? entries[0]?.[1]
+  const t = techTabs[tab]
+  const img = car.views[tab % car.views.length]
   return (
     <div className="pg pg-tech">
       <section className="spots" data-s3d>
         <div className="spots-head" data-reveal="up"><Kicker red>Inside the engineering</Kicker><h1>TOUCH THE <b>DETAILS</b></h1></div>
-        <div className="spot-stage" data-reveal="zoom">
-          <img src="/img/car-side.png" alt="IL CORSA" />
-          {spots.map((s) => (
-            <button key={s.id} className={`pin${spot.id === s.id ? ' on' : ''}`} style={{ left: `${s.x}%`, top: `${s.y}%` }} onClick={() => setSpot(s)} aria-label={s.t}><i /></button>
-          ))}
+        <CarSwitcher sw={sw} />
+        <div className="chip-row">
+          {entries.map(([k]) => <button key={k} className={k === chip ? 'on' : ''} onClick={() => setChip(k)}>{k}</button>)}
         </div>
         <div className="spot-card" key={spot.id}>
           <span>{String(spots.indexOf(spot) + 1).padStart(2, '0')} / 05</span>
