@@ -62,3 +62,83 @@
 .rm .cc-body footer em { font: 500 10px var(--sans); font-style: normal; letter-spacing: .18em; text-transform: uppercase; color: var(--wine); display: flex; align-items: center; gap: 6px; }
 .rm .empty { grid-column: 1 / -1; text-align: center; padding: 60px 0; }
 .rm .empty button { background: none; border: 0; padding: 0; font: inherit; color: var(--wine); text-decoration: underline; cursor: pointer; }
+
+/* ================================================================= CAR ==== */
+.rm .pg-car { background: var(--wine-d); }
+.rm .crumbs { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 26px var(--pad) 0; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.rm .crumbs a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+.rm .crumbs b { color: #fff; font-weight: 500; }
+.rm .car-main { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr); gap: clamp(24px, 3vw, 54px); padding: 26px var(--pad) 80px; align-items: start; }
+.rm .car-stage { position: sticky; top: 90px; }
+.rm .stage-frame { position: relative; background: var(--wine-dd); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); animation: stage-in .6s cubic-bezier(.2,.7,.2,1); overflow: hidden; }
+@keyframes stage-in { from { opacity: 0; scale: 1.03; filter: blur(6px); } }
+.rm .recolor { display: block; width: 100%; height: auto; max-height: 74vh; object-fit: contain; margin: 0 auto; opacity: 0; transition: opacity .4s; }
+.rm .recolor.ready { opacity: 1; }
+.rm .stage-tag { position: absolute; left: 14px; bottom: 14px; padding: 7px 10px; background: rgba(43,6,14,.75); backdrop-filter: blur(6px);
+  font: 500 9px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #fff; }
+.rm .thumbs { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+.rm .thumbs button { flex: none; width: 128px; padding: 0; border: 1px solid transparent; background: none; cursor: pointer; text-align: left; opacity: .55; transition: opacity .3s, border-color .3s; }
+.rm .thumbs button.on, .rm .thumbs button:hover { opacity: 1; border-color: #fff; }
+.rm .thumbs img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.rm .thumbs span { display: block; padding: 6px 8px; font: 500 9px var(--sans); letter-spacing: .16em; text-transform: uppercase; color: #fff; }
+
+.rm .car-side small { font: 500 10px var(--sans); letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.rm .car-side h1 { font-size: clamp(40px, 4.4vw, 74px) !important; margin: 10px 0 14px !important; color: #fff; }
+.rm .car-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px; }
+.rm .car-meta span { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; border: 1px solid rgba(255,255,255,.2); font: 500 10px/1 var(--sans) !important; letter-spacing: .14em; text-transform: uppercase; color: #fff !important; }
+.rm .car-blurb { font-size: 17px !important; margin: 0 0 26px; }
+.rm .opt { padding: 22px 0; border-top: 1px solid rgba(255,255,255,.12); }
+.rm .opt h4 { display: flex; justify-content: space-between; gap: 10px; margin: 0 0 14px; font: 500 10px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: #fff; }
+.rm .opt h4 em { font-style: normal; color: rgba(255,255,255,.6); letter-spacing: .12em; text-align: right; }
+.rm .sw-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.rm .sw-row button, .rm .sw-custom { position: relative; width: 36px; height: 36px; padding: 3px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: none; cursor: pointer; transition: border-color .25s, scale .25s; }
+.rm .sw-row button:hover, .rm .sw-custom:hover { scale: 1.08; }
+.rm .sw-row button.on, .rm .sw-custom.on { border-color: #fff; box-shadow: 0 0 0 2px rgba(255,255,255,.25); }
+.rm .sw-row i { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; box-shadow: inset 0 -6px 10px rgba(0,0,0,.35), inset 0 3px 6px rgba(255,255,255,.25); }
+.rm .sw-row i.orig { background: conic-gradient(from 200deg, #8c2236, #e8e3dc, #1d1d1d, #8c2236); color: #fff; }
+.rm .sw-custom i { background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red) !important; }
+.rm .sw-custom.on i { background: var(--c, transparent); }
+.rm .sw-custom input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.rm .seg { display: inline-flex; margin-top: 16px; border: 1px solid rgba(255,255,255,.2); }
+.rm .seg button { padding: 10px 18px; background: none; border: 0; color: rgba(255,255,255,.7); font: 500 10px var(--sans); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
+.rm .seg button + button { border-left: 1px solid rgba(255,255,255,.2); }
+.rm .seg button.on { background: #fff; color: var(--wine); }
+.rm .build { margin-top: 8px; padding: 22px; background: #fff; color: var(--wine-d); display: grid; gap: 10px; }
+.rm .build > div { display: flex; justify-content: space-between; gap: 14px; font: 400 15px var(--serif); }
+.rm .build span { color: #7a5560; }
+.rm .build b { color: var(--wine-d); font-weight: 500; text-align: right; }
+.rm .build .total { padding-top: 12px; margin-top: 4px; border-top: 1px solid rgba(66,10,21,.12); align-items: baseline; }
+.rm .build .total strong { font: 500 28px 'Cinzel', serif; color: var(--wine); }
+.rm .build .btn { margin-top: 8px; justify-content: space-between; background: var(--wine); color: #fff; }
+.rm .build .btn:hover { background: var(--wine-l); }
+
+.rm .car-specs { padding: 90px var(--pad); }
+.rm .cs-head { margin-bottom: 36px; }
+.rm .cs-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+.rm .cs-grid div { padding: 26px 22px 26px 0; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.rm .cs-grid span { font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--wine); }
+.rm .cs-grid strong { font: 400 19px/1.3 'Cinzel', serif; }
+.rm .id-note { display: flex; gap: 16px; margin: 0; padding: 34px var(--pad); background: var(--wine-dd); color: #fff; }
+.rm .id-note svg { flex: none; margin-top: 3px; }
+.rm .id-note h4 { margin: 0 0 6px; font: 500 10px var(--sans); letter-spacing: .22em; text-transform: uppercase; }
+.rm .id-note p { margin: 0; font-size: 16px !important; max-width: 900px; }
+.rm .related { padding-top: 90px; }
+.rm .related .cs-head { padding: 0 var(--pad); margin: 0; }
+.rm .car-missing { min-height: 60vh; display: grid; place-content: center; gap: 24px; text-align: center; }
+
+@media (max-width: 980px) {
+  .rm .car-main { grid-template-columns: 1fr; }
+  .rm .car-stage { position: relative; top: 0; }
+  .rm .cs-grid { grid-template-columns: repeat(2, 1fr); }
+  .rm .collection { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .rm .stock-hero { min-height: 64vh; padding-top: 120px; }
+  .rm .search { height: 56px; padding: 0 16px; }
+  .rm .search span { display: none; }
+  .rm .stock-bar { top: 60px; flex-direction: column; align-items: stretch; }
+  .rm .thumbs button { width: 96px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rm .car-card, .rm .stage-frame { animation: none; }
+}
