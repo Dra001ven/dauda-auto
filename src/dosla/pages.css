@@ -340,3 +340,81 @@
 .rm .foot.light .made p { color: var(--wine-d); }
 .rm .foot.light .made i { background: linear-gradient(90deg, var(--wine) 0 50%, #e9dfe1 50%); }
 .rm .credits.light { background: #fff; color: #a08890; margin: 0; }
+
+/* ---------- inner pages ---------- */
+.rm .cfg { background: radial-gradient(60% 50% at 50% 62%, var(--wine), var(--wine-dd) 75%); }
+.rm .ghost { -webkit-text-stroke: 1px rgba(255,255,255,.18); }
+.rm .swatches button { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); color: #fff; }
+.rm .swatches button.on, .rm .swatches button:hover { border-color: #fff; }
+.rm .spec-band.light { background: #fff; border-color: rgba(66,10,21,.1); }
+.rm .spec-band.light span { color: var(--wine); }
+.rm .trims { background: var(--wine-d); }
+.rm .trim-row article { background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border-color: rgba(255,255,255,.12); }
+.rm .trim-row article:hover { border-color: #fff; }
+.rm .trim-row .num { -webkit-text-stroke: 1px rgba(255,255,255,.5); }
+.rm .trim-row footer b { color: #fff; font-style: normal; }
+
+.rm .tele-bg { background: linear-gradient(90deg, var(--wine-dd) 25%, rgba(43,6,14,.6) 70%, rgba(43,6,14,.85)), url(/img/hero-bg.jpg) right center / cover; filter: grayscale(.6); }
+.rm .tele h1 em { color: transparent; -webkit-text-stroke: 1.5px #fff; }
+.rm .dial .track { stroke: rgba(255,255,255,.12); }
+.rm .dial .fill { stroke: #fff; filter: drop-shadow(0 0 8px rgba(255,255,255,.6)); }
+.rm .dial span { color: rgba(255,255,255,.75); }
+.rm .accel.light { background: #fff; border-color: rgba(66,10,21,.1); }
+.rm .accel.light .bar { color: var(--wine-d); }
+.rm .accel.light .bar i { background: rgba(66,10,21,.1); }
+.rm .accel.light .bar i::after { background: linear-gradient(90deg, var(--wine), var(--wine-l)); box-shadow: 0 0 12px rgba(106,16,34,.4); }
+.rm .curves { background: var(--wine-d); }
+.rm .chart .pw { stroke: #fff; filter: drop-shadow(0 0 6px rgba(255,255,255,.5)); }
+.rm .chart .tq { stroke: #e5a9b6; }
+.rm .chart text { fill: rgba(255,255,255,.6); }
+.rm .legend .r { background: #fff; } .rm .legend .g { background: #e5a9b6; }
+.rm .legend { color: rgba(255,255,255,.8); }
+.rm .laps.light .board { background: #fff; }
+.rm .laps.light .board span { color: var(--wine-l); }
+.rm .laps.light .board strong { color: var(--wine); }
+
+.rm .spots { background: radial-gradient(60% 60% at 50% 60%, var(--wine), var(--wine-dd) 75%); }
+.rm .pin.on { border-color: #fff; } .rm .pin.on i { background: var(--wine); box-shadow: 0 0 0 3px #fff; }
+.rm .spot-card span { color: rgba(255,255,255,.7); }
+.rm .tabs.light { background: #fff; border-color: rgba(66,10,21,.1); }
+.rm .tabs.light .tab-list { border-color: rgba(66,10,21,.12); }
+.rm .tabs.light .tab-list button { color: #b49aa1; }
+.rm .tabs.light .tab-list button.on { color: var(--wine-d); border-color: var(--wine); }
+.rm .tabs.light .tab-list button span { color: inherit; }
+
+.rm .archive-head { background: var(--wine-d); padding-bottom: 50px; }
+.rm .chips button { border-color: rgba(255,255,255,.25); color: #fff; }
+.rm .chips button.on, .rm .chips button:hover { background: #fff; border-color: #fff; color: var(--wine); }
+.rm .masonry.light { padding-top: 40px; background: var(--ivory); }
+.rm .masonry.light figcaption { color: #fff; }
+.rm .masonry.light figcaption span { color: rgba(255,255,255,.75); }
+
+.rm .manifest { background: radial-gradient(38% 32% at 50% 30%, rgba(255,255,255,.12), transparent 70%), radial-gradient(90% 75% at 50% 40%, var(--wine-l) 0%, var(--wine) 40%, var(--wine-d) 80%, var(--wine-dd) 100%); }
+.rm .manifest::before { background: linear-gradient(transparent, var(--wine-d)); }
+.rm .manifest h1 b { color: #fff; }
+.rm .timeline.light { background: var(--ivory); }
+.rm .timeline.light::before { background: linear-gradient(var(--wine), var(--wine-l), transparent); }
+.rm .timeline.light .year { -webkit-text-stroke: 1px var(--wine); }
+.rm .timeline.light article::after { background: var(--wine); box-shadow: 0 0 0 6px rgba(106,16,34,.12); }
+.rm .values { background: var(--wine-d); }
+.rm .values h3 { color: #fff; }
+.rm .values span { color: rgba(255,255,255,.6); }
+.rm .quote-wide img { filter: brightness(.35) grayscale(.4); }
+.rm .quote-wide::after { content: ''; position: absolute; inset: 0; background: var(--wine); mix-blend-mode: color; opacity: .8; }
+.rm .quote-wide blockquote { z-index: 1; }
+.rm .quote-wide cite { color: rgba(255,255,255,.75); }
+
+.rm .pg-contact .split { background: var(--wine-d); }
+.rm .rooms.light { background: var(--ivory); }
+.rm .rooms.light li p svg { color: var(--wine); }
+.rm .rooms.light li p { color: #7a5560; }
+.rm .rooms.light li::before { background: var(--wine); }
+.rm .rooms.light li.on { background: linear-gradient(90deg, rgba(106,16,34,.08), transparent); }
+.rm .pg-contact .book { background: linear-gradient(160deg, var(--wine), var(--wine-dd)); border-left: 0; }
+.rm .book label { color: rgba(255,255,255,.75); }
+.rm .book input, .rm .book select, .rm .book textarea { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); }
+.rm .book input:focus, .rm .book select:focus, .rm .book textarea:focus { border-color: #fff; }
+.rm .kinds button { border-color: rgba(255,255,255,.3); color: #fff; }
+.rm .kinds button.on { background: #fff; color: var(--wine); border-color: #fff; }
+.rm .book .btn { background: #fff; color: var(--wine); }
+.rm .sent > span { border-color: #fff; color: #fff; }
