@@ -244,3 +244,18 @@
 /* nav: active underline sits 12px under the text (was ~20px) */
 .rm .nav nav a { padding: 4px 0; }
 .rm .nav nav a.on::after { bottom: -8px; }
+
+/* ============================================ HERO: full screen + film reel ==== */
+.rm .hero { height: max(100vh, calc(var(--u) * 338)); }
+.rm .hero-bg { top: calc(var(--u) * -30); height: calc(100% + var(--u) * 60); }
+.rm .hero-video { top: calc(var(--u) * 30); height: calc(100% - var(--u) * 60); }
+.rm .hero-copy { top: calc(50vh - var(--u) * 169); }   /* keeps the copy block centred in the taller hero */
+.rm .scene-hero { height: calc(max(100vh, var(--u) * 338) + 70vh); }
+.rm .reel { height: auto; margin-top: clamp(28px, 4vw, 60px); margin-bottom: 0; padding-bottom: calc(var(--u) * 14); }
+.rm .reel-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(var(--u) * 6); padding: calc(var(--u) * 16) calc(var(--u) * 12) 0; }
+.rm .reel figure { margin: 0; }
+.rm .reel video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: var(--wine-dd); }
+.rm .reel figcaption { display: grid; gap: 4px; padding-top: 12px; }
+.rm .reel figcaption b { font: 500 16px var(--serif); color: var(--wine-d); }
+.rm .reel figcaption span { font: 500 9px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #9b7d84; }
+@media (max-width: 760px) { .rm .reel-row { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
