@@ -22,8 +22,8 @@ const specs = [
   ['0–100 km/h', '3.1 s'], ['Top speed', '350 km/h'], ['Dry weight', '1,420 kg'],
 ]
 const trims = [
-  { n: 'Stradale', p: '€ 398,000', d: 'The road-going benchmark. Carbon ceramic brakes, adaptive damping, daily comfort.' },
-  { n: 'Assetto Fiorano', p: '€ 452,000', d: 'Lightweight pack: titanium exhaust, Lexan rear screen, multimatic shocks, -30 kg.' },
+  { n: 'Stradale', p: '₦ 640M', d: 'The road-going benchmark. Carbon ceramic brakes, adaptive damping, daily comfort.' },
+  { n: 'Assetto Fiorano', p: '₦ 725M', d: 'Lightweight pack: titanium exhaust, Lexan rear screen, multimatic shocks, -30 kg.' },
   { n: 'Corsa Clienti', p: 'By invitation', d: 'Track-only programme with factory engineers at Mugello, Spa and Fiorano.' },
 ]
 
