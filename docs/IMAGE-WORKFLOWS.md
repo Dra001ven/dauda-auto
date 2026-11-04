@@ -75,6 +75,33 @@ contact sheet, then fetch the winners at 3840 px with `work/fetch.py 3840 <dir>`
 `key=File title.jpg`). Prefer: one car, clean edges, nothing touching it, front 3/4 or pure side view.
 Cover plates with a dark patch; mirror with `ImageOps.mirror` when the pose faces the wrong way.
 
+## 10. Stock inventory + customiser (downloads/images -> public/stock)
+
+The Stock page (`#/stock`) and car pages (`#/stock/<slug>`) use the photos in
+`downloads/images/`. Data lives in `src/dosla/stock.js`, and the pipeline in `work/stock.py`.
+
+1. **Identify** each photo by eye before naming it. A car is named only as far as the photo
+   proves (generation/model). If the trim can't be seen, `specFor` + `idNote` say which trim
+   the specs are for. Unbadged or AI renders go under `Concept` with no price or specs.
+2. `stock.py prep` crops collages and rotates sideways images (the `VIEWS` table).
+3. `stock.py upscale` runs Real-ESRGAN x4 (`~/.cache/esrgan/x4.onnx`, from
+   huggingface.co/SceneWorks/real-esrgan-onnx, BSD-3) and fits to 1800 px. CPU speed is about
+   1 ms per source pixel, so the whole set takes about 45 min.
+4. `stock.py masks [view…]` writes `<view>-mask.png` (white = recolourable). It uses the rembg
+   car mask with a colour rule (`hue` / `white` / `seed`) plus hysteresis, so weak matches that
+   touch strong ones fill shading gaps. Set the rule to `None` for view-only angles (for
+   example a black car in a B&W photo, where glass and paint can't be separated).
+5. `stock.py preview [view…]` writes `work/stock/mask-sheet.jpg` (mask tinted green). Check it.
+6. In the browser, `Recolor.jsx` repaints masked pixels while keeping each pixel's
+   brightness relative to the body median, so reflections survive. Gloss/satin/matte flatten
+   the highlights.
+
+Check the customiser: `work/act-shot.py <url> out.png "<js click>"…`
+
+**Rights:** files named `240_F_*` are Adobe Stock previews, and the rest look like
+Pinterest/Google finds. Licence them, or replace them with the dealership's own photos, before the site goes public.
+Prices are estimates (USD × `NGN_RATE` in stock.js).
+
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
