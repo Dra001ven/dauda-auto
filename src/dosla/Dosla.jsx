@@ -28,10 +28,10 @@ function useRoute() {
   return pages[route] ? route : '/'
 }
 
-function Brand() {
+function Brand({ tone = 'white' }) {
   return (
     <a className="brand" href="#/">
-      <img src="/img/crest.png" alt="" />
+      <img src={`/img/crest-${tone}.png`} alt="" />
       <span>DAUDA<small>MOTOS</small></span>
     </a>
   )
@@ -168,7 +168,7 @@ function Home() {
           <p className="body">From advanced aerodynamics to a driver-focused cockpit,<br />IL CORSA delivers a connection like no other.</p>
           <ul>{tech.map(([icon, label]) => <li key={label}>{icon}{label}</li>)}</ul>
         </div>
-        <a href="#/technology"><img className="wire" src="/img/wireframe.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="350" /></a>
+        <a href="#/technology"><img className="wire" src="/img/wireframe-wine.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="350" /></a>
       </section>
 
       <section className="life">
@@ -189,11 +189,11 @@ function Home() {
             </blockquote>
           ))}
         </div>
-        <img className="seal" src="/img/crest.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="400" />
+        <img className="seal" src="/img/crest-wine.png" alt="" aria-hidden="true" data-reveal="fade" data-delay="400" />
       </section>
 
       <section className="inquire" data-s3d>
-        <img className="duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.08" />
+        <img className="duomo" src="/img/duomo-white.png" alt="" aria-hidden="true" data-parallax="0.08" />
         <div className="inq-copy" data-reveal="up">
           <p className="kicker red">OWN A PIECE OF ITALIAN EXCELLENCE</p>
           <h2>INQUIRE<br />ABOUT <b>IL CORSA</b></h2>
