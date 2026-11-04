@@ -92,7 +92,12 @@ The Stock page (`#/stock`) and car pages (`#/stock/<slug>`) use the photos in
    touch strong ones fill shading gaps. Set the rule to `None` for view-only angles (for
    example a black car in a B&W photo, where glass and paint can't be separated).
 5. `stock.py preview [view…]` writes `work/stock/mask-sheet.jpg` (mask tinted green). Check it.
-6. In the browser, `Recolor.jsx` repaints masked pixels while keeping each pixel's
+6. `stock.py cutout [view…]` removes the background with rembg (isnet-general-use). It keeps the main
+   car, erodes the halo, and crops to the car → `<view>-cut.webp`. The paint mask is cropped by the same
+   box → `<view>-cut-mask.png`, so the repaint still lines up. `CUT_CLEAR` blanks reflections and wall
+   logos; `stock.py cutsheet` shows every cut-out on wine. Tight crops (R8) and multi-car photos
+   (Tucson) stay as photos. Car pages offer Studio (cut-out) / Photo.
+7. In the browser, `Recolor.jsx` repaints masked pixels while keeping each pixel's
    brightness relative to the body median, so reflections survive. Gloss/satin/matte flatten
    the highlights.
 
