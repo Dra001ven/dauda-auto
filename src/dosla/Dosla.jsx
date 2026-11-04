@@ -5,7 +5,6 @@ import { ModelPage, PerformancePage, TechnologyPage, BrandPage, ContactPage } fr
 import { StockPage, CarPage } from './StockPages'
 import { Logo } from './icons'
 import { I } from './icons'
-import DepthImage from './DepthImage'
 import './dosla.css'
 import './pages.css'
 import './stock.css'
@@ -57,25 +56,32 @@ function Nav({ route }) {
   )
 }
 
-// Footer film: GT3 RS clip (0:40–0:47.55 of the source), muted and looped. Plays only while
-// on screen; reduced-motion users get the still poster.
-function FooterFilm() {
+// Muted looping clip (cut from the GT3 RS film in downloads/, see docs/IMAGE-WORKFLOWS.md).
+// Plays only while on screen; reduced-motion users get the still poster.
+function LoopVideo({ name, className }) {
   const ref = useRef(null)
   useEffect(() => {
     const v = ref.current
     if (!v) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); return }
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause() }, { threshold: 0.05 })
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause() }, { threshold: 0.02 })
     io.observe(v)
     return () => io.disconnect()
   }, [])
   return (
+    <video ref={ref} className={className} autoPlay muted loop playsInline preload="auto" poster={`/video/${name}.jpg`} aria-hidden="true">
+      <source src={`/video/${name}-720.mp4`} type="video/mp4" media="(max-width: 760px)" />
+      <source src={`/video/${name}.webm`} type="video/webm" />
+      <source src={`/video/${name}.mp4`} type="video/mp4" />
+    </video>
+  )
+}
+
+// Footer film: the driving shot (0:29.3–0:37.4 of the source).
+function FooterFilm() {
+  return (
     <section className="foot-film" data-s3d>
-      <video ref={ref} autoPlay muted loop playsInline preload="metadata" poster="/video/footer-gt3.jpg" aria-hidden="true">
-        <source src="/video/footer-gt3-720.mp4" type="video/mp4" media="(max-width: 760px)" />
-        <source src="/video/footer-gt3.webm" type="video/webm" />
-        <source src="/video/footer-gt3.mp4" type="video/mp4" />
-      </video>
+      <LoopVideo name="drive-gt3" />
       <div className="ff-copy" data-reveal="up">
         <p className="kicker">Lagos · Abuja · Delivered nationwide</p>
         <h2>DRIVE SOMETHING<br /><b>EXCEPTIONAL.</b></h2>
@@ -151,7 +157,8 @@ function Home() {
     <>
       <div className="scene scene-hero" data-pin><div className="scene-inner">
       <section className="hero intro">
-        <div className="hero-bg"><DepthImage className="hero-bg-depth" src="/img/hero-bg.jpg" depth="/img/hero-bg-depth.jpg" strength={0.012} focus={0.3} drift={0.25} /></div>
+        {/* hero film: 0:40–0:47.55 of the GT3 RS source (headlight, wing, profile) */}
+        <div className="hero-bg"><LoopVideo name="hero-gt3" className="hero-video" /></div>
         <div className="hero-copy">
           <p className="eyebrow">Lagos · Abuja <i /></p>
           <h1>BORN IN LAGOS.<br /><em>CURATED TO</em><br /><b>INSPIRE.</b></h1>
@@ -163,8 +170,6 @@ function Home() {
             <div><dt>Delivery</dt><dd>NATIONWIDE</dd></div>
           </dl>
         </div>
-        <DepthImage className="hero-car" src="/img/car-hero.png" depth="/img/car-hero-depth.png" alt="White Lamborghini Revuelto" strength={0.022} focus={0.6} />
-        <img className="hero-reflect" src="/img/car-hero.png" alt="" aria-hidden="true" />
         <div className="hero-arc" aria-hidden="true" />
       </section>
 
