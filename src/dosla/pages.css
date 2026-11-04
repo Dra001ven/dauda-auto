@@ -260,3 +260,18 @@
 /* nav */
 .rm .nav nav a.on::after { background: #fff; }
 .rm .nav.glass { background: rgba(43,6,14,.62); border-bottom-color: rgba(255,255,255,.08); }
+
+/* hero: city tinted wine, outlined second line, white rim on the rising arc */
+.rm .hero-bg { background: var(--wine-dd); }
+.rm .hero-bg-depth { filter: grayscale(1) contrast(1.15) brightness(.95); }
+.rm .hero-bg::after { content: ''; position: absolute; inset: 0; background: var(--wine); mix-blend-mode: color; pointer-events: none; }
+.rm .hero::before { background: linear-gradient(90deg, rgba(43,6,14,.95) 0%, rgba(43,6,14,.82) 22%, rgba(43,6,14,.35) 42%, rgba(43,6,14,0) 60%),
+  linear-gradient(180deg, rgba(43,6,14,.6) 0%, rgba(43,6,14,0) 18%, rgba(43,6,14,0) 70%, var(--wine-d) 100%); }
+.rm .hero h1 { color: #fff; }
+.rm .hero h1 em { color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.9); }
+.rm .hero h1 b { color: #fff; font-style: italic; }
+.rm .hero::after { background: radial-gradient(50% 50% at 50% 30%, rgba(255,255,255,.12), transparent 70%); }
+.rm .hero-arc { background: radial-gradient(closest-side, var(--wine-dd) 93%, rgba(255,255,255,.95) 96.5%, rgba(214,120,140,.5) 98%, transparent 100%);
+  box-shadow: 0 calc(var(--u) * -20) calc(var(--u) * 80) rgba(255,190,205,.18); }
+.rm .facts div { border-color: rgba(255,255,255,.22); }
+.rm .facts dt { color: rgba(255,255,255,.65); }
