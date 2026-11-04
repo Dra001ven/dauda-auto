@@ -52,7 +52,7 @@ export function ModelPage() {
         </div>
       </section>
 
-      <section className="spec-band">
+      <section className="spec-band light">
         {specs.map(([k, v], i) => (
           <div key={k} data-reveal="flip" data-delay={i * 90}><span>{k}</span><strong>{v}</strong></div>
         ))}
@@ -108,7 +108,7 @@ export function PerformancePage() {
         </div>
       </section>
 
-      <section className="accel">
+      <section className="accel light">
         <Kicker red>Acceleration</Kicker>
         {accel.map(([k, v, max], i) => (
           <div key={k} className="bar" data-reveal="bar" data-delay={i * 120} style={{ '--w': `${(v / max) * 100}%` }}>
@@ -131,7 +131,7 @@ export function PerformancePage() {
         </svg>
       </section>
 
-      <section className="laps">
+      <section className="laps light">
         <div className="laps-img" data-reveal="clip"><img src="/img/x-sto.jpg" alt="" /></div>
         <div className="board">
           <Kicker red>Lap board</Kicker>
@@ -179,7 +179,7 @@ export function TechnologyPage() {
         </div>
       </section>
 
-      <section className="tabs">
+      <section className="tabs light">
         <div className="tab-list" data-reveal="up">
           {tabs.map((t, i) => <button key={t.k} className={i === tab ? 'on' : ''} onClick={() => setTab(i)}>{String(i + 1).padStart(2, '0')}<span>{t.k}</span></button>)}
         </div>
@@ -187,7 +187,7 @@ export function TechnologyPage() {
           <img src={tabs[tab].img} alt="" />
           <div><h2>{tabs[tab].h}</h2><p>{tabs[tab].p}</p></div>
         </div>
-        <img className="tab-wire" src="/img/wireframe.png" alt="" aria-hidden="true" data-parallax="0.1" />
+        <img className="tab-wire" src="/img/wireframe-wine.png" alt="" aria-hidden="true" data-parallax="0.1" />
       </section>
     </div>
   )
@@ -235,7 +235,7 @@ export function GalleryPage() {
           {['All', 'Exterior', 'Interior', 'Detail'].map((c) => <button key={c} className={c === cat ? 'on' : ''} onClick={() => setCat(c)}>{c}</button>)}
         </div>
       </section>
-      <section className="masonry" key={cat}>
+      <section className="masonry light" key={cat}>
         {list.map((s, i) => (
           <figure key={s.src} className="in-anim" style={{ animationDelay: `${i * 70}ms` }} onClick={() => setOpen(i)} data-tilt="9">
             <img src={s.src} alt={s.t} loading="lazy" />
@@ -277,13 +277,13 @@ export function BrandPage() {
   return (
     <div className="pg pg-brand">
       <section className="manifest" data-s3d>
-        <img className="m-duomo" src="/img/duomo-line.png" alt="" aria-hidden="true" data-parallax="0.18" />
-        <img className="m-crest" src="/img/crest.png" alt="Dauda Motos crest" data-reveal="zoom" />
+        <img className="m-duomo" src="/img/duomo-white.png" alt="" aria-hidden="true" data-parallax="0.18" />
+        <img className="m-crest" src="/img/crest-white.png" alt="Dauda Motos crest" data-reveal="zoom" />
         <Kicker red>Since 1952 · Milano</Kicker>
         <h1 data-reveal="up" data-delay="150">A HOUSE OF<br /><b>MAKERS</b></h1>
       </section>
 
-      <section className="timeline">
+      <section className="timeline light">
         {timeline.map(([y, h, p], i) => (
           <article key={y} className={i % 2 ? 'r' : 'l'} data-reveal={i % 2 ? 'right' : 'left'}>
             <span className="year">{y}</span><h3>{h}</h3><p>{p}</p>
@@ -321,7 +321,7 @@ export function ContactPage() {
   return (
     <div className="pg pg-contact">
       <section className="split">
-        <div className="rooms">
+        <div className="rooms light">
           <div data-reveal="up"><Kicker red>Showrooms</Kicker><h1>VISIT<br /><b>THE HOUSE</b></h1></div>
           <ul>
             {rooms.map((r, i) => (
