@@ -165,3 +165,57 @@
 .rm .hero-video { filter: brightness(.86) contrast(1.05); }
 .rm .hero::after { display: none; }  /* glow was for the old cut-out car */
 .rm .hero-arc { display: none; }  /* the arc covered the hero film */
+
+/* ========================================================= CAR SWITCHER ==== */
+.rm .switcher { position: relative; margin-top: 18px; }
+.rm .sw-stage { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(10px, 2.4vw, 40px); touch-action: pan-y; user-select: none; }
+.rm .sw-frame { display: flex; align-items: center; justify-content: center; height: clamp(260px, 50vh, 560px); min-width: 0; }
+.rm .sw-frame .recolor { width: auto; height: auto; max-width: 100%; max-height: 100%; box-shadow: 0 40px 80px -30px rgba(0,0,0,.75); }
+.rm .sw-frame.from-r { animation: sw-r .7s cubic-bezier(.2,.7,.2,1) both; }
+.rm .sw-frame.from-l { animation: sw-l .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes sw-r { from { opacity: 0; translate: 12% 0; rotate: y -14deg; filter: blur(8px); } }
+@keyframes sw-l { from { opacity: 0; translate: -12% 0; rotate: y 14deg; filter: blur(8px); } }
+.rm .sw-arrow { width: clamp(46px, 4.4vw, 64px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: #fff;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(8px); transition: background .3s, color .3s, scale .3s; z-index: 2; }
+.rm .sw-arrow:hover { background: #fff; color: var(--wine); scale: 1.06; }
+.rm .sw-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.rm .sw-arrow svg { width: 26px; height: 26px; }
+.rm .sw-name { text-align: center; margin: 26px auto 8px; animation: rm-rise .6s .1s both cubic-bezier(.2,.7,.2,1); }
+.rm .sw-name small { font: 500 10px var(--sans); letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.rm .sw-name h2 { font-size: clamp(36px, 4.6vw, 76px) !important; margin: 10px 0 12px !important; color: #fff; }
+.rm .sw-name p { display: flex; justify-content: center; align-items: baseline; gap: 18px; margin: 0 !important; }
+.rm .sw-name p b { font: 500 22px 'Cinzel', serif; color: #fff; }
+.rm .sw-name p span { font: 500 10px var(--sans); letter-spacing: .24em; color: rgba(255,255,255,.55); }
+.rm .cfg-links { display: flex; justify-content: center; gap: 26px; margin-top: 16px; }
+.rm .cfg-links a { display: inline-flex; align-items: center; gap: 6px; font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.35); padding-bottom: 4px; }
+.rm .cfg .swatches { margin-top: 26px; }
+.rm .swatches i.orig { background: conic-gradient(from 200deg, #8c2236, #e8e3dc, #1d1d1d, #8c2236); }
+.rm .cfg-seg { display: flex; width: max-content; margin: 16px auto 0; }
+.rm .cfg-note { text-align: center; font-size: 15px !important; color: rgba(255,255,255,.7) !important; margin: 0; }
+.rm .spec-band > div.rise { animation: rm-rise .6s both cubic-bezier(.2,.7,.2,1); }
+.rm .pick-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+.rm .pick-row button { display: grid; gap: 4px; padding: 0 0 14px; text-align: left; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); color: #fff; cursor: pointer; transition: border-color .3s, translate .3s; overflow: hidden; }
+.rm .pick-row button:hover { translate: 0 -4px; border-color: rgba(255,255,255,.5); }
+.rm .pick-row button.on { border-color: #fff; box-shadow: 0 0 0 1px #fff; }
+.rm .pick-row img { width: 100%; aspect-ratio: 16/10; object-fit: cover; margin-bottom: 10px; }
+.rm .pick-row small, .rm .pick-row b, .rm .pick-row span { padding: 0 14px; }
+.rm .pick-row small { font: 500 9px var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.rm .pick-row b { font: 500 19px var(--serif); color: #fff; }
+.rm .pick-row span { font: 500 14px 'Cinzel', serif; color: rgba(255,255,255,.8); }
+/* technology: spec chips + per-car tabs */
+.rm .chip-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 26px 0 30px; }
+.rm .chip-row button { padding: 10px 16px; background: none; border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8); font: 500 10px var(--sans); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: all .3s; }
+.rm .chip-row button.on, .rm .chip-row button:hover { background: #fff; color: var(--wine); border-color: #fff; }
+.rm .pg-tech .spot-card p { font-size: 22px !important; color: #fff !important; }
+.rm .tab-dl { display: grid; margin: 24px 0 30px; border-top: 1px solid rgba(66,10,21,.12); }
+.rm .tab-dl div { display: flex; justify-content: space-between; gap: 20px; padding: 14px 0; border-bottom: 1px solid rgba(66,10,21,.12); }
+.rm .tab-dl dt { font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--wine); }
+.rm .tab-dl dd { margin: 0; font: 400 18px var(--serif); color: var(--wine-d); text-align: right; }
+.rm .pg-tech .tab-body img { object-fit: cover; filter: none; }
+@media (max-width: 640px) {
+  .rm .sw-stage { grid-template-columns: 1fr; }
+  .rm .sw-arrow { position: absolute; top: 50%; translate: 0 -50%; width: 42px; }
+  .rm .sw-arrow.prev { left: 4px; } .rm .sw-arrow.next { right: 4px; }
+  .rm .sw-frame { height: 40vh; }
+}
+@media (prefers-reduced-motion: reduce) { .rm .sw-frame.from-r, .rm .sw-frame.from-l, .rm .sw-name { animation: none; } }
