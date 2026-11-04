@@ -3,3 +3,62 @@
 .rm .brand .logo-wine { color: var(--wine); }
 .rm svg.seal { height: auto; color: var(--wine); }
 .rm svg.m-crest { height: 120px; color: #fff; }
+
+/* =============================================================== STOCK ==== */
+.rm .pg-stock { padding-top: 0; }
+.rm .stock-hero { position: relative; min-height: 78vh; display: grid; align-items: end; padding: 140px var(--pad) 70px; overflow: hidden; background: var(--wine-dd); }
+.rm .sh-bg { position: absolute; inset: -12% 0 0; width: 100%; height: 124%; object-fit: cover; opacity: .55; filter: saturate(.35) contrast(1.05); }
+.rm .stock-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(43,6,14,.85) 0%, rgba(66,10,21,.35) 40%, var(--wine-d) 100%), var(--wine); mix-blend-mode: normal; opacity: .9; }
+.rm .stock-hero::before { content: ''; position: absolute; inset: 0; background: var(--wine); mix-blend-mode: color; z-index: 1; pointer-events: none; }
+.rm .sh-copy { position: relative; z-index: 2; max-width: 1100px; }
+.rm .sh-copy h1 { margin-bottom: 34px; }
+.rm .sh-copy h1 b { color: #fff; font-weight: 600; }
+.rm .search { display: flex; align-items: center; gap: 14px; max-width: 760px; padding: 0 22px; height: 64px; background: rgba(255,255,255,.96);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); color: var(--wine); cursor: text; }
+.rm .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: 400 19px var(--serif); color: var(--wine-d); }
+.rm .search input::placeholder { color: #9b7d84; }
+.rm .search span { font: 500 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--wine); white-space: nowrap; }
+.rm .search:focus-within { outline: 2px solid #fff; outline-offset: 4px; }
+
+.rm .stock-bar { position: sticky; top: 72px; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px var(--pad); background: rgba(43,6,14,.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.08); }
+.rm .stock-bar .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.rm .stock-bar .chips::-webkit-scrollbar { display: none; }
+.rm .stock-bar .chips button { white-space: nowrap; padding: 10px 16px; }
+.rm .stock-bar .chips button.on, .rm .stock-bar .chips button:hover { background: #fff; border-color: #fff; color: var(--wine); }
+.rm .chips sup { margin-left: 6px; font-size: 9px; opacity: .6; }
+.rm .stock-bar select { flex: none; height: 40px; padding: 0 12px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.2);
+  font: 500 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.rm .stock-bar select option { color: #000; }
+
+.rm .collection { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 0; margin: 60px var(--pad) 0; background: var(--wine-dd); overflow: hidden; }
+.rm .collection img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; display: block; }
+.rm .collection > div { padding: 40px clamp(24px, 4vw, 64px); }
+.rm .collection p:not(.kicker) { font-size: 17px; margin: 18px 0 28px; }
+
+.rm .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 22px; padding: 60px var(--pad) 110px; }
+.rm .pg-stock .stock-grid.light { margin-top: 60px; }
+.rm .car-card { display: grid; grid-template-rows: auto 1fr; background: #fff; color: var(--wine-d); text-decoration: none; overflow: hidden;
+  box-shadow: 0 1px 0 rgba(66,10,21,.08), 0 24px 50px -32px rgba(43,6,14,.55); animation: cc-in .7s cubic-bezier(.2,.7,.2,1) both;
+  transition: translate .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s; }
+.rm .car-card:hover { translate: 0 -6px; box-shadow: 0 1px 0 rgba(66,10,21,.08), 0 36px 60px -30px rgba(43,6,14,.7); }
+@keyframes cc-in { from { opacity: 0; translate: 0 30px; } }
+.rm .cc-img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--wine-dd); }
+.rm .cc-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: scale 1s cubic-bezier(.2,.7,.2,1); }
+.rm .car-card:hover .cc-img img { scale: 1.06; }
+.rm .cc-body { display: grid; align-content: start; padding: 20px 22px 22px; }
+.rm .cc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px !important; }
+.rm .cc-tags span { font: 500 9px/1 var(--sans) !important; letter-spacing: .16em; text-transform: uppercase; padding: 6px 8px; background: var(--ivory); color: var(--wine); }
+.rm .cc-body small { font: 500 10px var(--sans); letter-spacing: .24em; text-transform: uppercase; color: #9b7d84; }
+.rm .cc-body h3 { color: var(--wine-d); margin-top: 6px !important; }
+.rm .cc-body dl { display: grid; grid-template-columns: repeat(3, 1fr); margin: 18px 0; border-block: 1px solid rgba(66,10,21,.1); }
+.rm .cc-body dl div { padding: 12px 0; }
+.rm .cc-body dl div + div { padding-left: 12px; border-left: 1px solid rgba(66,10,21,.1); }
+.rm .cc-body dt { font: 500 9px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: #9b7d84; }
+.rm .cc-body dd { margin: 4px 0 0; font: 400 15px 'Cinzel', serif; color: var(--wine-d); white-space: nowrap; }
+.rm .cc-body footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rm .cc-body footer strong { font: 500 22px 'Cinzel', serif; color: var(--wine); }
+.rm .cc-body footer em { font: 500 10px var(--sans); font-style: normal; letter-spacing: .18em; text-transform: uppercase; color: var(--wine); display: flex; align-items: center; gap: 6px; }
+.rm .empty { grid-column: 1 / -1; text-align: center; padding: 60px 0; }
+.rm .empty button { background: none; border: 0; padding: 0; font: inherit; color: var(--wine); text-decoration: underline; cursor: pointer; }
