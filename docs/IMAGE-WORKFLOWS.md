@@ -102,6 +102,22 @@ Check the customiser: `work/act-shot.py <url> out.png "<js click>"…`
 Pinterest/Google finds. Licence them, or replace them with the dealership's own photos, before the site goes public.
 Prices are estimates (USD × `NGN_RATE` in stock.js).
 
+## 11. Hero + footer video loops (public/video)
+
+Source: `downloads/images/YTDown.com_…Porsche-GT3RS-991-2-Mountain-Road-Cinematic-4K…mp4`
+(3840×2160, 1:48). Scene cuts were found with `ffmpeg … -vf "select='gt(scene,0.3)',showinfo"`.
+Each loop ends just before a cut, so it never flashes a frame of the next shot.
+
+| file | source span | shots | used in |
+|---|---|---|---|
+| `hero-gt3.*` | 0:40.00–0:47.55 | headlight, rear wing, side profile | home hero |
+| `drive-gt3.*` | 0:29.30–0:37.40 | one continuous drive toward camera | footer film |
+
+Each has: `.mp4` (H.264, faststart, 1920 or 1600 wide), `-720.mp4` (phones), `.webm`
+(VP9) and a `.jpg` poster. Audio is stripped (`-an`). `LoopVideo` in Dosla.jsx plays a clip only
+while it's on screen and shows the poster when reduced motion is on.
+Rights: this is a YouTube film (downloaded via YTDown). Get the owner's permission or use your own footage before going live.
+
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
