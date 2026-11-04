@@ -1,31 +1,35 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { useSmoothScroll, useScrollMotion, scrollTop } from './motion'
-import { ModelPage, PerformancePage, TechnologyPage, GalleryPage, BrandPage, ContactPage } from './pages'
+import { ModelPage, PerformancePage, TechnologyPage, BrandPage, ContactPage } from './pages'
+import { StockPage, CarPage } from './StockPages'
+import { Logo } from './icons'
 import { I } from './icons'
 import DepthImage from './DepthImage'
 import './dosla.css'
 import './pages.css'
+import './stock.css'
 
 const routes = [
   ['Home', '/'], ['Model', '/model'], ['Performance', '/performance'], ['Technology', '/technology'],
-  ['Gallery', '/gallery'], ['Brand', '/brand'], ['Contact', '/contact'],
+  ['Stock', '/stock'], ['Brand', '/brand'], ['Contact', '/contact'],
 ]
 
 const pages = {
   '/': Home, '/model': ModelPage, '/performance': PerformancePage, '/technology': TechnologyPage,
-  '/gallery': GalleryPage, '/brand': BrandPage, '/contact': ContactPage,
+  '/stock': StockPage, '/brand': BrandPage, '/contact': ContactPage,
 }
 
 function useRoute() {
-  const read = () => (window.location.hash.replace(/^#/, '') || '/')
+  // '#/stock/ferrari-f40?x' -> '/stock/ferrari-f40'; the old '#/gallery' link now opens the stock
+  const read = () => { const r = (window.location.hash.replace(/^#/, '').split('?')[0] || '/').replace(/\/$/, '') || '/'; return r === '/gallery' ? '/stock' : r }
   const [route, setRoute] = useState(read)
   useEffect(() => {
     const on = () => { setRoute(read()); scrollTop() }
     window.addEventListener('hashchange', on)
     return () => window.removeEventListener('hashchange', on)
   }, [])
-  return pages[route] ? route : '/'
+  return pages[route] || route.startsWith('/stock/') ? route : '/'
 }
 
 function Brand({ tone = 'white' }) {
@@ -47,7 +51,7 @@ function Nav({ route }) {
   return (
     <header className={`nav${glass ? ' glass' : ''}`}>
       <Brand />
-      <nav>{routes.map(([l, p]) => <a key={p} className={route === p ? 'on' : ''} href={`#${p}`}>{l}</a>)}</nav>
+      <nav>{routes.map(([l, p]) => <a key={p} className={route === p || (p !== '/' && route.startsWith(p + '/')) ? 'on' : ''} href={`#${p}`}>{l}</a>)}</nav>
       <a className="btn-outline" href="#/contact">Inquire now</a>
     </header>
   )
@@ -72,11 +76,12 @@ export default function DaudaMotos() {
   const route = useRoute()
   useSmoothScroll()
   useScrollMotion(route)
+  const slug = route.startsWith('/stock/') ? route.slice(7) : null
   const Page = pages[route]
   return (
     <div className="rm" key={route}>
       <Nav route={route} />
-      <Page />
+      {slug ? <CarPage slug={slug} /> : <Page />}
       <Footer />
     </div>
   )
@@ -175,7 +180,7 @@ function Home() {
         <p className="kicker red" data-reveal="up">BEYOND PERFORMANCE</p>
         <h2 data-reveal="up" data-delay="80">A LIFESTYLE. A LEGACY.</h2>
         <div className="grid">{[1, 2, 3, 4, 5].map((g, i) => (
-          <a key={g} href="#/gallery" data-reveal="up" data-delay={i * 110} data-tilt="8"><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /><span className="cap"><b>{tiles[i][0]}</b>{tiles[i][1]}</span></a>
+          <a key={g} href="#/stock" data-reveal="up" data-delay={i * 110} data-tilt="8"><img src={`/img/g${g}.jpg`} alt="" loading="lazy" /><span className="cap"><b>{tiles[i][0]}</b>{tiles[i][1]}</span></a>
         ))}</div>
       </section>
 
