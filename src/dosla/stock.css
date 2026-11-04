@@ -219,3 +219,10 @@
   .rm .sw-frame { height: 40vh; }
 }
 @media (prefers-reduced-motion: reduce) { .rm .sw-frame.from-r, .rm .sw-frame.from-l, .rm .sw-name { animation: none; } }
+
+/* background-free cut-outs: float on the wine stage with a soft floor shadow */
+.rm .recolor.cut { box-shadow: none !important; filter: drop-shadow(0 28px 22px rgba(0,0,0,.55)) drop-shadow(0 6px 6px rgba(0,0,0,.35)); }
+.rm .stage-frame.studio { background: radial-gradient(70% 60% at 50% 55%, var(--wine-l), var(--wine-dd) 80%); padding: clamp(20px, 4vw, 60px); }
+.rm .stage-frame.studio .recolor { max-height: 62vh; }
+.rm .stage-mode { position: absolute; right: 14px; top: 14px; margin: 0; background: rgba(43,6,14,.6); backdrop-filter: blur(6px); }
+.rm .stage-mode button { padding: 8px 14px; }
