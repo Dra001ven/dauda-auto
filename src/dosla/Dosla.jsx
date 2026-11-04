@@ -98,6 +98,11 @@ const tech = [
   [I.modes, 'Next-gen drive modes'],
 ]
 
+const tiles = [
+  ['Night Run', 'Engineered for the dark.'], ['Sculpted Air', 'Every vent has a purpose.'], ['Grand Arrival', 'Presence, without a word.'],
+  ['Forged Detail', 'Lighter, stronger, faster.'], ['City Legend', 'Born for the boulevard.'],
+]
+
 const quotes = [
   { q: ['IL CORSA is a masterpiece. The', 'attention to detail and driving', 'experience are unmatched.'], n: 'Alessandro R.', r: 'Collector, Monaco' },
   { q: ['A perfect blend of power, beauty,', 'and innovation. Dauda Motos', 'has redefined Italian excellence.'], n: 'James T.', r: 'Entrepreneur, London' },
