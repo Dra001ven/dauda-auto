@@ -5,7 +5,7 @@
   --red: #b3141c; --red-b: #d21e28; --gold: #c9a35b; --bg: #070707; --line: rgba(255,255,255,.09);
   --txt: #e9e3dc; --muted: #a39d96;
   --serif: 'Cormorant Garamond', Georgia, serif; --sans: 'Montserrat', system-ui, sans-serif;
-  background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: hidden; font-variant-numeric: lining-nums;
+  background: var(--bg); color: var(--txt); font-family: var(--sans); overflow-x: clip; font-variant-numeric: lining-nums;
   width: calc(var(--u) * 736); margin: 0 auto; position: relative;
 }
 .rm *, .rm *::before, .rm *::after { box-sizing: border-box; }
