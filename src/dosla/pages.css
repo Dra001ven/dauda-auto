@@ -418,3 +418,4 @@
 .rm .kinds button.on { background: #fff; color: var(--wine); border-color: #fff; }
 .rm .book .btn { background: #fff; color: var(--wine); }
 .rm .sent > span { border-color: #fff; color: #fff; }
+.rm .tech.light li svg, .rm .light .ico, .rm .rooms.light li p svg { color: var(--wine); }
