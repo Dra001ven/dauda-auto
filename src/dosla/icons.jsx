@@ -29,3 +29,16 @@ export const I = {
   modes: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><circle cx="12" cy="12" r="3" /><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" /></svg>,
   play: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"><circle cx="12" cy="12" r="10" /><path d="M10 8l6 4-6 4z" fill="currentColor" /></svg>,
 }
+
+// Dauda Motos mark: an original monogram, a "D" whose bowl is cut by an "M" (two
+// peaks), inside a cut-corner badge. Drawn in currentColor so it takes any tone.
+export function Logo({ className = '', title = 'Dauda Motos', ...rest }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" fill="none" stroke="currentColor" role="img" aria-label={title} {...rest}>
+      <path d="M20 4h24l16 16v24L44 60H20L4 44V20z" strokeWidth="2" />
+      <path d="M22 9h20l13 13v20L42 55H22L9 42V22z" strokeWidth="0.8" opacity=".55" />
+      <path d="M18 18h14c9 0 15 6 15 14s-6 14-15 14H18z" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M24 40V25l6 8 6-8v15" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round" />
+    </svg>
+  )
+}
