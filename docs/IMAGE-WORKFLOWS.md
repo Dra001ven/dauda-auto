@@ -126,19 +126,14 @@ Rights: this is a YouTube film (downloaded via YTDown). Get the owner's permissi
 ## Current assets (public/img/)
 | File | Source on Wikimedia Commons | Author, licence |
 |---|---|---|
-| car-hero.png | Lamborghini Revuelto DSC 6985 (cropped).jpg (cutout, plate covered, padded to 2.5:1) | Alexander Migl, CC BY-SA 4.0 |
-| work/hero-opt/* | rejected hero options (STO, 750S red, GT3 RS red) kept for reference | |
-| car-side.png, paint-*.png | Ferrari F8 Tributo, GIMS 2019 (cutout, recoloured) | CC BY-SA 4.0 |
+| car-side.png, wireframe-wine.png | Ferrari F8 Tributo, GIMS 2019 (cutout; wireframe is an edge trace) | CC BY-SA 4.0 |
 | hero-bg.jpg | Milan Porta Nuova business district by night 02.jpg (+ synthetic reflection) | pjhooker, CC BY-SA 3.0 |
-| duomo-line.png | Duomo di Milano, facciata, 17 giugno 2025.jpg (edge-traced) | Francesca Milanini, CC BY-SA 4.0 |
-| crest.png | Lion rampant crowned.png (tinted, in drawn shield) | ImperialHerald, CC0 |
-| interior.jpg, p6 | Ferrari Roma-08.jpg | CC BY-SA 4.0 |
-| g1, x-artura | McLaren Artura 3.jpg | Calreyn88, CC BY-SA 4.0 |
-| g2, x-sto, x-sto-wheel | Lamborghini Huracan STO 1X7A0297.jpg | Alexander Migl, CC BY-SA 4.0 |
+| duomo-white.png | Duomo di Milano, facciata, 17 giugno 2025.jpg (edge-traced) | Francesca Milanini, CC BY-SA 4.0 |
+| interior.jpg | Ferrari Roma-08.jpg | CC BY-SA 4.0 |
+| g1 | McLaren Artura 3.jpg | Calreyn88, CC BY-SA 4.0 |
+| g2, x-sto | Lamborghini Huracan STO 1X7A0297.jpg | Alexander Migl, CC BY-SA 4.0 |
 | x-revuelto | Lamborghini Revuelto DSC 6985 (cropped).jpg | Alexander Migl, CC BY-SA 4.0 |
-| x-750s, x-750s-nose, x-750s-stand | 2024 McLaren 750S 2 / 5.jpg | Calreyn88, CC BY-SA 4.0 |
-| x-gt3rs | Porsche 992 GT3 RS DSC 9055.jpg | Alexander Migl, CC BY-SA 4.0 |
-| x-sto-blu | Lamborghini Huracan STO 22.jpg | Calreyn88, CC BY-SA 4.0 |
-| x-mc20 | Maserati MC20 Auto Zuerich 2021 IMG 0419.jpg | Alexander Migl, CC BY-SA 4.0 |
-| g3, g5, p1, p3-p5, p7, g4 | SF90 / Roma / Ginza F8 / F8 GIMS photos (see sections above) | CC BY-SA 3.0 / 4.0 |
-| wireframe.png | edge trace of car-side.png | derived |
+| g3, g4, g5 | SF90 / Roma / F8 GIMS photos (see sections above) | CC BY-SA 3.0 / 4.0 |
+
+Stock photos (public/stock) and video clips (public/video) come from downloads/ (sections 10 and 11).
+They still need licences before the site goes public.
