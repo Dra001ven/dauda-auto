@@ -24,3 +24,12 @@ dist-ssr
 *.sw?
 .env
 .venv-img
+
+# source material and generated files (large, regenerable, or not ours to publish)
+downloads/
+assets-src/
+work/*/
+work/*.jpg
+work/*.png
+__pycache__/
+*.pyc
